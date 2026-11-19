@@ -1,7 +1,7 @@
 /**
  * CASE STUDIES — every /work/[slug] page is generated from this list.
  * Only publish real, client-approved results.
- * Images: put a file in /public/images/work/ and set `cover`.
+ * `cover` uses the client photo in /public/clients/ (initials fallback if missing).
  */
 
 export const allWorkCategories = ['Brands', 'Celebrities', 'Reality TV', 'OTT show', 'Entertainment'] as const
@@ -30,8 +30,8 @@ export const caseStudies: CaseStudy[] = [
     client: 'Shehzad Poonawalla',
     category: 'Reality TV',
     services: ['reality-show-pr', 'meme-marketing', 'pr-media-coverage'],
-    cover: '/images/work/shehzad-poonawalla.svg',
-    coverAlt: 'Shehzad Poonawalla Rise & Fall Season 2 reality show PR campaign by PXR Infinity',
+    cover: '/clients/shehzad-poonawalla.jpg',
+    coverAlt: 'Shehzad Poonawalla — PXR Infinity client, Rise & Fall S2 winner',
     summary:
       'A season-long narrative campaign: meme pages, media and paps pages, news coverage, reel comments and X Spaces.',
     problem:
@@ -55,8 +55,8 @@ export const caseStudies: CaseStudy[] = [
     client: 'Niharika Tiwari',
     category: 'Reality TV',
     services: ['reality-show-pr', 'meme-marketing', 'x-twitter-trends'],
-    cover: '/images/work/niharika-tiwari.svg',
-    coverAlt: 'Niharika Tiwari Rise & Fall Season 2 reality show PR and meme marketing campaign by PXR Infinity',
+    cover: '/clients/niharika-tiwari.jpg',
+    coverAlt: 'Niharika Tiwari — PXR Infinity client, Rise & Fall S2 finalist',
     summary: 'Meme marketing on 500+ pages from our network, paps spotting, reality TV media, news articles and X trends.',
     problem:
       'She was known mostly through a past relationship and was up against film, TV and political names.',
@@ -79,8 +79,8 @@ export const caseStudies: CaseStudy[] = [
     client: 'The Alliance (Prime Video)',
     category: 'OTT show',
     services: ['x-twitter-trends', 'movie-web-series-promotion'],
-    cover: '/images/work/the-alliance.svg',
-    coverAlt: 'The Alliance Prime Video reality show X trend campaign by PXR Infinity',
+    cover: '/clients/the-alliance.jpg',
+    coverAlt: 'The Alliance — PXR Infinity client, Prime Video reality show',
     summary: 'An X PR campaign across the six-week season, ending in a planned finale-day trend.',
     problem: 'A brand-new format with no fanbase, and a rival reality show launched the very next day.',
     approach: [

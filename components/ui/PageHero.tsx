@@ -62,7 +62,7 @@ export function PageHero({
             {eyebrow}
           </p>
         )}
-        <h1 className="max-w-4xl text-[clamp(2rem,6vw,4.25rem)] leading-[1.05] font-bold">
+        <h1 className="section-title max-w-5xl">
           {title}
         </h1>
         {intro && (
@@ -101,7 +101,7 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <Tag className="text-[clamp(1.75rem,4.6vw,3.25rem)] leading-[1.08] font-bold" data-reveal style={{ '--d': '80ms' } as CSSProperties}>
+      <Tag className="section-title" data-reveal style={{ '--d': '80ms' } as CSSProperties}>
         {title}
       </Tag>
       {intro && (

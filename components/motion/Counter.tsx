@@ -15,6 +15,7 @@ export function Counter({ value, suffix = '' }: { value: string; suffix?: string
   const target = Number(value.replace(/,/g, ''))
   const numeric = value.trim() !== '' && Number.isFinite(target)
   const [display, setDisplay] = useState(value)
+  const [done, setDone] = useState(false)
 
   useEffect(() => {
     if (!numeric || reduce || !inView) return
@@ -22,12 +23,13 @@ export function Counter({ value, suffix = '' }: { value: string; suffix?: string
       duration: 1.8,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (v) => setDisplay(Math.round(v).toLocaleString('en-IN')),
+      onComplete: () => setDone(true),
     })
     return () => controls.stop()
   }, [inView, numeric, reduce, target])
 
   return (
-    <span ref={ref} className="tabular-nums">
+    <span ref={ref} className={`tabular-nums ${done ? 'count-done' : ''}`}>
       {display}
       <span className="text-accent-light">{suffix}</span>
     </span>

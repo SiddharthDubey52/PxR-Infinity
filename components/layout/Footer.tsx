@@ -20,7 +20,8 @@ export function Footer() {
         <div>
           <Logo />
           <p className="mt-5 max-w-xs text-muted">
-            {site.tagline} PR, meme marketing and social media for brands, celebrities and creators across India.
+            <strong className="font-semibold text-white">PXR Infinity (pxrinfinity)</strong> — {site.tagline} PR, meme marketing and
+            social media for brands, celebrities and creators across India.
           </p>
           <SocialLinks className="mt-6" />
         </div>

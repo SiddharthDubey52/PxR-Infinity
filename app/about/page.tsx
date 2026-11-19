@@ -84,11 +84,11 @@ export default function AboutPage() {
 
       {/* Stats */}
       <section className="border-y border-line bg-bg-2 py-16" aria-label="PXR Infinity in numbers">
-        <dl className="container-x grid grid-cols-2 gap-8 lg:grid-cols-4">
+        <dl className="container-x grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-4">
           {stats.map((s, i) => (
             <div key={s.label} data-reveal style={{ '--d': `${i * 80}ms` } as CSSProperties} className="flex flex-col-reverse">
               <dt className="mt-2 text-muted">{s.label}</dt>
-              <dd className="font-display text-4xl font-bold sm:text-5xl">
+              <dd className="font-display text-[clamp(1.6rem,8vw,3rem)] font-semibold tracking-[-0.03em]">
                 <Counter value={s.value} suffix={s.suffix} />
               </dd>
             </div>

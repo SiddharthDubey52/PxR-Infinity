@@ -14,8 +14,9 @@ export const site = {
   name: 'PXR Infinity',
   legalName: 'PXR Infinity',
   tagline: 'Infinite Reach. Real Hype.',
+  alternateNames: ['pxrinfinity', 'PXR'],
   description:
-    'PXR Infinity is a PR, meme marketing and social media agency in India. We promote brands, celebrities, creators, movies, music and reality-show contestants with meme pages, X trends, influencers and media coverage.',
+    'PXR Infinity is a PR, meme marketing and X trends agency in India. 63+ campaigns, 25,000+ meme pages, 650+ trends. Get a free proposal on WhatsApp.',
   founder: 'Siddharth (Sid)',
   locale: 'en_IN',
   city: 'Mumbai',
@@ -32,12 +33,13 @@ export const site = {
   socials: {
     instagram: 'https://www.instagram.com/pxrinfinity',
     x: 'https://x.com/pxrinfinity',
-    linkedin: '',
+    linkedin: '', // TODO: add your LinkedIn page URL, e.g. 'https://www.linkedin.com/company/pxrinfinity'
     youtube: '',
   },
 
-  // Google Search Console → URL-prefix property → HTML tag → paste ONLY the content="..." value here
-  googleSiteVerification: '',
+  // TODO: Google Search Console → URL-prefix property → HTML tag method.
+  // Paste ONLY the content="..." value here (replace TODO_PASTE_CODE), then redeploy and click Verify.
+  googleSiteVerification: 'TODO_PASTE_CODE',
 
   keywords: [
     'PR agency India',

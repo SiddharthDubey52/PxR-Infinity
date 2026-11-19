@@ -3,8 +3,7 @@ import type { CSSProperties } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { SectionHeading } from '@/components/ui/PageHero'
 import { Icon } from '@/components/ui/Icon'
-import { Tilt } from '@/components/motion/Tilt'
-import { HorizontalScroll } from '@/components/motion/HorizontalScroll'
+import { StepsProgress } from '@/components/motion/StepsProgress'
 import { WorkCard } from './WorkCard'
 import { howItWorks, whyPxr } from '@/lib/data/home'
 import { services, type Service } from '@/lib/data/services'
@@ -22,20 +21,20 @@ export function WhyPxr() {
           eyebrow="Why PXR"
           title={
             <span id="why-title">
-              Hype that’s <span className="text-gradient">real</span>. Results you can see.
+              Hype that’s <span className="text-gold-grad italic">real</span>. Results you can see.
             </span>
           }
           intro="We live on the internet so your brand doesn’t have to guess. Here’s what makes PXR Infinity different."
         />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {whyPxr.map((w, i) => (
-            <li key={w.title} data-reveal style={delay(i)} className="card group relative overflow-hidden p-7">
-              <div className="mb-6 grid size-12 place-items-center rounded-2xl border border-accent/30 bg-accent/10 text-accent-light transition group-hover:scale-110 group-hover:bg-accent/20">
+            <li key={w.title} data-reveal style={delay(i)} className="card sweep-card group relative overflow-hidden p-7 transition-transform duration-500">
+              <div className="sweep-icon mb-6 grid size-12 place-items-center rounded-2xl border border-accent/30 bg-accent/10 text-accent-light">
                 <Icon name={w.icon} className="size-5" />
               </div>
-              <h3 className="text-lg font-semibold">{w.title}</h3>
+              <h3 className="text-xl font-semibold">{w.title}</h3>
               <p className="mt-3 text-muted">{w.desc}</p>
-              <span aria-hidden="true" className="absolute top-6 right-7 font-display text-sm text-white/10">
+              <span aria-hidden="true" className="absolute top-6 right-7 font-display text-sm text-white/15">
                 0{i + 1}
               </span>
             </li>
@@ -50,19 +49,20 @@ export function WhyPxr() {
 export function ServiceCard({ s, i = 0 }: { s: Service; i?: number }) {
   return (
     <li data-reveal style={delay(i % 6, 60)} className="h-full">
-      <Tilt className="card h-full">
-        <Link href={`/services/${s.slug}`} className="group relative z-10 flex h-full flex-col p-7">
-          <div className="flex items-start justify-between">
-            <div className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-accent/25 to-blue/20 text-white">
-              <Icon name={s.icon} className="size-5" />
-            </div>
-            <ArrowUpRight aria-hidden="true" className="size-5 text-faint transition group-hover:text-white" />
+      <Link
+        href={`/services/${s.slug}`}
+        className="card sweep-card group flex h-full flex-col p-7 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      >
+        <div className="flex items-start justify-between">
+          <div className="sweep-icon grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-accent/30 to-blue/25 text-white">
+            <Icon name={s.icon} className="size-5" />
           </div>
-          <h3 className="mt-8 text-lg font-semibold">{s.name}</h3>
-          <p className="mt-3 text-[0.95rem] text-muted">{s.short}</p>
-          <span className="mt-auto pt-6 text-sm font-semibold text-accent-light">Learn more →</span>
-        </Link>
-      </Tilt>
+          <ArrowUpRight aria-hidden="true" className="size-5 text-faint transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-gold" />
+        </div>
+        <h3 className="mt-8 text-xl font-semibold">{s.name}</h3>
+        <p className="mt-3 text-muted">{s.short}</p>
+        <span className="mt-auto pt-6 text-sm font-semibold text-accent-light transition group-hover:text-gold">Learn more →</span>
+      </Link>
     </li>
   )
 }
@@ -84,7 +84,7 @@ export function ServicesGrid({ limit }: { limit?: number }) {
             </ButtonLink>
           </div>
         </div>
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((s, i) => (
             <ServiceCard key={s.slug} s={s} i={i} />
           ))}
@@ -95,38 +95,39 @@ export function ServicesGrid({ limit }: { limit?: number }) {
 }
 
 /* ------------------------------ Featured work ------------------------------ */
+/**
+ * Mobile/tablet: horizontal scroll-snap carousel.
+ * Desktop: cards pin and stack on top of each other while scrolling (CSS sticky).
+ */
 export function FeaturedWork() {
   return (
-    <section className="py-24 sm:py-32 lg:py-0" aria-labelledby="work-title">
-      <HorizontalScroll
-        header={
-          <div className="container-x mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <p className="eyebrow mb-5" data-reveal>
-                <span className="h-px w-8 bg-accent" aria-hidden="true" />
-                Featured work
-              </p>
-              <h2 id="work-title" className="text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.08] font-bold" data-reveal>
-                Problem → plan → proof.
-              </h2>
-              <p className="mt-4 text-lg text-muted lg:hidden" data-reveal>
-                A few campaigns from brands, entertainment and reality TV — what we did and what changed.
-              </p>
-            </div>
-            <div data-reveal>
-              <ButtonLink href="/work" variant="ghost">
-                View all work
-              </ButtonLink>
-            </div>
-          </div>
-        }
-      >
+    <section className="py-24 sm:py-32" aria-labelledby="work-title">
+      <div className="container-x flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <SectionHeading
+          eyebrow="Featured work"
+          title={<span id="work-title">Problem → plan → proof.</span>}
+          intro="Winners, finalists and a Prime Video original. Here’s what we did and what changed."
+        />
+        <div className="mb-12 sm:mb-16" data-reveal>
+          <ButtonLink href="/work" variant="ghost">
+            View all work
+          </ButtonLink>
+        </div>
+      </div>
+
+      <div className="snap-row flex gap-4 overflow-x-auto px-4 pb-4 sm:px-6 lg:mx-auto lg:block lg:max-w-[1240px] lg:overflow-visible lg:px-8 lg:pb-0">
         {featuredWork.map((c, i) => (
-          <div key={c.slug} className="lg:w-[min(440px,34vw)] lg:shrink-0">
-            <WorkCard c={c} i={i} compact />
+          <div
+            key={c.slug}
+            className="w-[85%] max-w-[420px] shrink-0 sm:w-[60%] lg:sticky lg:mb-10 lg:w-auto lg:max-w-none"
+            style={{ top: `${112 + i * 28}px` } as CSSProperties}
+          >
+            <div className="h-full rounded-[1.5rem] lg:shadow-[0_-30px_60px_-30px_rgb(0_0_0/0.9)]">
+              <WorkCard c={c} i={i} wide />
+            </div>
           </div>
         ))}
-      </HorizontalScroll>
+      </div>
     </section>
   )
 }
@@ -142,20 +143,21 @@ export function HowItWorks() {
           intro="Simple, transparent and fast. You always know what’s happening and what comes next."
           center
         />
-        <ol className="relative grid gap-4 md:grid-cols-5">
-          <span aria-hidden="true" className="absolute top-8 right-[10%] left-[10%] hidden h-px bg-gradient-to-r from-accent via-blue to-accent opacity-40 md:block" />
-          {howItWorks.map((s, i) => (
-            <li key={s.title} data-reveal style={delay(i, 90)} className="relative flex gap-5 md:flex-col md:items-center md:text-center">
-              <span className="relative z-10 grid size-16 shrink-0 place-items-center rounded-full border border-accent/40 bg-bg font-display text-lg font-bold text-white shadow-[0_0_0_8px_rgb(139_92_246/0.08)]">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <div>
-                <h3 className="text-base font-semibold md:mt-5">{s.title}</h3>
-                <p className="mt-2 text-[0.95rem] text-muted">{s.desc}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+        <StepsProgress>
+          <ol className="relative grid gap-8 md:grid-cols-5 md:gap-4">
+            {howItWorks.map((s, i) => (
+              <li key={s.title} data-reveal style={delay(i, 90)} className="relative flex gap-5 md:flex-col md:items-center md:text-center">
+                <span className="relative z-10 grid size-16 shrink-0 place-items-center rounded-full border border-accent/40 bg-bg font-display text-lg font-semibold text-white shadow-[0_0_0_8px_rgb(139_92_246/0.08)]">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <h3 className="text-lg font-semibold md:mt-5">{s.title}</h3>
+                  <p className="mt-2 text-muted">{s.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </StepsProgress>
       </div>
     </section>
   )

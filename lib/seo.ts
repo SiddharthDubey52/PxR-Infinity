@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { SITE_URL, absoluteUrl, sameAs, site } from './site'
 
+export const HOME_URL = absoluteUrl('/') // 'https://pxrinfinity.vercel.app/'
+export const OG_IMAGE = absoluteUrl('/og-image.jpg')
+
 type PageMetaInput = {
   title: string
   description: string
@@ -25,24 +28,30 @@ export function pageMetadata({
   absoluteTitle,
 }: PageMetaInput): Metadata {
   const url = absoluteUrl(path)
+  // For the home page Next.js would strip the trailing slash ("…vercel.app"), so the
+  // canonical + og:url tags are rendered directly in app/page.tsx as "…vercel.app/".
+  const isHome = path === '/'
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
     keywords: keywords ?? [...site.keywords],
-    alternates: { canonical: url },
+    ...(isHome ? {} : { alternates: { canonical: url } }),
     openGraph: {
       type,
-      url,
+      ...(isHome ? {} : { url }),
       title,
       description,
       siteName: site.name,
       locale: site.locale,
+      // Default share image; routes with their own opengraph-image.tsx override this
+      images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: 'PXR Infinity — Infinite reach. Real hype.' }],
       ...(type === 'article' ? { publishedTime, modifiedTime, authors: [site.founder] } : {}),
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [OG_IMAGE],
     },
   }
 }
@@ -54,8 +63,10 @@ export const organizationLd = () => ({
   '@type': 'Organization',
   '@id': `${SITE_URL}/#organization`,
   name: site.name,
-  url: SITE_URL,
-  logo: absoluteUrl('/icon.svg'),
+  alternateName: [...site.alternateNames],
+  url: HOME_URL,
+  logo: absoluteUrl('/apple-icon'),
+  image: OG_IMAGE,
   slogan: site.tagline,
   description: site.description,
   email: site.email,
@@ -76,8 +87,9 @@ export const websiteLd = () => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   '@id': `${SITE_URL}/#website`,
-  url: SITE_URL,
+  url: HOME_URL,
   name: site.name,
+  alternateName: [...site.alternateNames],
   publisher: { '@id': `${SITE_URL}/#organization` },
   inLanguage: 'en-IN',
 })

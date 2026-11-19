@@ -1,38 +1,44 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
 import { ArrowUpRight } from 'lucide-react'
+import { ClientPhoto } from '@/components/ui/ClientPhoto'
 import type { CaseStudy } from '@/lib/data/work'
 
+/**
+ * Case study card. `wide` = horizontal layout used in the desktop sticky stack.
+ */
 export function WorkCard({
   c,
   i = 0,
   headingLevel = 'h3',
-  compact = false,
+  wide = false,
   priority = false,
+  reveal = true,
 }: {
   c: CaseStudy
   i?: number
   headingLevel?: 'h2' | 'h3'
-  /** shorter image — used in the pinned horizontal scroller */
-  compact?: boolean
-  /** eager-load the image (use for the first card above the fold) */
+  wide?: boolean
+  /** eager-load the image (first card above the fold) */
   priority?: boolean
+  reveal?: boolean
 }) {
   const H = headingLevel
   return (
-    <article data-reveal style={{ '--d': `${(i % 3) * 90}ms` } as CSSProperties} className="card group h-full overflow-hidden">
-      <Link href={`/work/${c.slug}`} className="flex h-full flex-col">
-        <div className={`relative overflow-hidden ${compact ? 'aspect-[16/10] lg:aspect-[2/1]' : 'aspect-[16/10]'}`}>
-          <Image
+    <article
+      {...(reveal ? { 'data-reveal': '' } : {})}
+      style={{ '--d': `${(i % 3) * 90}ms` } as CSSProperties}
+      className="card group h-full overflow-hidden bg-surface"
+    >
+      <Link href={`/work/${c.slug}`} data-cursor="view" className={`flex h-full flex-col ${wide ? 'lg:grid lg:grid-cols-[0.9fr_1.1fr]' : ''}`}>
+        <div className={`relative overflow-hidden ${wide ? 'aspect-[4/5] lg:aspect-auto lg:min-h-[460px]' : 'aspect-[4/5] sm:aspect-[16/12]'}`}>
+          <ClientPhoto
             src={c.cover}
+            name={c.client}
             alt={c.coverAlt}
-            fill
-            preload={priority}
-            loading={priority ? 'eager' : 'lazy'}
-            fetchPriority={priority ? 'high' : 'auto'}
-            sizes="(min-width: 1024px) 520px, (min-width: 768px) 50vw, 100vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            priority={priority}
+            sizes={wide ? '(min-width: 1024px) 560px, 85vw' : '(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw'}
+            className="transition-transform duration-700 ease-out group-hover:scale-105"
           />
           <span className="absolute top-4 left-4 rounded-full border border-line-strong bg-bg/70 px-3 py-1 text-xs font-semibold backdrop-blur">
             {c.category}
@@ -41,24 +47,24 @@ export function WorkCard({
             <ArrowUpRight aria-hidden="true" className="size-4" />
           </span>
         </div>
-        <div className="flex flex-1 flex-col p-6 sm:p-7">
+        <div className={`flex flex-1 flex-col p-6 sm:p-7 ${wide ? 'lg:p-10' : ''}`}>
           <p className="text-sm text-faint">{c.client}</p>
-          <H className="mt-2 text-lg leading-snug font-semibold sm:text-xl">{c.title}</H>
+          <H className={`mt-2 leading-snug font-semibold ${wide ? 'text-xl sm:text-2xl lg:text-3xl' : 'text-lg sm:text-xl'}`}>{c.title}</H>
           <dl className="mt-5 space-y-3 text-[0.95rem]">
             <div>
               <dt className="text-xs font-semibold tracking-[0.14em] text-accent-light uppercase">Problem</dt>
-              <dd className="mt-1 line-clamp-2 text-muted">{c.problem}</dd>
+              <dd className={`mt-1 text-muted ${wide ? '' : 'line-clamp-3'}`}>{c.problem}</dd>
             </div>
             <div>
               <dt className="text-xs font-semibold tracking-[0.14em] text-accent-light uppercase">What we did</dt>
-              <dd className="mt-1 line-clamp-2 text-muted">{c.summary}</dd>
+              <dd className={`mt-1 text-muted ${wide ? '' : 'line-clamp-3'}`}>{c.summary}</dd>
             </div>
           </dl>
           <ul className="mt-auto grid grid-cols-3 gap-2 pt-6">
             {c.results.map((r) => (
-              <li key={r.label} className="rounded-xl border border-accent/20 bg-accent/[0.07] p-3">
-                <p className="font-display text-sm font-bold">{r.value}</p>
-                <p className="mt-1 text-[0.7rem] leading-tight text-muted">{r.label}</p>
+              <li key={r.label} className="rounded-xl border border-gold/25 bg-gold/[0.06] p-3">
+                <p className={`font-display font-semibold text-gold ${wide ? 'text-lg sm:text-2xl' : 'text-base'}`}>{r.value}</p>
+                <p className="mt-1 text-xs leading-tight text-muted">{r.label}</p>
               </li>
             ))}
           </ul>

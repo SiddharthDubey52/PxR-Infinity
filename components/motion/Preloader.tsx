@@ -3,12 +3,14 @@
 import { useEffect, useState } from 'react'
 import { INFINITY_PATH } from '@/lib/brand'
 
-const KEY = 'pxr-visited'
-const DURATION = 1300 // ms — the infinity draws, then the curtain lifts
+const KEY = 'pxr-intro' // sessionStorage: intro plays once per browser session
+const DRAW_MS = 750 // "PxR∞" draws in…
+const WIPE_MS = 420 // …then wipes up. Total < 1.2s
 
 /**
- * First-visit preloader. It's in the server HTML but only displayed when JS runs
- * (see the inline script in app/layout.tsx), so crawlers always see the content.
+ * Intro overlay. It's in the server HTML but only displayed when JS runs and it's
+ * the first visit this session (see the inline script in app/layout.tsx), so crawlers
+ * and reduced-motion users always go straight to the content.
  * Adds `.is-ready` to <html> when done, which starts the hero animations.
  */
 export function Preloader() {
@@ -17,24 +19,23 @@ export function Preloader() {
 
   useEffect(() => {
     const root = document.documentElement
-    const skip = root.classList.contains('skip-preload')
     const finish = () => {
       root.classList.add('is-ready')
       try {
-        localStorage.setItem(KEY, '1')
+        sessionStorage.setItem(KEY, '1')
       } catch {}
     }
-    if (skip) {
+    if (root.classList.contains('skip-preload')) {
       finish()
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- preloader not needed on repeat visits
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intro not needed this session
       setGone(true)
       return
     }
     const t1 = setTimeout(() => {
       setLeaving(true)
       finish()
-    }, DURATION)
-    const t2 = setTimeout(() => setGone(true), DURATION + 700)
+    }, DRAW_MS)
+    const t2 = setTimeout(() => setGone(true), DRAW_MS + WIPE_MS)
     return () => {
       clearTimeout(t1)
       clearTimeout(t2)
@@ -46,22 +47,26 @@ export function Preloader() {
   return (
     <div
       aria-hidden="true"
-      className={`preloader fixed inset-0 z-[90] place-items-center bg-bg transition-[clip-path] duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+      style={{ transitionDuration: `${WIPE_MS}ms` }}
+      className={`preloader fixed inset-0 z-[90] place-items-center bg-bg transition-[clip-path] ease-[cubic-bezier(0.76,0,0.24,1)] ${
         leaving ? '[clip-path:inset(0_0_100%_0)]' : '[clip-path:inset(0_0_0_0)]'
       }`}
     >
-      <div className="flex flex-col items-center gap-6">
-        <svg viewBox="0 0 100 50" className="w-36 sm:w-44" fill="none">
+      <div className="flex items-center gap-4">
+        <span className="preloader-text font-display text-6xl font-bold tracking-[-0.04em] sm:text-8xl">
+          P<span className="logo-x inline-block px-[0.02em] text-[0.82em] italic">x</span>R
+        </span>
+        <svg viewBox="0 0 100 50" className="w-24 sm:w-36" fill="none">
           <defs>
             <linearGradient id="pre-g" x1="0" x2="1">
               <stop offset="0" stopColor="#8B5CF6" />
-              <stop offset="1" stopColor="#3B82F6" />
+              <stop offset="0.6" stopColor="#3B82F6" />
+              <stop offset="1" stopColor="#F5C451" />
             </linearGradient>
           </defs>
-          <path d={INFINITY_PATH} stroke="rgb(255 255 255 / 0.08)" strokeWidth="6" />
-          <path d={INFINITY_PATH} pathLength={1} className="preloader-path" stroke="url(#pre-g)" strokeWidth="6" strokeLinecap="round" />
+          <path d={INFINITY_PATH} stroke="rgb(255 255 255 / 0.08)" strokeWidth="7" />
+          <path d={INFINITY_PATH} pathLength={1} className="preloader-path" stroke="url(#pre-g)" strokeWidth="7" strokeLinecap="round" />
         </svg>
-        <p className="font-display text-xs tracking-[0.5em] text-muted">PXR INFINITY</p>
       </div>
     </div>
   )

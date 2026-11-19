@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import type { CSSProperties } from 'react'
 import { Quote } from 'lucide-react'
@@ -8,6 +7,7 @@ import { ServiceCard } from '@/components/sections/HomeSections'
 import { WorkCard } from '@/components/sections/WorkCard'
 import { CtaSection } from '@/components/sections/CtaSection'
 import { Parallax } from '@/components/motion/Parallax'
+import { ClientPhoto } from '@/components/ui/ClientPhoto'
 import { caseStudies, getCaseStudy } from '@/lib/data/work'
 import { getService } from '@/lib/data/services'
 import { pageMetadata } from '@/lib/seo'
@@ -50,8 +50,8 @@ export default async function CaseStudyPage({ params }: Props) {
       />
 
       <div className="container-x">
-        <Parallax className="relative aspect-[16/9] rounded-3xl border border-line sm:aspect-[21/9]">
-          <Image src={c.cover} alt={c.coverAlt} fill preload loading="eager" fetchPriority="high" sizes="(min-width: 1240px) 1240px, 100vw" className="object-cover" />
+        <Parallax className="relative mx-auto aspect-[4/5] max-w-md rounded-3xl border border-line sm:aspect-[16/10] sm:max-w-none">
+          <ClientPhoto src={c.cover} name={c.client} alt={c.coverAlt} priority sizes="(min-width: 1240px) 1240px, 100vw" />
         </Parallax>
       </div>
 
@@ -64,7 +64,7 @@ export default async function CaseStudyPage({ params }: Props) {
           <ul className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-3">
             {c.results.map((r, i) => (
               <li key={r.label} className="bg-bg p-8" data-reveal style={{ '--d': `${i * 80}ms` } as CSSProperties}>
-                <p className="font-display text-3xl font-bold text-gradient sm:text-4xl">{r.value}</p>
+                <p className="font-display text-3xl font-semibold text-gold-grad sm:text-5xl">{r.value}</p>
                 <p className="mt-2 text-muted">{r.label}</p>
               </li>
             ))}

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Manrope, Syne } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -7,28 +7,39 @@ import { WhatsAppFloat } from '@/components/layout/WhatsAppFloat'
 import { Preloader } from '@/components/motion/Preloader'
 import { SmoothScroll } from '@/components/motion/SmoothScroll'
 import { Cursor } from '@/components/motion/Cursor'
+import { MarqueeDirection } from '@/components/motion/MarqueeDirection'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { SITE_URL, site } from '@/lib/site'
 import { organizationLd, websiteLd } from '@/lib/seo'
 
-const syne = Syne({
-  subsets: ['latin'],
-  weight: ['600', '700', '800'],
-  variable: '--font-syne',
+// Self-hosted Fontshare fonts (/public/fonts). Clash Display = headings, Satoshi = body.
+const clash = localFont({
+  src: [
+    { path: '../public/fonts/ClashDisplay-500.woff2', weight: '500', style: 'normal' },
+    { path: '../public/fonts/ClashDisplay-600.woff2', weight: '600', style: 'normal' },
+    { path: '../public/fonts/ClashDisplay-700.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-clash',
   display: 'swap',
+  preload: true,
+  fallback: ['Space Grotesk', 'system-ui', 'sans-serif'],
 })
 
-const manrope = Manrope({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-manrope',
+const satoshi = localFont({
+  src: [
+    { path: '../public/fonts/Satoshi-400.woff2', weight: '400', style: 'normal' },
+    { path: '../public/fonts/Satoshi-500.woff2', weight: '500', style: 'normal' },
+    { path: '../public/fonts/Satoshi-700.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-satoshi',
   display: 'swap',
+  fallback: ['Inter', 'system-ui', 'sans-serif'],
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'PXR Infinity — PR, Meme Marketing & Social Media Agency in India',
+    default: 'PXR Infinity (pxrinfinity) — PR, Meme Marketing & Social Media Agency in India',
     template: '%s | PXR Infinity',
   },
   description: site.description,
@@ -37,20 +48,20 @@ export const metadata: Metadata = {
   authors: [{ name: site.founder }],
   creator: site.name,
   publisher: site.name,
-  alternates: { canonical: SITE_URL },
   openGraph: {
     type: 'website',
     siteName: site.name,
     locale: site.locale,
-    url: SITE_URL,
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'PXR Infinity — Infinite reach. Real hype.' }],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: { card: 'summary_large_image', images: ['/og-image.jpg'] },
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
-  ...(site.googleSiteVerification ? { verification: { google: site.googleSiteVerification } } : {}),
+  // Google Search Console: paste your code into googleSiteVerification in lib/site.ts
+  verification: { google: site.googleSiteVerification },
   formatDetection: { telephone: false },
 }
 
@@ -71,7 +82,7 @@ export const viewport: Viewport = {
  * - failsafe: if something goes wrong, show everything after 4s
  */
 const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');
-try{if(localStorage.getItem('pxr-visited')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('skip-preload')}catch(e){d.classList.add('skip-preload')}
+try{if(sessionStorage.getItem('pxr-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('skip-preload')}catch(e){d.classList.add('skip-preload')}
 function init(){if(!('IntersectionObserver' in window)){d.classList.remove('js');return}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:0.08});
 var vh=innerHeight;document.querySelectorAll('[data-reveal]').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<vh&&r.bottom>0)el.classList.add('is-in','reveal-instant')});
@@ -82,7 +93,7 @@ setTimeout(function(){if(!d.dataset.revealReady)d.classList.remove('js');d.class
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${syne.variable} ${manrope.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`${clash.variable} ${satoshi.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
@@ -100,6 +111,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScroll />
         <WhatsAppFloat />
         <Cursor />
+        <MarqueeDirection />
         <JsonLd data={[organizationLd(), websiteLd()]} />
       </body>
     </html>

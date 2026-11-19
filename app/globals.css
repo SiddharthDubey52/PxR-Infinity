@@ -22,8 +22,11 @@
   --color-blue-light: #7fb0ff;
   --color-wa: #25d366;
 
-  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-clash), 'Clash Display', 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: var(--font-satoshi), 'Satoshi', 'Inter', system-ui, sans-serif;
+
+  --color-gold: #f5c451;
+  --color-gold-deep: #d99a1e;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -47,6 +50,8 @@
   body {
     /* no background here: <html> paints it, so negative z-index glow layers stay visible */
     font-family: var(--font-sans);
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
@@ -64,6 +69,7 @@
   h2,
   h3 {
     font-family: var(--font-display);
+    font-weight: 600;
     letter-spacing: -0.02em;
     text-wrap: balance;
   }
@@ -99,6 +105,33 @@
   color: transparent;
 }
 
+/* Typography scale */
+@utility hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 9vw, 160px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+@utility section-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 80px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+@utility text-gold-grad {
+  background: linear-gradient(100deg, #fff1c1 0%, #f5c451 35%, #d99a1e 70%, #f5c451 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.85);
+}
+
 @utility card {
   border-radius: 1.5rem;
   border: 1px solid var(--color-line);
@@ -109,9 +142,10 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
+  font-family: var(--font-sans);
   font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent-light);
 }
@@ -199,7 +233,16 @@ html.js:not(.skip-preload) .preloader {
 .preloader-path {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: draw 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation: draw 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.preloader-text {
+  clip-path: inset(0 100% 0 0);
+  animation: text-in 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes text-in {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 @keyframes draw {
   to {
@@ -311,6 +354,34 @@ html.js:not(.skip-preload) .preloader {
     height 0.3s var(--ease-out-expo),
     margin 0.3s var(--ease-out-expo),
     background 0.3s;
+}
+.cursor-ring::after {
+  content: 'View';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #1a1203;
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.25s,
+    transform 0.3s var(--ease-out-expo);
+}
+.cursor-ring.is-view {
+  width: 84px;
+  height: 84px;
+  margin: -42px 0 0 -42px;
+  background: #f5c451;
+  border-color: #f5c451;
+}
+.cursor-ring.is-view::after {
+  opacity: 1;
+  transform: none;
 }
 .cursor-ring.is-hover {
   width: 64px;
@@ -437,6 +508,108 @@ html.lenis body {
   overflow: hidden;
 }
 
+/* Logo: gradient lowercase x in "PxR" */
+.logo-x {
+  background: linear-gradient(135deg, #b197fc, #8b5cf6 45%, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Initials fallback tile for missing client photos */
+.initials-tile {
+  background: linear-gradient(135deg, #2a1660, #7c3aed 35%, #3b82f6 70%, #1e1b4b);
+  background-size: 300% 300%;
+  animation: tile-shift 9s ease-in-out infinite alternate;
+}
+.initials-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgb(245 196 81 / 0.28), transparent 55%);
+}
+@keyframes tile-shift {
+  to {
+    background-position: 100% 100%;
+  }
+}
+.client-overlay {
+  background: linear-gradient(180deg, #f5c451, #d99a1e);
+}
+
+/* Service cards: gradient border sweep + icon motion */
+.sweep-card {
+  position: relative;
+  isolation: isolate;
+}
+.sweep-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, transparent 20%, #8b5cf6 40%, #3b82f6 55%, #f5c451 70%, transparent 85%);
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 1;
+}
+.sweep-card:hover::before,
+.sweep-card:focus-within::before {
+  opacity: 1;
+  animation: sweep 1.4s var(--ease-out-expo) forwards;
+}
+@keyframes sweep {
+  to {
+    background-position: 0 0;
+  }
+}
+.sweep-card:hover {
+  transform: translateY(-6px);
+}
+.sweep-card .sweep-icon {
+  transition: transform 0.6s var(--ease-out-expo);
+}
+.sweep-card:hover .sweep-icon {
+  transform: rotate(-8deg) scale(1.15);
+}
+
+/* Counter glow when it finishes counting */
+.count-done {
+  animation: count-glow 1.6s ease-out;
+}
+@keyframes count-glow {
+  0% {
+    text-shadow: 0 0 0 transparent;
+  }
+  30% {
+    text-shadow: 0 0 28px rgb(245 196 81 / 0.75);
+  }
+  100% {
+    text-shadow: 0 0 10px rgb(139 92 246 / 0.35);
+  }
+}
+
+/* Featured work: mobile scroll-snap carousel */
+.snap-row {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.snap-row::-webkit-scrollbar {
+  display: none;
+}
+.snap-row > * {
+  scroll-snap-align: start;
+}
+
 /* ---------- Reduced motion: switch off everything heavy ---------- */
 @media (prefers-reduced-motion: reduce) {
   html.js [data-reveal],
@@ -448,6 +621,8 @@ html.lenis body {
     animation: none !important;
   }
   .mesh,
+  .initials-tile,
+  .count-done,
   .animate-marquee,
   .wa-ring::before,
   .loop-path,

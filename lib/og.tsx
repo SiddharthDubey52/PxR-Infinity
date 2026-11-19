@@ -26,14 +26,12 @@ export function renderOg({ title, eyebrow = 'PR · Memes · Trends' }: { title: 
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{ display: 'flex', alignItems: 'center', fontSize: 44, fontWeight: 800, letterSpacing: -1 }}>
-            P
-            <svg width="70" height="35" viewBox="0 0 100 50" fill="none" style={{ margin: '0 2px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', fontSize: 52, fontWeight: 800, letterSpacing: -2 }}>
+            P<span style={{ color: '#A78BFA', fontStyle: 'italic', fontSize: 44, margin: '0 1px' }}>x</span>R
+            <svg width="70" height="35" viewBox="0 0 100 50" fill="none" style={{ marginLeft: 8 }}>
               <path d={INFINITY_PATH} stroke="#A78BFA" strokeWidth="10" strokeLinecap="round" />
             </svg>
-            R
           </div>
-          <div style={{ fontSize: 20, letterSpacing: 8, color: '#A6A6BD' }}>INFINITY</div>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>

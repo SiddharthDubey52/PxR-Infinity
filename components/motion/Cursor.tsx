@@ -30,7 +30,9 @@ export function Cursor() {
       x = e.clientX
       y = e.clientY
       const t = e.target as Element | null
-      ring.current?.classList.toggle('is-hover', !!t?.closest('a, button, [role="tab"], summary, label'))
+      const view = !!t?.closest('[data-cursor="view"]')
+      ring.current?.classList.toggle('is-view', view)
+      ring.current?.classList.toggle('is-hover', !view && !!t?.closest('a, button, [role="tab"], summary, label, [tabindex="0"]'))
     }
     const tick = () => {
       rx += (x - rx) * 0.18

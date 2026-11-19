@@ -6,10 +6,10 @@ import { waLink } from '../site'
 
 // `value` animates from 0 when it's a number string (commas allowed).
 export const stats = [
-  { value: '25', suffix: '+', label: 'Campaigns delivered' },
+  { value: '63', suffix: '+', label: 'Campaigns delivered' },
   { value: '25,000', suffix: '+', label: 'Meme pages in network' },
   { value: '9', suffix: 'B+', label: 'Max monthly reach delivered' },
-  { value: '500', suffix: '+', label: 'Trends run on X' },
+  { value: '650', suffix: '+', label: 'Trends run on X' },
 ]
 
 export const heroCopy = {
@@ -21,15 +21,23 @@ export const heroCopy = {
 
 export const trustedHeading = 'Trusted by talent, shows & brands'
 
-// Text names only (no logos)
-export const clientNames = [
-  'Shehzad Poonawalla',
-  'Niharika Tiwari',
-  'Mridul Tiwari',
-  'Rajat Dalal',
-  'Yogesh Rawat',
-  'Munawar Faruqui',
-  'The Alliance (Prime Video)',
+/**
+ * Client photo grid. Add photos to /public/clients/ using exactly these file names
+ * (only photos the client or their team has shared with you). Until a file exists,
+ * the card shows the client's initials on an animated gradient tile.
+ * `caseStudy` links the card to /work/<slug>.
+ */
+export type Client = { name: string; show: string; photo: string; altNote: string; caseStudy?: string }
+
+export const clients: Client[] = [
+  { name: 'Shehzad Poonawalla', show: 'Rise & Fall S2 Winner', photo: '/clients/shehzad-poonawalla.jpg', altNote: 'Rise & Fall S2 winner', caseStudy: 'shehzad-poonawalla-rise-and-fall-winner' },
+  { name: 'Niharika Tiwari', show: 'Rise & Fall S2', photo: '/clients/niharika-tiwari.jpg', altNote: 'Rise & Fall S2 finalist', caseStudy: 'niharika-tiwari-rise-and-fall-finalist' },
+  { name: 'Qazi Touqeer', show: 'Bigg Boss 20', photo: '/clients/qazi-touqeer.jpg', altNote: 'Bigg Boss 20' },
+  { name: 'Mridul Tiwari', show: 'Bigg Boss 19', photo: '/clients/mridul-tiwari.jpg', altNote: 'Bigg Boss 19' },
+  { name: 'Rajat Dalal', show: 'Bigg Boss 18', photo: '/clients/rajat-dalal.jpg', altNote: 'Bigg Boss 18' },
+  { name: 'Yogesh Rawat', show: 'Lock Upp S2', photo: '/clients/yogesh-rawat.jpg', altNote: 'Lock Upp S2' },
+  { name: 'Munawar Faruqui', show: 'Lock Upp S1 & Bigg Boss 17', photo: '/clients/munawar-faruqui.jpg', altNote: 'Lock Upp S1 & Bigg Boss 17' },
+  { name: 'The Alliance', show: 'Prime Video', photo: '/clients/the-alliance.jpg', altNote: 'Prime Video reality show', caseStudy: 'the-alliance-prime-video-x-campaign' },
 ]
 
 export const featuredInHeading = 'Our campaigns featured in'
@@ -100,7 +108,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: 'Do you handle Bigg Boss and other reality-show PR?',
-    a: 'Yes, it’s our core. We’ve run season PR, voting pushes and finale trends for winners and finalists across Rise & Fall, Bigg Boss, Lock Upp and The Alliance.',
+    a: 'Yes, it’s our core. We’ve worked with Shehzad Poonawalla, Niharika Tiwari, Qazi Touqeer, Mridul Tiwari, Rajat Dalal, Yogesh Rawat and Munawar Faruqui, plus Prime Video’s The Alliance: 63+ campaigns with season PR, voting pushes and finale trends across Rise & Fall, Bigg Boss, Lock Upp and more.',
   },
   {
     q: 'Is everything kept confidential?',
@@ -112,7 +120,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: 'Can you guarantee a #1 trend or viral post?',
-    a: 'No honest agency can guarantee virality. What we guarantee is the plan, the timing and the network, and we’ve run 500+ trends on X.',
+    a: 'No honest agency can guarantee virality. What we guarantee is the plan, the timing and the network, and we’ve run 650+ trends on X.',
   },
   {
     q: 'Do you work with clients outside Mumbai or Delhi?',

@@ -46,10 +46,10 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ${hidden && !open ? '-translate-y-full' : ''}`}
     >
-      <div className="container-x pt-3">
+      <div className={`container-x transition-[padding] duration-500 ${scrolled ? 'pt-2' : 'pt-3'}`}>
         <div
-          className={`flex h-16 items-center justify-between rounded-full border px-5 transition-all duration-500 ${
-            scrolled || open ? 'border-line bg-bg/75 backdrop-blur-xl' : 'border-transparent'
+          className={`flex items-center justify-between rounded-full border px-5 transition-all duration-500 ${
+            scrolled || open ? 'h-14 border-line bg-bg/70 shadow-[0_10px_40px_-20px_rgb(0_0_0/0.8)] backdrop-blur-xl' : 'h-16 border-transparent'
           }`}
         >
           <Logo />

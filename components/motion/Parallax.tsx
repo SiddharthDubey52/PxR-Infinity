@@ -12,7 +12,7 @@ export function Parallax({ children, offset = 60, className = '' }: { children: 
 
   return (
     <div ref={ref} className={`overflow-hidden ${className}`}>
-      <motion.div style={{ y }} className="h-[calc(100%+120px)] -translate-y-[60px] will-change-transform">
+      <motion.div style={{ y }} className="relative h-[calc(100%+120px)] -translate-y-[60px] will-change-transform">
         {children}
       </motion.div>
     </div>

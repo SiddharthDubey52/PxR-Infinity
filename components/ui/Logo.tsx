@@ -20,23 +20,22 @@ export function InfinityMark({ className = '', strokeWidth = 9 }: { className?: 
 }
 
 /**
- * Text logo "P∞R INFINITY" — the X in PXR is drawn as an infinity sign.
+ * Logo wordmark: "PxR" in Clash Display (gradient lowercase x) followed by the infinity mark → PxR∞
  * Swap this component's contents for your final logo SVG later.
  */
 export function Logo({ className = '' }: { className?: string }) {
   return (
     <Link
       href="/"
-      className={`group inline-flex items-center gap-2.5 font-display font-bold leading-none tracking-tight ${className}`}
+      className={`group inline-flex items-center font-display leading-none ${className}`}
     >
       <span className="sr-only">PXR Infinity — home</span>
-      <span className="inline-flex items-center text-[1.35rem]" aria-hidden="true">
-        P
-        <InfinityMark className="mx-[1px] h-[0.72em] w-[1.35em] transition-transform duration-500 group-hover:rotate-180" />
-        R
-      </span>
-      <span className="text-[0.62rem] font-medium tracking-[0.32em] text-muted" aria-hidden="true">
-        INFINITY
+      <span className="inline-flex items-center gap-1.5 text-[1.6rem] font-bold tracking-[-0.04em]" aria-hidden="true">
+        <span>
+          P
+          <span className="logo-x inline-block px-[0.02em] text-[0.82em] italic">x</span>R
+        </span>
+        <InfinityMark className="h-[0.62em] w-[1.25em] translate-y-[0.02em] transition-transform duration-700 group-hover:rotate-180" strokeWidth={10} />
       </span>
     </Link>
   )
