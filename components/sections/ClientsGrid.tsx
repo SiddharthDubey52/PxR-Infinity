@@ -87,3 +87,25 @@ export function ClientsGrid() {
     </section>
   )
 }
+
+/** Every client with their show — used on /work (no press row / marquee) */
+export function ClientList() {
+  return (
+    <section aria-labelledby="client-list-title" className="border-t border-line bg-bg-2 py-20 sm:py-24">
+      <div className="container-x">
+        <h2 id="client-list-title" className="section-title max-w-4xl" data-reveal>
+          Clients we’ve worked with
+        </h2>
+        <p className="mt-5 max-w-2xl text-lg text-muted" data-reveal>
+          63+ campaigns across Bigg Boss 17, 18, 19 and 20, Rise &amp; Fall, Lock Upp and Prime Video’s The Alliance — X trends, meme
+          pages, fan armies and voting campaigns.
+        </p>
+        <ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
+          {clients.map((c, i) => (
+            <ClientCard key={c.name} c={c} i={i} />
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}

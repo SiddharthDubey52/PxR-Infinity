@@ -72,6 +72,7 @@ export const organizationLd = () => ({
   email: site.email,
   founder: { '@type': 'Person', name: site.founder },
   areaServed: { '@type': 'Country', name: 'India' },
+  knowsAbout: ['Public relations', 'Meme marketing', 'Twitter / X trends', 'Bigg Boss PR', 'Reality show PR', 'Celebrity PR', 'Influencer marketing', 'Movie and OTT promotion', 'Music promotion'],
   address: { '@type': 'PostalAddress', addressLocality: site.city, addressCountry: site.country },
   contactPoint: {
     '@type': 'ContactPoint',

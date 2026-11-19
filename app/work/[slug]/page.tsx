@@ -24,9 +24,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const c = getCaseStudy((await params).slug)
   if (!c) return {}
   return pageMetadata({
-    title: c.title,
+    title: c.metaTitle,
     description: `${c.summary} A ${c.category.toLowerCase()} case study by PXR Infinity.`,
     path: `/work/${c.slug}`,
+    keywords: [...c.keywords, 'PXR Infinity'],
   })
 }
 

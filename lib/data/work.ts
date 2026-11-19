@@ -10,6 +10,9 @@ export type WorkCategory = (typeof allWorkCategories)[number]
 export type CaseStudy = {
   slug: string
   title: string
+  /** SEO <title> (the page H1 stays `title`) */
+  metaTitle: string
+  keywords: string[]
   client: string
   category: WorkCategory
   services: string[] // service slugs
@@ -27,6 +30,8 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: 'shehzad-poonawalla-rise-and-fall-winner',
     title: 'Taking a TV debater all the way to the Rise & Fall trophy',
+    metaTitle: 'Shehzad Poonawalla — Rise & Fall S2 Winner Campaign',
+    keywords: ['Shehzad Poonawalla Rise and Fall campaign', 'Shehzad Poonawalla PR team', 'Rise and Fall winner PR campaign'],
     client: 'Shehzad Poonawalla',
     category: 'Reality TV',
     services: ['reality-show-pr', 'meme-marketing', 'pr-media-coverage'],
@@ -52,6 +57,8 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: 'niharika-tiwari-rise-and-fall-finalist',
     title: 'Building a name of her own in a celebrity-heavy cast',
+    metaTitle: 'Niharika Tiwari — Rise & Fall Campaign, 350M+ Reach',
+    keywords: ['Niharika Tiwari Rise and Fall campaign', 'Niharika Tiwari PR team', 'Rise and Fall contestant PR'],
     client: 'Niharika Tiwari',
     category: 'Reality TV',
     services: ['reality-show-pr', 'meme-marketing', 'x-twitter-trends'],
@@ -76,6 +83,8 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: 'the-alliance-prime-video-x-campaign',
     title: 'A show-wide X campaign for Prime Video’s first daily reality show',
+    metaTitle: 'The Alliance (Prime Video) — #1 Finale Trend Campaign',
+    keywords: ['The Alliance Prime Video finale trend', 'The Alliance Twitter campaign', 'OTT reality show promotion'],
     client: 'The Alliance (Prime Video)',
     category: 'OTT show',
     services: ['x-twitter-trends', 'movie-web-series-promotion'],

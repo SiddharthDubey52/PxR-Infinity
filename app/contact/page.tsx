@@ -8,7 +8,8 @@ import { site, waLink } from '@/lib/site'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Contact Us — Get a Free PR & Meme Marketing Proposal',
+  title: 'Contact PXR Infinity — Free Proposal on WhatsApp',
+  absoluteTitle: true,
   description:
     'Contact PXR Infinity for PR, meme marketing, X trends, influencer marketing, celebrity and reality show PR in India. WhatsApp us or send your brief for a free proposal.',
   path: '/contact',

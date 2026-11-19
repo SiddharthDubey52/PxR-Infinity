@@ -8,7 +8,7 @@ import { formatDate, getAllPosts } from '@/lib/blog'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Blog — PR, Meme Marketing & Reality Show PR Insights',
+  title: 'Blog — PR, Meme Marketing & Reality TV Guides',
   description:
     'Guides on meme marketing in India, X/Twitter trends, influencer marketing, Bigg Boss PR and crisis PR — from the PXR Infinity team.',
   path: '/blog',

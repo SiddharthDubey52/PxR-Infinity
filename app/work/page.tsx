@@ -3,13 +3,14 @@ import { PageHero } from '@/components/ui/PageHero'
 import { WorkCard } from '@/components/sections/WorkCard'
 import { WorkFilter } from '@/components/sections/WorkFilter'
 import { CtaSection } from '@/components/sections/CtaSection'
+import { ClientList } from '@/components/sections/ClientsGrid'
 import { caseStudies, workCategories } from '@/lib/data/work'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Our Work — PR, Meme Marketing & Reality Show PR Case Studies',
+  title: 'Our Work — 63+ Campaigns & Case Studies',
   description:
-    'Case studies from PXR Infinity: brand launches, meme marketing, X trends, celebrity PR, movie and music promotion, and Bigg Boss / reality show PR campaigns.',
+    'PXR Infinity case studies and clients: 63+ campaigns for Bigg Boss, Rise & Fall, Lock Upp and Prime Video’s The Alliance — X trends, meme pages and reality show PR.',
   path: '/work',
 })
 
@@ -37,6 +38,7 @@ export default function WorkPage() {
           </WorkFilter>
         </div>
       </section>
+      <ClientList />
       <CtaSection title={<>Your brand could be the next case study.</>} />
     </>
   )
