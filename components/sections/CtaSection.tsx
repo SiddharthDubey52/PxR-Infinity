@@ -12,7 +12,7 @@ export function CtaSection({
       Ready to go viral? <span className="text-gradient">Chalo shuru karte hain.</span>
     </>
   ),
-  intro = 'Tell us what you’re launching, releasing or building. You’ll get a free, no-obligation proposal within [X] hours.',
+  intro = 'Tell us what you’re launching, releasing or building. You’ll get a free, no-obligation proposal within 24 hours.',
   defaultService,
 }: {
   title?: ReactNode

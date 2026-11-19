@@ -22,7 +22,7 @@ export function Marquee({
     items.map((it, i) => (
       <li key={`${hidden}-${i}`} aria-hidden={hidden || undefined} className="flex shrink-0 items-center">
         {variant === 'pill' ? (
-          <span className="flex h-16 min-w-44 items-center justify-center rounded-2xl border border-line bg-surface px-7 font-display text-sm font-semibold tracking-wide text-faint">
+          <span className="flex h-16 min-w-44 items-center justify-center rounded-2xl border border-line bg-surface px-7 font-display text-base font-bold tracking-tight whitespace-nowrap text-muted">
             {it}
           </span>
         ) : (

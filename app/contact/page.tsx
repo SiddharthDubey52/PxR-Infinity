@@ -19,7 +19,7 @@ export default function ContactPage() {
     { Icon: WhatsAppIcon, label: 'WhatsApp', value: site.whatsappDisplay, href: waLink(), external: true },
     { Icon: Mail, label: 'Email', value: site.email, href: `mailto:${site.email}` },
     { Icon: MapPin, label: 'Based in', value: `${site.city}, India — working pan-India` },
-    { Icon: Clock, label: 'Response time', value: 'Within [X] hours, 7 days a week' },
+    { Icon: Clock, label: 'Response time', value: 'Within 24 hours, 7 days a week' },
   ]
 
   return (

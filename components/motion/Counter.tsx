@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 /**
  * Animated number. The final value is server-rendered (good for SEO / no-JS);
  * the count-up only runs for numeric values that scroll into view after hydration.
- * Non-numeric placeholders like "[X]" are rendered as-is.
+ * Non-numeric values (e.g. "Top 6") are rendered as-is.
  */
 export function Counter({ value, suffix = '' }: { value: string; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null)

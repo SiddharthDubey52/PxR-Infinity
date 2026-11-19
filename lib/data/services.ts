@@ -4,7 +4,7 @@
  * `icon` must be a key from components/ui/Icon.tsx.
  */
 
-export type Faq = { q: string; a: string }
+export type Faq = { q: string; a: string; cta?: { label: string; href: string } }
 
 export type Service = {
   slug: string
@@ -60,7 +60,7 @@ export const services: Service[] = [
     idealFor: ['Startups and D2C brands', 'Celebrities and public figures', 'Film, OTT and music releases', 'Founders building authority'],
     faqs: [
       { q: 'Which publications can you get me featured in?', a: 'It depends on your story, timing and budget. After the brief we share a media list with options across news, business and entertainment portals and paps pages, so you know where you will appear before you commit.' },
-      { q: 'How fast can articles go live?', a: 'Paps page posts can go live within [X] hours. Portal articles usually take [X]–[X] working days depending on the outlet.' },
+      { q: 'How fast can articles go live?', a: 'Paps page posts can go live in as little as 48 hours after you approve the plan. Portal articles take a little longer, depending on the outlet.' },
       { q: 'Is the coverage paid or organic?', a: 'We do both. Some placements are earned through pitching, others are sponsored features. We are always transparent about which is which in your plan.' },
     ],
     related: ['celebrity-pr', 'crisis-pr-reputation-management', 'personal-branding'],
@@ -85,7 +85,7 @@ export const services: Service[] = [
     deliverables: [
       { title: 'Meme strategy', desc: 'Formats, tone, topics and the do-not-cross lines for your brand.' },
       { title: 'Meme creation', desc: 'Original memes, reels and carousels written by people who live on the internet.' },
-      { title: 'Meme page network', desc: 'Distribution across [X]+ meme pages, filtered by niche, region and audience quality.' },
+      { title: 'Meme page network', desc: 'Distribution across our network of 25,000+ meme pages, filtered by niche, region and audience quality.' },
       { title: 'Moment marketing', desc: 'Fast reactions to trends, matches, releases and viral moments.' },
       { title: 'Wave planning', desc: 'Coordinated drops across pages so the campaign feels organic and everywhere.' },
       { title: 'Performance reporting', desc: 'Reach, views, saves, shares and comment sentiment, page by page.' },
@@ -139,7 +139,7 @@ export const services: Service[] = [
     faqs: [
       { q: 'Can you guarantee a #1 trend?', a: 'No honest agency can guarantee a specific position, because trends depend on what else is happening that day. We share realistic targets in the plan based on your fanbase and budget, and we plan the timing to give you the best possible shot.' },
       { q: 'Do you use bots?', a: 'No. Bot activity gets filtered by X and can damage your reputation. We work with real fan communities and active accounts.' },
-      { q: 'How much notice do you need?', a: 'Ideally [X] days. For urgent moments we can sometimes turn a trend around in [X] hours.' },
+      { q: 'How much notice do you need?', a: 'A few days of preparation is ideal. For urgent moments we can turn a trend around in as little as 48 hours.' },
     ],
     related: ['meme-marketing', 'reality-show-pr', 'celebrity-pr'],
     relatedPosts: ['how-x-trends-are-created-for-celebrities', 'bigg-boss-pr-how-contestants-build-fan-armies'],
@@ -294,7 +294,7 @@ export const services: Service[] = [
     ],
     idealFor: ['Film producers and studios', 'OTT platforms and production houses', 'Independent and regional films', 'Short films and digital series'],
     faqs: [
-      { q: 'How early should promotion start?', a: 'Ideally [X] weeks before release, from the first teaser. Shorter timelines are possible but work best with a bigger push in release week.' },
+      { q: 'How early should promotion start?', a: 'Ideally from the first teaser, a few weeks before release. Shorter timelines are possible and work best with a bigger push in release week.' },
       { q: 'Do you work on regional films?', a: 'Yes. We select meme pages, creators and portals that match the language and region of your audience.' },
       { q: 'Can you work alongside our main marketing agency?', a: 'Absolutely. Many producers bring us in specifically for memes, trends and creator buzz while another agency handles ATL.' },
     ],
@@ -372,7 +372,7 @@ export const services: Service[] = [
     ],
     idealFor: ['D2C and consumer brands', 'Apps and startups', 'New collections or product lines', 'Restaurants, events and stores'],
     faqs: [
-      { q: 'How far in advance should we plan a launch?', a: 'Ideally [X]–[X] weeks before launch, so creators, pages and media can be booked and teasers can run.' },
+      { q: 'How far in advance should we plan a launch?', a: 'Ideally a few weeks before launch, so creators, pages and media can be booked and teasers can run. Urgent launches can go live in as little as 48 hours.' },
       { q: 'Can you work with a small budget?', a: 'Yes. We’ll prioritise the channels with the best return for your category and scale up as you grow.' },
       { q: 'Do you also handle ads?', a: 'Our focus is earned and creator-led buzz. We can coordinate with your performance-marketing team so both work together.' },
     ],
@@ -411,7 +411,7 @@ export const services: Service[] = [
     ],
     idealFor: ['Celebrities and public figures', 'Brands facing backlash', 'Reality-show contestants', 'Founders and creators'],
     faqs: [
-      { q: 'How quickly can you respond?', a: 'For active crises we aim to begin assessment within [X] hours of your first message.' },
+      { q: 'How quickly can you respond?', a: 'For active crises, WhatsApp us directly — we start assessing the situation as soon as you share the details.' },
       { q: 'Can you remove negative articles?', a: 'We don’t promise removals we can’t control. We can request corrections where facts are wrong, and build strong positive coverage so accurate results rank higher.' },
       { q: 'Is everything confidential?', a: 'Yes, completely. We can sign an NDA before you share any details.' },
     ],
@@ -490,7 +490,7 @@ export const services: Service[] = [
     idealFor: ['Founders and CXOs', 'Creators and influencers', 'Doctors, coaches and consultants', 'Reality-show alumni and new celebrities'],
     faqs: [
       { q: 'Do I have to create all the content myself?', a: 'No. We need some of your time for ideas and recordings, and we handle writing, editing and posting.' },
-      { q: 'How long until a personal brand shows results?', a: 'You’ll see better profiles and first features within weeks; real authority builds over [X]–[X] months of consistency.' },
+      { q: 'How long until a personal brand shows results?', a: 'You’ll see better profiles and first features within weeks; real authority builds over months of consistency.' },
       { q: 'Which platform is best for personal branding?', a: 'LinkedIn for B2B founders, Instagram for creators and public figures, and X for opinions and news. We’ll pick based on your goals.' },
     ],
     related: ['celebrity-pr', 'pr-media-coverage', 'social-media-management'],

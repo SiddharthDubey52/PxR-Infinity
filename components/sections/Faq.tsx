@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react'
 import { Plus } from 'lucide-react'
+import { WhatsAppIcon } from '@/components/ui/SocialIcons'
 import { SectionHeading } from '@/components/ui/PageHero'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { faqLd } from '@/lib/seo'
@@ -32,7 +33,18 @@ export function Faq({
                   <Plus aria-hidden="true" className="size-4" />
                 </span>
               </summary>
-              <p className="pb-7 pr-12 text-muted">{f.a}</p>
+              <p className="pr-12 pb-7 text-muted">{f.a}</p>
+              {f.cta && (
+                <a
+                  href={f.cta.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mb-7 inline-flex min-h-11 items-center gap-2.5 rounded-full border border-wa/40 bg-wa/10 px-5 text-sm font-semibold text-white transition hover:bg-wa/20"
+                >
+                  <WhatsAppIcon className="size-4 text-wa" />
+                  {f.cta.label}
+                </a>
+              )}
             </details>
           ))}
         </div>

@@ -52,7 +52,7 @@ export function Hero() {
             </span>
             PR, meme marketing & social media agency in India
           </span>
-          <span className="block text-[clamp(2.9rem,11.5vw,9rem)] leading-[0.95] tracking-[-0.045em]">
+          <span className="block text-[clamp(2.9rem,11.5vw,9rem)] leading-[0.95] tracking-[-0.02em]">
             {heroCopy.headline.map((line, i) => (
               <SplitLine key={line} text={line} start={lineStarts[i]} />
             ))}

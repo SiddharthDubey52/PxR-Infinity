@@ -12,6 +12,12 @@ const AUTO_MS = 7000
  * so every testimonial is in the server HTML for search engines and screen readers.
  */
 export function Testimonials() {
+  // Hidden until real quotes are added in lib/data/home.ts
+  if (testimonials.length === 0) return null
+  return <TestimonialsSlider />
+}
+
+function TestimonialsSlider() {
   const [[index, dir], setState] = useState<[number, number]>([0, 1])
   const [paused, setPaused] = useState(false)
   const reduce = useReducedMotion()

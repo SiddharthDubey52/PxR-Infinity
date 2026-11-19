@@ -1,15 +1,15 @@
 /**
  * Shared content for the home page and other sections.
- * Replace every [X] / [PLACEHOLDER] with real numbers before launch.
  */
 import type { Faq } from './services'
+import { waLink } from '../site'
 
-// `value` animates when it's a number string (e.g. '250'); placeholders like '[X]' render as-is.
+// `value` animates from 0 when it's a number string (commas allowed).
 export const stats = [
-  { value: '[X]', suffix: '+', label: 'Campaigns delivered' },
-  { value: '[X]', suffix: '+', label: 'Meme pages in network' },
-  { value: '[X]', suffix: 'M+', label: 'Monthly reach' },
-  { value: '[X]', suffix: '+', label: 'Trends run on X' },
+  { value: '25', suffix: '+', label: 'Campaigns delivered' },
+  { value: '25,000', suffix: '+', label: 'Meme pages in network' },
+  { value: '9', suffix: 'B+', label: 'Max monthly reach delivered' },
+  { value: '500', suffix: '+', label: 'Trends run on X' },
 ]
 
 export const heroCopy = {
@@ -19,16 +19,21 @@ export const heroCopy = {
   sub: 'PXR Infinity is a PR, meme marketing and social media agency for brands, celebrities, creators, movies, music and reality-show contestants across India.',
 }
 
-export const marqueeItems = [
-  '[CLIENT LOGO 1]',
-  '[CLIENT LOGO 2]',
-  '[CLIENT LOGO 3]',
-  '[CLIENT LOGO 4]',
-  '[CLIENT LOGO 5]',
-  '[CLIENT LOGO 6]',
-  '[MEDIA PLATFORM 1]',
-  '[MEDIA PLATFORM 2]',
+export const trustedHeading = 'Trusted by talent, shows & brands'
+
+// Text names only (no logos)
+export const clientNames = [
+  'Shehzad Poonawalla',
+  'Niharika Tiwari',
+  'Mridul Tiwari',
+  'Rajat Dalal',
+  'Yogesh Rawat',
+  'Munawar Faruqui',
+  'The Alliance (Prime Video)',
 ]
+
+export const featuredInHeading = 'Our campaigns featured in'
+export const featuredIn = ['ANI', 'Times of India', 'NDTV', 'Hindustan Times', 'India Today', 'Indian Express', 'Aaj Tak']
 
 export const platforms = ['Instagram', 'X / Twitter', 'YouTube', 'Meme pages', 'Paps pages', 'News portals', 'LinkedIn', 'Fan clubs']
 
@@ -45,8 +50,8 @@ export const whyPxr = [
   },
   {
     icon: 'Zap',
-    title: 'Live in [X] hours',
-    desc: 'Internet moments don’t wait. Our network lets us move from brief to live campaign in as little as [X] hours.',
+    title: 'Live in 48 hours',
+    desc: 'Internet moments don’t wait. Our network takes you from brief to live campaign in as little as 48 hours.',
   },
   {
     icon: 'BarChart3',
@@ -60,8 +65,8 @@ export const whyPxr = [
   },
   {
     icon: 'Trophy',
-    title: 'Brands to Bigg Boss',
-    desc: 'Experience across D2C brands, films, music, celebrities and reality TV — we know what works in each world.',
+    title: 'Reality TV to real brands',
+    desc: 'Winners, finalists and finale trends across Rise & Fall, Bigg Boss, Lock Upp and Prime Video’s The Alliance. We bring the same playbook to brands and creators.',
   },
 ]
 
@@ -73,104 +78,99 @@ export const howItWorks = [
   { title: 'Report', desc: 'Links, screenshots, reach and learnings in one report — plus what to do next.' },
 ]
 
-export const testimonials = [
-  { quote: '[TESTIMONIAL — what the client said about working with PXR Infinity and the result they saw.]', name: '[CLIENT NAME]', role: '[Founder, BRAND NAME]' },
-  { quote: '[TESTIMONIAL — a celebrity or manager on image building, coverage or fan management.]', name: '[CLIENT NAME]', role: '[Actor / Manager]' },
-  { quote: '[TESTIMONIAL — a contestant’s family or team on season PR and voting campaigns.]', name: '[CLIENT NAME]', role: '[Reality show contestant’s team]' },
-  { quote: '[TESTIMONIAL — a producer or label on release buzz.]', name: '[CLIENT NAME]', role: '[Producer / Music label]' },
-]
+/**
+ * Testimonials — the section is hidden while this list is empty.
+ * Add real quotes like: { quote: '…', name: 'Name', role: 'Role' }
+ */
+export const testimonials: { quote: string; name: string; role: string }[] = []
 
 export const homeFaqs: Faq[] = [
   {
     q: 'How much does PR or meme marketing cost with PXR Infinity?',
-    a: 'It depends on the scope — a single trend or meme wave costs much less than a full launch or season-long reality-show PR. See our pricing page for package ranges, or share your budget and we’ll suggest the best plan for it.',
+    a: 'Every campaign is custom, so we don’t list prices on the website. Message us on WhatsApp with your brief and we’ll share pricing directly, along with a free proposal within 24 hours.',
+    cta: { label: 'Get pricing on WhatsApp', href: waLink('Hi PXR Infinity, I’d like to know your pricing.') },
   },
   {
     q: 'How quickly can a campaign go live?',
-    a: 'Simple campaigns like a meme wave or paps coverage can go live within [X] hours of approval. Bigger launches and trend campaigns usually need [X]–[X] days of preparation.',
+    a: 'In as little as 48 hours after you approve the plan.',
   },
   {
     q: 'What kind of reporting do I get?',
-    a: 'Every campaign ends with a report: live links, screenshots, reach and engagement numbers, trend positions and coverage. Retainer clients get a monthly report.',
+    a: 'One clear report with every post link, screenshot, reach number and trend rank, plus what we recommend next.',
   },
   {
     q: 'Do you handle Bigg Boss and other reality-show PR?',
-    a: 'Yes. We run season-long PR for contestants of Bigg Boss, Rise & Fall, Lock Upp and other shows — fan army building, daily content, X trends, voting campaigns and the finale push. We coordinate with family or managers while the contestant is inside.',
+    a: 'Yes, it’s our core. We’ve run season PR, voting pushes and finale trends for winners and finalists across Rise & Fall, Bigg Boss, Lock Upp and The Alliance.',
   },
   {
     q: 'Is everything kept confidential?',
-    a: 'Yes. We sign NDAs on request and never disclose celebrity, contestant or brand clients publicly without written permission.',
+    a: 'Yes. Your brief, budget and strategy stay private, and we only show a client’s work publicly with their permission.',
   },
   {
     q: 'Do you use bots or fake engagement?',
-    a: 'No. We work with real meme pages, creators and fan communities. Fake engagement gets filtered by platforms and damages reputations — it isn’t worth it.',
+    a: 'No. We work with real meme pages, creators and fan communities, and every number in your report is real.',
   },
   {
     q: 'Can you guarantee a #1 trend or viral post?',
-    a: 'No honest agency can guarantee virality or a specific trend position. We share realistic targets in your plan and do everything in our control — timing, content quality and the right network — to hit them.',
+    a: 'No honest agency can guarantee virality. What we guarantee is the plan, the timing and the network, and we’ve run 500+ trends on X.',
   },
   {
     q: 'Do you work with clients outside Mumbai or Delhi?',
-    a: 'Yes. We work with clients across India and with regional-language audiences, all managed remotely over calls and WhatsApp.',
+    a: 'Haan, bilkul. We work with clients across India, and most of our work happens online.',
   },
 ]
 
+// Pricing is shared only on WhatsApp — no prices are shown on the site.
 export const pricingPlans = [
   {
     name: 'Starter',
-    price: '[₹ PLACEHOLDER]',
-    period: '/ campaign',
     desc: 'For a single moment — a launch, release, birthday or announcement.',
     features: [
-      'One focused campaign (memes, trend or coverage)',
-      '[X] meme page posts',
-      '[X] paps / portal placements',
+      'One focused campaign: memes, a trend or media coverage',
+      'Meme page posts from our network',
+      'Paps page and news portal placements',
       'Campaign plan and approvals',
       'End-of-campaign report',
     ],
-    cta: 'Get a quote',
     highlight: false,
   },
   {
     name: 'Growth',
-    price: '[₹ PLACEHOLDER]',
-    period: '/ month',
     desc: 'For brands and talent who want consistent visibility every month.',
     features: [
       'Monthly meme marketing waves',
-      '[X] X / Twitter trends per month',
-      '[X] influencer collaborations',
-      '[X] media articles / paps posts',
+      'Regular X / Twitter trends',
+      'Influencer collaborations',
+      'Media articles and paps posts',
       'Dedicated account manager',
       'Monthly performance report',
     ],
-    cta: 'Get a quote',
     highlight: true,
   },
   {
     name: 'Premium',
-    price: 'Get a quote',
-    period: '',
-    desc: 'Full-scale launches, film releases and season-long reality-show PR.',
+    desc: 'Full-scale launches, OTT and film releases, and season-long reality-show PR.',
     features: [
       'Everything in Growth',
       'Integrated PR + memes + trends + influencers',
-      'Reality-show season & finale campaigns',
+      'Reality-show season, voting and finale campaigns',
       'Crisis response cover',
       'Priority war-room support',
       'Weekly reporting',
     ],
-    cta: 'Talk to us',
     highlight: false,
   },
 ]
 
 export const pricingFaqs: Faq[] = [
-  { q: 'Why don’t you show fixed prices?', a: 'Costs depend on which meme pages, creators and media outlets suit your audience, and those vary a lot. We share a clear, itemised quote after the brief — no hidden charges.' },
-  { q: 'Is there a minimum budget?', a: 'Our Starter campaigns begin at [₹ PLACEHOLDER]. Tell us your budget and we’ll recommend what’s realistic.' },
-  { q: 'How do payments work?', a: 'Typically [X]% advance to book pages, creators and media, and the balance on delivery. Retainers are billed monthly in advance.' },
+  {
+    q: 'Why don’t you show prices on the website?',
+    a: 'Costs depend on which meme pages, creators and media outlets suit your audience, and those vary a lot. Message us on WhatsApp with your brief and we’ll share pricing directly, with a free proposal within 24 hours.',
+    cta: { label: 'Get pricing on WhatsApp', href: waLink('Hi PXR Infinity, I’d like to know your pricing.') },
+  },
+  { q: 'Is there a minimum budget?', a: 'Tell us your goal on WhatsApp and we’ll recommend what’s realistic — from a single campaign to a full season.' },
+  { q: 'How do payments work?', a: 'Payment terms are shared with your proposal. Retainers are billed monthly.' },
   { q: 'Can I start small and scale up?', a: 'Yes. Many clients start with a single campaign, see the results, then move to a monthly plan.' },
 ]
 
 export const whoOptions = ['Brand', 'Celebrity', 'Creator', 'Contestant', 'Production house', 'Label', 'Other'] as const
-export const budgetOptions = ['Under ₹50K', '₹50K – ₹1L', '₹1L – ₹3L', '₹3L – ₹5L', '₹5L – ₹10L', '₹10L+', 'Not sure yet'] as const

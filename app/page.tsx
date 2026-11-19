@@ -5,7 +5,7 @@ import { WhyPxr, ServicesGrid, FeaturedWork, HowItWorks } from '@/components/sec
 import { Testimonials } from '@/components/sections/Testimonials'
 import { Faq } from '@/components/sections/Faq'
 import { CtaSection } from '@/components/sections/CtaSection'
-import { homeFaqs, marqueeItems, platforms } from '@/lib/data/home'
+import { clientNames, featuredIn, featuredInHeading, homeFaqs, platforms, trustedHeading } from '@/lib/data/home'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
@@ -21,12 +21,12 @@ export default function HomePage() {
     <>
       <Hero />
 
-      <section aria-label="Clients and platforms" className="space-y-6 border-y border-line bg-bg-2 py-10">
-        <p className="text-center text-xs font-semibold tracking-[0.2em] text-faint uppercase">
-          Trusted by brands, talent & production houses
-        </p>
-        <Marquee items={marqueeItems} label="Client logos" duration={45} />
-        <Marquee items={platforms} label="Platforms we work on" duration={50} reverse />
+      <section aria-label="Clients, press and platforms" className="space-y-6 border-y border-line bg-bg-2 py-10">
+        <h2 className="text-center font-sans text-xs font-semibold tracking-[0.2em] text-faint uppercase">{trustedHeading}</h2>
+        <Marquee items={clientNames} label="Clients" duration={45} />
+        <p className="pt-4 text-center text-xs font-semibold tracking-[0.2em] text-faint uppercase">{featuredInHeading}</p>
+        <Marquee items={featuredIn} label={featuredInHeading} duration={40} reverse />
+        <Marquee items={platforms} label="Platforms we work on" duration={50} />
       </section>
 
       <WhyPxr />

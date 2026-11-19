@@ -2,17 +2,20 @@ import type { Metadata } from 'next'
 import type { CSSProperties } from 'react'
 import { Check } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
-import { ButtonLink } from '@/components/ui/Buttons'
+import { WhatsAppButton } from '@/components/ui/Buttons'
+import { WhatsAppIcon } from '@/components/ui/SocialIcons'
+import { Magnetic } from '@/components/motion/Magnetic'
 import { Tilt } from '@/components/motion/Tilt'
 import { Faq } from '@/components/sections/Faq'
 import { CtaSection } from '@/components/sections/CtaSection'
 import { pricingFaqs, pricingPlans } from '@/lib/data/home'
+import { waLink } from '@/lib/site'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Pricing — PR & Meme Marketing Packages',
+  title: 'Packages — PR & Meme Marketing Plans',
   description:
-    'PR, meme marketing and social media packages from PXR Infinity: Starter, Growth and Premium plans for brands, celebrities, films and reality-show contestants. Get a custom quote.',
+    'PR, meme marketing and social media packages from PXR Infinity: Starter, Growth and Premium plans for brands, celebrities, OTT shows and reality-show contestants. Get pricing on WhatsApp.',
   path: '/pricing',
 })
 
@@ -20,15 +23,17 @@ export default function PricingPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ name: 'Pricing', path: '/pricing' }]}
-        eyebrow="Pricing"
+        crumbs={[{ name: 'Packages', path: '/pricing' }]}
+        eyebrow="Packages"
         title={
           <>
-            Simple packages. <span className="text-gradient">Custom quotes.</span>
+            Pick a plan. <span className="text-gradient">Get pricing on WhatsApp.</span>
           </>
         }
-        intro="Every campaign is different, so every quote is itemised. Pick the closest package and we’ll tailor it to your goal and budget — no hidden charges."
-      />
+        intro="Every campaign is custom, so we share pricing directly on WhatsApp — along with a free proposal within 24 hours."
+      >
+        <WhatsAppButton label="Get pricing on WhatsApp" message="Hi PXR Infinity, I’d like to know your pricing." />
+      </PageHero>
 
       <section className="pb-24" aria-label="Packages">
         <div className="container-x grid gap-5 lg:grid-cols-3">
@@ -48,9 +53,6 @@ export default function PricingPage() {
                     )}
                   </div>
                   <p className="mt-3 text-muted">{p.desc}</p>
-                  <p className="mt-8 font-display text-3xl font-bold">
-                    {p.price} <span className="font-sans text-base font-normal text-muted">{p.period}</span>
-                  </p>
                   <ul className="mt-8 space-y-3.5">
                     {p.features.map((f) => (
                       <li key={f} className="flex gap-3 text-[#d4d4e2]">
@@ -60,10 +62,22 @@ export default function PricingPage() {
                     ))}
                   </ul>
                   <div className="mt-auto pt-10">
-                    <ButtonLink href="/contact" variant={p.highlight ? 'primary' : 'ghost'} className="w-full">
-                      {p.cta}
-                      <span className="sr-only"> for the {p.name} package</span>
-                    </ButtonLink>
+                    <Magnetic>
+                      <a
+                        href={waLink(`Hi PXR Infinity, I’d like to know pricing for the ${p.name} package.`)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-full px-6 py-3 text-[0.95rem] font-semibold transition-colors ${
+                          p.highlight
+                            ? 'bg-accent-strong text-white shadow-[0_10px_40px_-10px_rgb(139_92_246/0.8)] hover:bg-[#6d28d9]'
+                            : 'border border-line-strong bg-white/[0.03] text-white hover:border-accent hover:bg-accent/10'
+                        }`}
+                      >
+                        <WhatsAppIcon className={`size-5 ${p.highlight ? 'text-white' : 'text-wa'}`} />
+                        Get pricing on WhatsApp
+                        <span className="sr-only"> for the {p.name} package</span>
+                      </a>
+                    </Magnetic>
                   </div>
                 </div>
               </Tilt>
@@ -71,12 +85,12 @@ export default function PricingPage() {
           ))}
         </div>
         <p className="container-x mt-8 text-center text-sm text-faint">
-          Prices exclude GST. Final cost depends on pages, creators and media selected for your campaign.
+          Pricing is shared only on WhatsApp, based on your goal and the pages, creators and media your campaign needs.
         </p>
       </section>
 
-      <Faq faqs={pricingFaqs} title="Pricing questions" />
-      <CtaSection title={<>Budget batao, plan hum banayenge.</>} />
+      <Faq faqs={pricingFaqs} title="Package questions" />
+      <CtaSection title={<>Goal batao, plan hum banayenge.</>} />
     </>
   )
 }

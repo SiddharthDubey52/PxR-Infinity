@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Space_Grotesk, Unbounded } from 'next/font/google'
+import { Manrope, Syne } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -11,17 +11,17 @@ import { JsonLd } from '@/components/ui/JsonLd'
 import { SITE_URL, site } from '@/lib/site'
 import { organizationLd, websiteLd } from '@/lib/seo'
 
-const unbounded = Unbounded({
+const syne = Syne({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  variable: '--font-unbounded',
+  weight: ['600', '700', '800'],
+  variable: '--font-syne',
   display: 'swap',
 })
 
-const grotesk = Space_Grotesk({
+const manrope = Manrope({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-grotesk',
+  variable: '--font-manrope',
   display: 'swap',
 })
 
@@ -82,7 +82,7 @@ setTimeout(function(){if(!d.dataset.revealReady)d.classList.remove('js');d.class
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${unbounded.variable} ${grotesk.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`${syne.variable} ${manrope.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>

@@ -2,11 +2,11 @@
 
 import { useState, type FormEvent } from 'react'
 import { Send } from 'lucide-react'
-import { budgetOptions, whoOptions } from '@/lib/data/home'
+import { whoOptions } from '@/lib/data/home'
 import { site, waLink } from '@/lib/site'
 
-type Fields = 'name' | 'phone' | 'email' | 'who' | 'service' | 'budget' | 'message'
-const empty: Record<Fields, string> = { name: '', phone: '', email: '', who: '', service: '', budget: '', message: '' }
+type Fields = 'name' | 'phone' | 'email' | 'who' | 'service' | 'message'
+const empty: Record<Fields, string> = { name: '', phone: '', email: '', who: '', service: '', message: '' }
 
 const input =
   'w-full rounded-2xl border border-line-strong bg-bg/60 px-4 py-3.5 text-base text-white placeholder:text-faint transition focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/20 aria-[invalid=true]:border-[#ff6b8a]'
@@ -49,7 +49,6 @@ export function ContactForm({ services, defaultService = '' }: { services: strin
       form.email.trim() && `*Email:* ${form.email.trim()}`,
       `*I am a:* ${form.who}`,
       form.service && `*Service:* ${form.service}`,
-      form.budget && `*Budget:* ${form.budget}`,
       form.message.trim() && `*Message:* ${form.message.trim()}`,
     ].filter(Boolean)
     const text = [`Hi ${site.name}! I'd like a proposal.`, '', ...details].join('\n')
@@ -92,7 +91,7 @@ export function ContactForm({ services, defaultService = '' }: { services: strin
         </div>
         <div>
           {label('email', 'Email')}
-          <input type="email" autoComplete="email" placeholder="you@company.com" className={input} {...field('email')} />
+          <input type="email" autoComplete="email" placeholder="Your email (optional)" className={input} {...field('email')} />
           {err('email')}
         </div>
       </div>
@@ -122,17 +121,6 @@ export function ContactForm({ services, defaultService = '' }: { services: strin
             ))}
           </select>
         </div>
-      </div>
-      <div>
-        {label('budget', 'Budget range')}
-        <select className={`${input} ${form.budget ? '' : 'text-faint'}`} {...field('budget')}>
-          <option value="">Select a range</option>
-          {budgetOptions.map((o) => (
-            <option key={o} className="bg-surface text-white">
-              {o}
-            </option>
-          ))}
-        </select>
       </div>
       <div>
         {label('message', 'Message')}

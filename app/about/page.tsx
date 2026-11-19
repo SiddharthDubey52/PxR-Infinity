@@ -77,7 +77,6 @@ export default function AboutPage() {
                 Our rule is simple: <strong className="text-white">internet culture ko samjho, data pe chalo, and never fake the hype.</strong>{' '}
                 Results bolte hain.
               </p>
-              <p className="text-muted">[Add your personal story here — how you started, a moment that shaped the agency, and why clients trust you.]</p>
             </div>
           </div>
         </div>
