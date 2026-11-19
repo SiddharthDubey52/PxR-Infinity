@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { INFINITY_PATH } from '@/lib/brand'
 
 const KEY = 'pxr-intro' // sessionStorage: intro plays once per browser session
-const DRAW_MS = 750 // "PxR∞" draws in…
+const DRAW_MS = 750 // "PXR∞" draws in…
 const WIPE_MS = 420 // …then wipes up. Total < 1.2s
 
 /**
@@ -54,7 +54,7 @@ export function Preloader() {
     >
       <div className="flex items-center gap-4">
         <span className="preloader-text font-display text-6xl font-bold tracking-[-0.04em] sm:text-8xl">
-          P<span className="logo-x inline-block px-[0.02em] text-[0.82em] italic">x</span>R
+          PXR
         </span>
         <svg viewBox="0 0 100 50" className="w-24 sm:w-36" fill="none">
           <defs>

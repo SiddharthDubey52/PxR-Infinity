@@ -508,14 +508,6 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* Logo: gradient lowercase x in "PxR" */
-.logo-x {
-  background: linear-gradient(135deg, #b197fc, #8b5cf6 45%, #3b82f6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
 /* Initials fallback tile for missing client photos */
 .initials-tile {
   background: linear-gradient(135deg, #2a1660, #7c3aed 35%, #3b82f6 70%, #1e1b4b);

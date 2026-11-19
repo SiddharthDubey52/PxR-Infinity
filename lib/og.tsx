@@ -27,7 +27,7 @@ export function renderOg({ title, eyebrow = 'PR · Memes · Trends' }: { title: 
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', fontSize: 52, fontWeight: 800, letterSpacing: -2 }}>
-            P<span style={{ color: '#A78BFA', fontStyle: 'italic', fontSize: 44, margin: '0 1px' }}>x</span>R
+            PXR
             <svg width="70" height="35" viewBox="0 0 100 50" fill="none" style={{ marginLeft: 8 }}>
               <path d={INFINITY_PATH} stroke="#A78BFA" strokeWidth="10" strokeLinecap="round" />
             </svg>
