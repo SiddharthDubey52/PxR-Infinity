@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
   // Google Search Console: paste your code into googleSiteVerification in lib/site.ts
-  verification: { google: site.googleSiteVerification },
+  ...(site.googleSiteVerification ? { verification: { google: site.googleSiteVerification } } : {}),
   formatDetection: { telephone: false },
 }
 

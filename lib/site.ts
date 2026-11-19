@@ -14,7 +14,7 @@ export const site = {
   name: 'PXR Infinity',
   legalName: 'PXR Infinity',
   tagline: 'Infinite Reach. Real Hype.',
-  alternateNames: ['pxrinfinity', 'PXR'],
+  alternateNames: ['pxrinfinity', 'PXR', 'PxR Infinity', 'PXRInfinity', 'PXR Infinity Agency'],
   description:
     'PXR Infinity is a PR, meme marketing and X trends agency in India. 63+ campaigns, 25,000+ meme pages, 650+ trends. Get a free proposal on WhatsApp.',
   founder: 'Siddharth (Sid)',
@@ -38,8 +38,8 @@ export const site = {
   },
 
   // TODO: Google Search Console → URL-prefix property → HTML tag method.
-  // Paste ONLY the content="..." value here (replace TODO_PASTE_CODE), then redeploy and click Verify.
-  googleSiteVerification: 'TODO_PASTE_CODE',
+  // Paste ONLY the content="..." value here between the quotes below, then redeploy and click Verify.
+  googleSiteVerification: '', // TODO_PASTE_CODE — the tag is only output once this is filled in
 
   keywords: [
     'PR agency India',

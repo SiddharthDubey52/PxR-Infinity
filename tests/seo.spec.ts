@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { HOME_URL, SITE_URL, allPages, skipIntro } from './helpers'
 import { homeFaqs } from '../lib/data/home'
+import { site } from '../lib/site'
 
 const jsonLd = async (page: import('@playwright/test').Page) =>
   (await page.$$eval('script[type="application/ld+json"]', (s) => s.map((x) => x.textContent ?? ''))).map((t) => JSON.parse(t))
@@ -35,7 +36,8 @@ test.describe('home page SEO', () => {
     await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', /PXR Infinity/)
     await expect(page.locator('meta[property="og:image"]').first()).toHaveAttribute('content', `${SITE_URL}/og-image.jpg`)
     await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image')
-    await expect(page.locator('meta[name="google-site-verification"]')).toHaveCount(1)
+    // only rendered once a real Search Console code is set in lib/site.ts
+    await expect(page.locator('meta[name="google-site-verification"]')).toHaveCount(site.googleSiteVerification ? 1 : 0)
     await expect(page.locator('html')).toHaveAttribute('lang', 'en-IN')
   })
 
