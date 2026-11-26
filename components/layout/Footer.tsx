@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Mail, MapPin } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
+import { FindUsOn } from '@/components/ui/FindUsOn'
 import { SocialLinks, WhatsAppIcon } from '@/components/ui/SocialIcons'
 import { services } from '@/lib/data/services'
 import { mainNav, site, waLink } from '@/lib/site'
@@ -24,12 +25,13 @@ export function Footer() {
             social media for brands, celebrities and creators across India.
           </p>
           <SocialLinks className="mt-6" />
+          <FindUsOn className="mt-8" />
         </div>
 
         <nav aria-label="Company">
           <h2 className="mb-5 font-sans text-xs font-semibold tracking-[0.18em] text-faint uppercase">Company</h2>
           <ul className="space-y-3">
-            {[...mainNav, { label: 'Contact', href: '/contact' }].map((n) => (
+            {[...mainNav, { label: 'Our network', href: '/network' }, { label: 'Contact', href: '/contact' }, { label: 'Company facts', href: '/about/facts' }].map((n) => (
               <li key={n.href}>
                 <Link href={n.href} className="text-muted transition hover:text-white">
                   {n.label}

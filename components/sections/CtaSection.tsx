@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { Mail } from 'lucide-react'
-import { ContactForm } from './ContactForm'
+import { ProposalTabs } from './ProposalTabs'
 import { WhatsAppButton } from '@/components/ui/Buttons'
 import { services } from '@/lib/data/services'
 import { site } from '@/lib/site'
@@ -45,7 +45,7 @@ export function CtaSection({
           </div>
         </div>
         <div data-reveal style={{ '--d': '120ms' } as CSSProperties}>
-          <ContactForm services={services.map((s) => s.name)} defaultService={defaultService} />
+          <ProposalTabs services={services.map((s) => s.name)} defaultService={defaultService} />
         </div>
       </div>
     </section>

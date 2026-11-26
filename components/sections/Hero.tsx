@@ -2,7 +2,7 @@ import { Fragment, type CSSProperties } from 'react'
 import { HeroParticles } from '@/components/motion/HeroParticles'
 import { MouseParallax } from '@/components/motion/MouseParallax'
 import { Counter } from '@/components/motion/Counter'
-import { Hero3D } from '@/components/hero3d/Hero3D'
+import { HeroCards } from '@/components/sections/HeroCards'
 import { ButtonLink, WhatsAppButton } from '@/components/ui/Buttons'
 import { heroCopy, stats } from '@/lib/data/home'
 
@@ -95,7 +95,7 @@ export function Hero() {
           {stats.map((s) => (
             <div key={s.label} className="flex h-full flex-col-reverse justify-end bg-bg/80 p-4 backdrop-blur sm:p-7">
               <dt className="mt-2 text-sm leading-snug text-muted sm:text-base">{s.label}</dt>
-              <dd className="font-display text-[clamp(1.5rem,6.6vw,3.5rem)] leading-none whitespace-nowrap font-semibold tracking-[-0.03em]">
+              <dd className="font-display text-[clamp(1.5rem,6.6vw,3.5rem)] leading-none whitespace-nowrap lg:text-[clamp(2rem,4.2vw,3.5rem)] font-semibold tracking-[-0.03em]">
                 <Counter value={s.value} suffix={s.suffix} />
               </dd>
             </div>
@@ -103,8 +103,8 @@ export function Hero() {
         </dl>
       </div>
 
-      {/* 3D ∞ in the hero's right side (static image on mobile / reduced motion / no WebGL) */}
-      <Hero3D className="absolute top-[6%] right-[-30%] -z-[5] aspect-square w-[110vw] max-w-[560px] opacity-35 sm:right-[-12%] lg:top-[12%] lg:right-[max(0rem,calc((100vw-1240px)/2-10rem))] lg:w-[min(42vw,600px)] lg:max-w-none lg:opacity-100" />
+      {/* Glow + two glass cards on the hero's right side (cards on desktop only) */}
+      <HeroCards className="absolute top-[6%] right-[-30%] -z-[5] aspect-square w-[110vw] max-w-[560px] opacity-35 sm:right-[-12%] lg:top-[12%] lg:right-[max(0rem,calc((100vw-1240px)/2-10rem))] lg:w-[min(42vw,600px)] lg:max-w-none lg:opacity-100" />
     </section>
   )
 }

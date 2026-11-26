@@ -10,7 +10,7 @@
 
 // The ONE place the live domain is set (https, www, no trailing slash). Canonicals, sitemap,
 // robots.txt, Open Graph and JSON-LD all follow it. NEXT_PUBLIC_SITE_URL can override it, but
-// leave that env var unset in Vercel production so the old vercel.app address never comes back.
+// leave that env var unset in Vercel production so an old address never comes back.
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.pxrinfinity.com').replace(/\/$/, '')
 
 /** The one contact address used across the site (mailto links, footer, contact page, JSON-LD). */
@@ -42,6 +42,15 @@ export const site = {
     youtube: '',
   },
 
+  // Directory / review profiles. Shown as "Find us on" in the footer and on /about, and added to
+  // Organization "sameAs", only once a URL is filled in. Never show a rating that isn't on the directory itself.
+  directories: {
+    clutch: '', // TODO(Sid): add profile URLs — e.g. 'https://clutch.co/profile/pxr-infinity'
+    designrush: '',
+    goodfirms: '',
+    googleBusiness: '',
+  },
+
   // TODO: Google Search Console → URL-prefix property → HTML tag method.
   // Paste ONLY the content="..." value here between the quotes below, then redeploy and click Verify.
   googleSiteVerification: '', // TODO_PASTE_CODE — the tag is only output once this is filled in
@@ -53,7 +62,19 @@ export const absoluteUrl = (path = '/') => new URL(path, SITE_URL).toString()
 export const waLink = (text: string = site.whatsappDefaultMessage) =>
   `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`
 
-export const sameAs = Object.values(site.socials).filter(Boolean)
+export const directoryLabels: Record<keyof typeof site.directories, string> = {
+  clutch: 'Clutch',
+  designrush: 'DesignRush',
+  goodfirms: 'GoodFirms',
+  googleBusiness: 'Google Business Profile',
+}
+
+/** Directory profiles that have a URL, in display order. Empty → the "Find us on" strip is hidden. */
+export const directoryLinks = (Object.keys(directoryLabels) as (keyof typeof site.directories)[])
+  .filter((k) => site.directories[k])
+  .map((k) => ({ label: directoryLabels[k], href: site.directories[k] as string }))
+
+export const sameAs = [...Object.values(site.socials), ...Object.values(site.directories)].filter(Boolean)
 
 export const mainNav = [
   { label: 'Services', href: '/services' },

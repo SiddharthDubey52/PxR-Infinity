@@ -101,18 +101,12 @@ Then **Deployments → Redeploy**. Visit https://www.pxrinfinity.com to confirm.
 The official address is `https://www.pxrinfinity.com`, set once in `SITE_URL` (`lib/site.ts`). Canonicals, Open Graph, the sitemap, robots.txt and JSON-LD all follow it.
 Leave `NEXT_PUBLIC_SITE_URL` **unset** in Vercel production (or set it to `https://www.pxrinfinity.com`); an old value would bring back the wrong domain.
 
-Redirects (308 permanent, same path and query) live in `next.config.ts`:
-- `pxrinfinity.vercel.app/*` → `https://www.pxrinfinity.com/*`
-- `pxrinfinity.com/*` → `https://www.pxrinfinity.com/*`
-Preview deployments (other `*.vercel.app` hosts) are not redirected.
+Redirect (308 permanent, same path and query) in `next.config.ts`: `pxrinfinity.com/*` → `https://www.pxrinfinity.com/*`.
+Preview deployments are not redirected. The old `pxrinfinity.vercel.app` address has been retired.
 
-Also in **Vercel → Project → Settings → Domains**:
-- `www.pxrinfinity.com` is the primary domain (no redirect).
-- `pxrinfinity.com` → **Redirect to** `www.pxrinfinity.com`, status 308.
-- `pxrinfinity.vercel.app` can stay attached; the redirect above sends it to www. (Vercel's Domains page may also let you set it to redirect.)
-- HTTP → HTTPS is automatic on Vercel.
+In **Vercel → Project → Settings → Domains**: `www.pxrinfinity.com` is primary; `pxrinfinity.com` redirects to it (308). HTTP → HTTPS is automatic.
 
-In Search Console, add the `https://www.pxrinfinity.com/` property, submit its sitemap, then use **Settings → Change of address** on the old `.vercel.app` property.
+In Search Console, add the `https://www.pxrinfinity.com/` property, submit its sitemap.
 
 ---
 
@@ -121,6 +115,6 @@ In Search Console, add the `https://www.pxrinfinity.com/` property, submit its s
 - All text is server-rendered. An inline script adds `.js` to `<html>` before first paint; only then do elements start hidden for reveal animations. Crawlers and no-JS visitors see everything.
 - Scroll reveals use one IntersectionObserver that starts as soon as the HTML is parsed. Content that's on screen at load appears immediately, so Largest Contentful Paint isn't delayed.
 - The loading logo only shows on the first visit in a session, lasts 500ms (pure CSS, so it never waits for JavaScript) and is click-through; the hero text renders underneath straight away.
-- The 3D ∞ is decorative only (no text in the canvas). three.js downloads only on capable desktops after the first mouse move / scroll / key press; phones, low-power devices, no-WebGL and reduced-motion users get the static ∞ image. The render loop pauses off screen and in hidden tabs.
+- The hero visual is a CSS glow with two decorative glass cards (desktop only, `aria-hidden`). There is no 3D or canvas on the site.
 - The custom cursor, spotlight, Lenis, tilt, magnetic buttons and canvas particles only run on desktop with a fine pointer.
 - `prefers-reduced-motion` turns off the loading logo, reveals, marquees, particles, 3D, parallax, tilt, pinned scroll story and smooth scroll.

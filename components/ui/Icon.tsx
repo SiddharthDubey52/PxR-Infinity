@@ -1,6 +1,7 @@
 import {
   BadgeCheck,
   BarChart3,
+  Camera,
   Clapperboard,
   Hash,
   Laugh,
@@ -23,6 +24,7 @@ import {
 const icons = {
   BadgeCheck,
   BarChart3,
+  Camera,
   Clapperboard,
   Hash,
   Laugh,

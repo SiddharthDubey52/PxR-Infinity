@@ -5,8 +5,12 @@ import { Send } from 'lucide-react'
 import { whoOptions } from '@/lib/data/home'
 import { site, waLink } from '@/lib/site'
 
-type Fields = 'name' | 'phone' | 'email' | 'who' | 'service' | 'message'
-const empty: Record<Fields, string> = { name: '', phone: '', email: '', who: '', service: '', message: '' }
+type Fields = 'name' | 'phone' | 'email' | 'who' | 'service' | 'budget' | 'timeline' | 'message'
+const empty: Record<Fields, string> = { name: '', phone: '', email: '', who: '', service: '', budget: '', timeline: '', message: '' }
+
+// Budget bands only help us shape the proposal; no prices are shown on the site.
+const budgets = ['Under ₹50K', '₹50K–1L', '₹1–5L', '₹5–15L', '₹15L+', 'Not sure'] as const
+const timelines = ['This week', 'Within 2 weeks', 'Within a month', '1–3 months', 'Just exploring'] as const
 
 const input =
   'w-full rounded-2xl border border-line-strong bg-bg/60 px-4 py-3.5 text-base text-white placeholder:text-faint transition focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/20 aria-[invalid=true]:border-[#ff6b8a]'
@@ -15,7 +19,19 @@ const input =
  * Contact form → opens WhatsApp with all details pre-filled. No backend needed.
  * `services` is passed in from the server so the list stays in one data file.
  */
-export function ContactForm({ services, defaultService = '' }: { services: string[]; defaultService?: string }) {
+export function ContactForm({
+  services,
+  defaultService = '',
+  who = whoOptions,
+  idPrefix = 'f',
+}: {
+  services: string[]
+  defaultService?: string
+  /** "Who are you?" options; the audience tabs pass a shorter list */
+  who?: readonly string[]
+  /** keeps input ids unique when two forms are on one page */
+  idPrefix?: string
+}) {
   const [form, setForm] = useState({ ...empty, service: defaultService })
   const [errors, setErrors] = useState<Partial<Record<Fields, string>>>({})
   const [sent, setSent] = useState(false)
@@ -40,7 +56,7 @@ export function ContactForm({ services, defaultService = '' }: { services: strin
     setErrors(er)
     const first = Object.keys(er)[0]
     if (first) {
-      document.getElementById(`f-${first}`)?.focus()
+      document.getElementById(`${idPrefix}-${first}`)?.focus()
       return
     }
     const details = [
@@ -49,6 +65,8 @@ export function ContactForm({ services, defaultService = '' }: { services: strin
       form.email.trim() && `*Email:* ${form.email.trim()}`,
       `*I am a:* ${form.who}`,
       form.service && `*Service:* ${form.service}`,
+      form.budget && `*Budget:* ${form.budget}`,
+      form.timeline && `*Timeline:* ${form.timeline}`,
       form.message.trim() && `*Message:* ${form.message.trim()}`,
     ].filter(Boolean)
     const text = [`Hi ${site.name}! I'd like a proposal.`, '', ...details].join('\n')
@@ -57,21 +75,21 @@ export function ContactForm({ services, defaultService = '' }: { services: strin
   }
 
   const field = (k: Fields) => ({
-    id: `f-${k}`,
+    id: `${idPrefix}-${k}`,
     name: k,
     value: form[k],
     onChange: set(k),
     'aria-invalid': errors[k] ? true : undefined,
-    'aria-describedby': errors[k] ? `e-${k}` : undefined,
+    'aria-describedby': errors[k] ? `${idPrefix}-e-${k}` : undefined,
   })
   const err = (k: Fields) =>
     errors[k] ? (
-      <p id={`e-${k}`} className="mt-2 text-sm text-[#ff9ab0]">
+      <p id={`${idPrefix}-e-${k}`} className="mt-2 text-sm text-[#ff9ab0]">
         {errors[k]}
       </p>
     ) : null
   const label = (k: Fields, text: string) => (
-    <label htmlFor={`f-${k}`} className="mb-2 block text-sm font-medium text-muted">
+    <label htmlFor={`${idPrefix}-${k}`} className="mb-2 block text-sm font-medium text-muted">
       {text}
     </label>
   )
@@ -102,7 +120,7 @@ export function ContactForm({ services, defaultService = '' }: { services: strin
             <option value="" disabled>
               Select one
             </option>
-            {whoOptions.map((o) => (
+            {who.map((o) => (
               <option key={o} className="bg-surface text-white">
                 {o}
               </option>
@@ -115,6 +133,30 @@ export function ContactForm({ services, defaultService = '' }: { services: strin
           <select className={`${input} ${form.service ? '' : 'text-faint'}`} {...field('service')}>
             <option value="">Not sure yet</option>
             {services.map((o) => (
+              <option key={o} className="bg-surface text-white">
+                {o}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          {label('budget', 'Budget')}
+          <select className={`${input} ${form.budget ? '' : 'text-faint'}`} {...field('budget')}>
+            <option value="">Select a range</option>
+            {budgets.map((o) => (
+              <option key={o} className="bg-surface text-white">
+                {o}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          {label('timeline', 'Timeline')}
+          <select className={`${input} ${form.timeline ? '' : 'text-faint'}`} {...field('timeline')}>
+            <option value="">When do you want to start?</option>
+            {timelines.map((o) => (
               <option key={o} className="bg-surface text-white">
                 {o}
               </option>

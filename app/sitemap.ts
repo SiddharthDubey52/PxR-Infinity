@@ -4,6 +4,7 @@ import { services } from '@/lib/data/services'
 import { indexableCaseStudies } from '@/lib/data/work'
 import { staticPages } from '@/lib/data/pages'
 import { getAllPosts } from '@/lib/blog'
+import { hasPress, pressUpdatedAt } from '@/lib/data/press'
 
 /**
  * Only pages meant to be indexed. `lastModified` comes from each page's `updatedAt`
@@ -21,6 +22,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: p.changeFrequency,
       priority: p.priority,
     })),
+    // /press is a 404 until it has a real entry
+    ...(hasPress ? [{ url: absoluteUrl('/press'), lastModified: day(pressUpdatedAt), changeFrequency: 'monthly' as const, priority: 0.5 }] : []),
     ...services.map((s) => ({
       url: absoluteUrl(`/services/${s.slug}`),
       lastModified: day(s.updatedAt),

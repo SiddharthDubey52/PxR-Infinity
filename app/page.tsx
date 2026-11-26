@@ -6,6 +6,7 @@ import { Testimonials } from '@/components/sections/Testimonials'
 import { Faq } from '@/components/sections/Faq'
 import { CtaSection } from '@/components/sections/CtaSection'
 import { ClientsGrid } from '@/components/sections/ClientsGrid'
+import { PressStrip } from '@/components/sections/PressStrip'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { homeFaqs } from '@/lib/data/home'
 import { homeTestimonials } from '@/lib/data/testimonials'
@@ -29,6 +30,7 @@ export default function HomePage() {
       <Hero />
 
       <ClientsGrid />
+      <PressStrip />
 
       <WhyPxr />
       <ServicesGrid />

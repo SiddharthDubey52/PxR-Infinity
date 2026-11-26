@@ -1,9 +1,10 @@
 'use client'
 
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
-import type { Testimonial } from '@/lib/data/testimonials'
+import { ArrowUpRight, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { testimonialGroups, type Testimonial } from '@/lib/data/testimonials'
 
 const AUTO_MS = 7000
 
@@ -17,7 +18,13 @@ export function Testimonials({ items, title = 'Clients kya kehte hain.' }: { ite
   return <TestimonialsSlider testimonials={items} title={title} />
 }
 
-function TestimonialsSlider({ testimonials, title }: { testimonials: Testimonial[]; title: string }) {
+const byline = (t: Testimonial) => [t.role, t.company].filter(Boolean).join(', ')
+
+function TestimonialsSlider({ testimonials: all, title }: { testimonials: Testimonial[]; title: string }) {
+  // Filter tabs (Celebrity / Contestant / Brand/OTT / Media partner) only when 2+ groups have quotes
+  const groups = testimonialGroups.filter((g) => all.some((t) => t.group === g))
+  const [group, setGroup] = useState<string>('All')
+  const testimonials = group === 'All' ? all : all.filter((t) => t.group === group)
   const [[index, dir], setState] = useState<[number, number]>([0, 1])
   const [paused, setPaused] = useState(false)
   const reduce = useReducedMotion()
@@ -30,7 +37,7 @@ function TestimonialsSlider({ testimonials, title }: { testimonials: Testimonial
     return () => clearTimeout(t)
   }, [index, paused, reduce, n])
 
-  const t = testimonials[index]
+  const t = testimonials[Math.min(index, n - 1)]
 
   return (
     <section className="py-24 sm:py-32" aria-labelledby="testimonials-title">
@@ -44,6 +51,27 @@ function TestimonialsSlider({ testimonials, title }: { testimonials: Testimonial
             {title}
           </h2>
         </div>
+
+        {groups.length > 1 && (
+          <div className="mt-10 flex justify-center gap-2 overflow-x-auto pb-2 [scrollbar-width:none]" role="group" aria-label="Filter testimonials">
+            {['All', ...groups].map((g) => (
+              <button
+                key={g}
+                type="button"
+                onClick={() => {
+                  setGroup(g)
+                  setState([0, 1])
+                }}
+                aria-pressed={group === g}
+                className={`min-h-11 shrink-0 rounded-full border px-5 py-2.5 text-sm font-semibold transition ${
+                  group === g ? 'border-white bg-white text-bg' : 'border-line-strong text-muted hover:border-accent hover:text-white'
+                }`}
+              >
+                {g}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div
           className="card relative mx-auto mt-14 max-w-4xl overflow-hidden p-8 sm:p-14"
@@ -76,12 +104,26 @@ function TestimonialsSlider({ testimonials, title }: { testimonials: Testimonial
                   “{t.quote}”
                 </blockquote>
                 <figcaption className="mt-8 flex items-center gap-4">
-                  <span aria-hidden="true" className="grid size-12 place-items-center rounded-full bg-gradient-to-br from-accent to-blue font-bold">
-                    {t.name.replace(/[^A-Za-z]/g, '').charAt(0) || 'P'}
-                  </span>
+                  {t.photo ? (
+                    <Image src={t.photo} alt={`${t.name}, ${byline(t)}`} width={48} height={48} className="size-12 rounded-full object-cover" />
+                  ) : (
+                    <span aria-hidden="true" className="grid size-12 place-items-center rounded-full bg-gradient-to-br from-accent to-blue font-bold">
+                      {t.name.replace(/[^A-Za-z]/g, '').charAt(0) || 'P'}
+                    </span>
+                  )}
                   <span className="text-left">
                     <strong className="block">{t.name}</strong>
-                    <span className="text-sm text-muted">{t.role}</span>
+                    <span className="text-sm text-muted">{byline(t)}</span>
+                    {t.link && (
+                      <a
+                        href={t.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 inline-flex items-center gap-1 text-sm text-accent-light transition hover:text-white"
+                      >
+                        View profile <ArrowUpRight aria-hidden="true" className="size-3.5" />
+                      </a>
+                    )}
                   </span>
                 </figcaption>
               </motion.figure>
@@ -116,9 +158,9 @@ function TestimonialsSlider({ testimonials, title }: { testimonials: Testimonial
 
         {/* Full list for SEO / assistive tech */}
         <ul className="sr-only">
-          {testimonials.map((q, i) => (
+          {all.map((q, i) => (
             <li key={i}>
-              “{q.quote}” — {q.name}, {q.role}
+              “{q.quote}” — {q.name}, {byline(q)}
             </li>
           ))}
         </ul>

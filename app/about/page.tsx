@@ -4,6 +4,8 @@ import { PageHero, SectionHeading } from '@/components/ui/PageHero'
 import { Counter } from '@/components/motion/Counter'
 import { Marquee } from '@/components/sections/Marquee'
 import { CtaSection } from '@/components/sections/CtaSection'
+import { FindUsOn } from '@/components/ui/FindUsOn'
+import Link from 'next/link'
 import { Icon } from '@/components/ui/Icon'
 import { stats, platforms } from '@/lib/data/home'
 import { pageMetadata } from '@/lib/seo'
@@ -77,6 +79,11 @@ export default function AboutPage() {
               Our rule is simple: <strong className="text-white">internet culture ko samjho, data pe chalo, and never fake the hype.</strong>{' '}
               Results bolte hain.
             </p>
+            <p className="text-base text-muted">
+              Need the short version? See our <Link href="/about/facts" className="text-accent-light underline underline-offset-4">company facts</Link> or{' '}
+              <Link href="/network" className="text-accent-light underline underline-offset-4">our network</Link>.
+            </p>
+            <FindUsOn className="pt-2" />
           </div>
         </div>
       </section>

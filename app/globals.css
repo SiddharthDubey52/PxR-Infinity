@@ -704,7 +704,7 @@ html.lenis body {
   }
 }
 
-/* Hero 3D ∞: static mark, glow and orbiting glass cards */
+/* Hero visual: glow and floating glass cards */
 .hero-glow {
   background: radial-gradient(closest-side, rgb(139 92 246 / 0.35), rgb(59 130 246 / 0.18) 55%, transparent 75%);
 }
@@ -729,16 +729,6 @@ html.lenis body {
   100% {
     transform: translate3d(0, 4px, 0);
   }
-}
-.hero-3d-canvas {
-  opacity: 0;
-  transition: opacity 0.8s var(--ease-out-expo);
-}
-.hero-3d.is-live .hero-3d-canvas {
-  opacity: 1;
-}
-.hero-3d.is-live .hero-static-mark {
-  opacity: 0;
 }
 
 /* ---------- Reduced motion: switch off everything heavy ---------- */

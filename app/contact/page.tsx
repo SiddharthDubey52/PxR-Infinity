@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Clock, Mail, MapPin } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
-import { ContactForm } from '@/components/sections/ContactForm'
+import { ProposalTabs } from '@/components/sections/ProposalTabs'
 import { SocialLinks, WhatsAppIcon } from '@/components/ui/SocialIcons'
 import { services } from '@/lib/data/services'
 import { site, waLink } from '@/lib/site'
@@ -79,7 +79,7 @@ export default function ContactPage() {
           </div>
           <div data-reveal>
             <h2 className="sr-only">Get a free proposal</h2>
-            <ContactForm services={services.map((s) => s.name)} />
+            <ProposalTabs services={services.map((s) => s.name)} />
           </div>
         </div>
       </section>
