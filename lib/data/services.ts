@@ -7,6 +7,13 @@
  */
 
 import { trendTable } from './trends'
+import { stats } from './home'
+
+// Same value as the homepage "Trends run on X" stat
+const trendStat = (() => {
+  const t = stats.find((x) => x.label === 'Trends run on X')!
+  return `${t.value}${t.suffix}`
+})()
 import { campaignsStartFrom, promotedTitles, regionalLanguages } from './promoted'
 
 export type Faq = { q: string; a: string; cta?: { label: string; href: string } }
@@ -184,13 +191,13 @@ export const services: Service[] = [
     sections: [
       {
         id: 'trends-weve-run',
-        eyebrow: 'Proof',
-        title: 'Trends we’ve run',
+        eyebrow: 'Trends we’ve run',
+        title: `${trendStat} trends on X. A few recent ones.`,
         paragraphs: [
-          'A few of the X trends from our campaigns. Peak positions are for India, as shown on the trending list at the time. We add a trend here only when we have the screenshots.',
+          'Films, OTT shows, reality TV contestants, music drops and brand launches: we’ve taken ' + trendStat + ' hashtags onto India’s trending list. Below are a few recent highlights from our case studies, with peak positions in India.',
+          'Want to see trends from your category? Message us on WhatsApp and we’ll share screenshots.',
         ],
         table: trendTable,
-        note: '“—” means we haven’t published that figure yet.',
       },
       {
         id: 'how-it-works',

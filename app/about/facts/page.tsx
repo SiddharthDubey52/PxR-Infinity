@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { PageHero } from '@/components/ui/PageHero'
 import { FindUsOn } from '@/components/ui/FindUsOn'
@@ -16,6 +17,15 @@ export const metadata: Metadata = pageMetadata({
   path: '/about/facts',
 })
 
+function Row({ term, children }: { term: string; children: ReactNode }) {
+  return (
+    <div className="grid gap-1 border-b border-line py-5 sm:grid-cols-[14rem_1fr] sm:gap-8">
+      <dt className="font-semibold text-white">{term}</dt>
+      <dd className="text-[#d4d4e2]">{children}</dd>
+    </div>
+  )
+}
+
 /**
  * Plain, short sentences that AI assistants and search engines can quote.
  * Everything here is read from the same data files as the rest of the site, so the
@@ -29,13 +39,6 @@ export default function FactsPage() {
   ]
   const socials = Object.entries(site.socials).filter(([, url]) => url)
   const socialName: Record<string, string> = { instagram: 'Instagram', x: 'X (Twitter)', linkedin: 'LinkedIn', youtube: 'YouTube' }
-
-  const Row = ({ term, children }: { term: string; children: React.ReactNode }) => (
-    <div className="grid gap-1 border-b border-line py-5 sm:grid-cols-[14rem_1fr] sm:gap-8">
-      <dt className="font-semibold text-white">{term}</dt>
-      <dd className="text-[#d4d4e2]">{children}</dd>
-    </div>
-  )
 
   return (
     <>

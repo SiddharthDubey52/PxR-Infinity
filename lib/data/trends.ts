@@ -52,8 +52,19 @@ export const trendRows: TrendRow[] = [
   ...extraTrends,
 ]
 
+const columns: { key: keyof TrendRow; label: string }[] = [
+  { key: 'tag', label: 'Hashtag / campaign' },
+  { key: 'client', label: 'Show or brand' },
+  { key: 'date', label: 'Date' },
+  { key: 'peak', label: 'Peak in India' },
+  { key: 'posts', label: 'Posts' },
+  { key: 'hours', label: 'Hours trending' },
+]
+// A column only shows once at least one row has a value for it (no columns full of dashes)
+const shown = columns.filter((c) => c.key === 'tag' || c.key === 'client' || trendRows.some((r) => r[c.key]))
+
 export const trendTable = {
-  caption: 'X trends run by PXR Infinity',
-  head: ['Hashtag / campaign', 'Show or brand', 'Date', 'Peak in India', 'Posts', 'Hours trending'],
-  rows: trendRows.map((r) => [r.tag, r.client, r.date || '—', r.peak || '—', r.posts || '—', r.hours || '—']),
+  caption: 'Recent X trends run by PXR Infinity',
+  head: shown.map((c) => c.label),
+  rows: trendRows.map((r) => shown.map((c) => r[c.key] || '—')),
 }
