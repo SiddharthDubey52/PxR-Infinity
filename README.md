@@ -16,21 +16,25 @@ app/
   sitemap.ts robots.ts manifest.ts icon.svg apple-icon.tsx
 components/
   layout/                 Header, Footer, floating WhatsApp button
-  motion/                 Preloader, SmoothScroll (Lenis), Cursor, Magnetic, Tilt, Counter, Parallax,
-                          HorizontalScroll, HeroParticles
-  sections/               Hero, Marquee, home sections, WorkCard, WorkFilter, Testimonials, Faq,
-                          ContactForm, CtaSection
+  motion/                 Preloader (CSS-only, 500ms), SmoothScroll (Lenis), Cursor, Spotlight, Magnetic,
+                          Tilt, Counter, Parallax, StepsProgress, HeroParticles
+  hero3d/                 3D ∞ hero (React Three Fiber, loaded on first interaction, desktop only) + static fallback
+  sections/               Hero, Marquee, home sections, FeaturedStory (scroll story), WorkCard, WorkFilter,
+                          BlogFilter, Testimonials, CaseGallery, Faq, ContactForm, CtaSection
   ui/                     Logo, Buttons, Icon, SocialIcons, PageHero/Breadcrumbs, JsonLd
 content/blog/*.mdx        Blog posts
 lib/
-  site.ts                 ★ SITE CONFIG — URL, email, WhatsApp, socials, Search Console tag
+  site.ts                 ★ SITE CONFIG — URL (or NEXT_PUBLIC_SITE_URL), email, WhatsApp, socials, Search Console tag
   seo.ts                  Metadata + JSON-LD helpers
   og.tsx                  Shared OG image design
   blog.ts                 MDX loader
-  data/services.ts        ★ All 12 services (each becomes /services/<slug>)
-  data/work.ts            ★ Case studies (each becomes /work/<slug>)
-  data/home.ts            ★ Stats, why-PXR, steps, testimonials, FAQs, pricing, form options
-public/images/            Placeholder images (replace with real ones)
+  data/services.ts        ★ All 13 services (each becomes /services/<slug>)
+  data/work.ts            ★ Case studies (each becomes /work/<slug>); `pending` values stay hidden,
+                          `draft` pages are noindex and unlisted, `noindex` pages stay out of the sitemap
+  data/home.ts            ★ Stats, why-PXR, steps, FAQs, pricing, form options
+  data/testimonials.ts    ★ Real client quotes only (section hidden while empty)
+  data/pages.ts           ★ Static pages + the date each really changed (sitemap lastModified)
+docs/seo-report.md        Page-by-page SEO table, TODO list, structured-data checks
 ```
 
 ## Before you go live — replace placeholders
@@ -38,8 +42,7 @@ public/images/            Placeholder images (replace with real ones)
 1. `lib/site.ts`: `email`, `whatsapp` (digits only, e.g. `919876543210`), `whatsappDisplay`, `socials`, `city`.
 2. `lib/data/home.ts`: every `[X]`, the testimonials and the pricing `[₹ PLACEHOLDER]`.
 3. `lib/data/work.ts`: client names and `[RESULT]` values. Only publish real results.
-4. `public/images/work/*.svg` and `public/images/founder-placeholder.svg`: swap for real images (JPG/PNG/WebP work too) and update the paths.
-5. Search the project for `[` to find any remaining placeholders.
+4. Search the project for `TODO(Sid)` — every unverified number and missing detail is listed in `docs/seo-report.md`.
 
 **Add content without touching components:**
 - New service → add an object to `lib/data/services.ts`
@@ -78,11 +81,11 @@ If a build still fails, open **Vercel → Project → Settings → Build & Deplo
 - Build Command, Output Directory and Install Command are **not overridden** (toggles off)
 - Node.js version is **20.x or newer**
 
-Then **Deployments → Redeploy**. Visit https://pxrinfinity.vercel.app to confirm.
+Then **Deployments → Redeploy**. Visit https://www.pxrinfinity.com to confirm.
 
 ## 3. Google Search Console
 
-1. Go to https://search.google.com/search-console → **Add property** → choose **URL prefix** → enter `https://pxrinfinity.vercel.app/`.
+1. Go to https://search.google.com/search-console → **Add property** → choose **URL prefix** → enter `https://www.pxrinfinity.com/`.
 2. Pick **HTML tag** as the verification method. Google shows something like
    `<meta name="google-site-verification" content="AbC123..." />`
 3. Copy only the `content` value into `lib/site.ts`:
@@ -93,17 +96,23 @@ Then **Deployments → Redeploy**. Visit https://pxrinfinity.vercel.app to confi
 5. In Search Console, open **Sitemaps** → enter `sitemap.xml` → **Submit**.
 6. Optional: use **URL Inspection** on the homepage and a few service pages → **Request indexing**.
 
-## 4. Later: connect a custom domain
+## 4. Domain: www.pxrinfinity.com
 
-1. Buy a domain (e.g. `pxrinfinity.in`).
-2. **Vercel → Project → Settings → Domains** → add `pxrinfinity.in` and `www.pxrinfinity.in`. Set the DNS records Vercel shows at your registrar, and pick one domain as primary (the other redirects).
-3. In `lib/site.ts` change:
-   ```ts
-   export const SITE_URL = 'https://pxrinfinity.in'
-   ```
-   Commit and push. Canonicals, OG tags, the sitemap, robots.txt and JSON-LD all update automatically.
-4. In Search Console, add a **new** property for the new domain, verify it, and submit its sitemap.
-   Then use **Settings → Change of address** on the old `.vercel.app` property to tell Google you've moved.
+The official address is `https://www.pxrinfinity.com`, set once in `SITE_URL` (`lib/site.ts`). Canonicals, Open Graph, the sitemap, robots.txt and JSON-LD all follow it.
+Leave `NEXT_PUBLIC_SITE_URL` **unset** in Vercel production (or set it to `https://www.pxrinfinity.com`); an old value would bring back the wrong domain.
+
+Redirects (308 permanent, same path and query) live in `next.config.ts`:
+- `pxrinfinity.vercel.app/*` → `https://www.pxrinfinity.com/*`
+- `pxrinfinity.com/*` → `https://www.pxrinfinity.com/*`
+Preview deployments (other `*.vercel.app` hosts) are not redirected.
+
+Also in **Vercel → Project → Settings → Domains**:
+- `www.pxrinfinity.com` is the primary domain (no redirect).
+- `pxrinfinity.com` → **Redirect to** `www.pxrinfinity.com`, status 308.
+- `pxrinfinity.vercel.app` can stay attached; the redirect above sends it to www. (Vercel's Domains page may also let you set it to redirect.)
+- HTTP → HTTPS is automatic on Vercel.
+
+In Search Console, add the `https://www.pxrinfinity.com/` property, submit its sitemap, then use **Settings → Change of address** on the old `.vercel.app` property.
 
 ---
 
@@ -111,5 +120,7 @@ Then **Deployments → Redeploy**. Visit https://pxrinfinity.vercel.app to confi
 
 - All text is server-rendered. An inline script adds `.js` to `<html>` before first paint; only then do elements start hidden for reveal animations. Crawlers and no-JS visitors see everything.
 - Scroll reveals use one IntersectionObserver that starts as soon as the HTML is parsed. Content that's on screen at load appears immediately, so Largest Contentful Paint isn't delayed.
-- The preloader only shows on the first visit. The custom cursor, Lenis and the canvas particles only run on desktop with a fine pointer.
-- `prefers-reduced-motion` turns off the preloader, reveals, marquees, particles, parallax, tilt and smooth scroll.
+- The loading logo only shows on the first visit in a session, lasts 500ms (pure CSS, so it never waits for JavaScript) and is click-through; the hero text renders underneath straight away.
+- The 3D ∞ is decorative only (no text in the canvas). three.js downloads only on capable desktops after the first mouse move / scroll / key press; phones, low-power devices, no-WebGL and reduced-motion users get the static ∞ image. The render loop pauses off screen and in hidden tabs.
+- The custom cursor, spotlight, Lenis, tilt, magnetic buttons and canvas particles only run on desktop with a fine pointer.
+- `prefers-reduced-motion` turns off the loading logo, reveals, marquees, particles, 3D, parallax, tilt, pinned scroll story and smooth scroll.

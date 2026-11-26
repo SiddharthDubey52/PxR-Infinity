@@ -11,7 +11,7 @@ export const metadata: Metadata = pageMetadata({
   title: 'Contact PXR Infinity — Free Proposal on WhatsApp',
   absoluteTitle: true,
   description:
-    'Contact PXR Infinity for PR, meme marketing, X trends, influencer marketing, celebrity and reality show PR in India. WhatsApp us or send your brief for a free proposal.',
+    'Contact PXR Infinity for PR, meme marketing, X trends, influencer marketing and reality show PR in India. WhatsApp us for a free proposal.',
   path: '/contact',
 })
 
@@ -19,7 +19,7 @@ export default function ContactPage() {
   const rows = [
     { Icon: WhatsAppIcon, label: 'WhatsApp', value: site.whatsappDisplay, href: waLink(), external: true },
     { Icon: Mail, label: 'Email', value: site.email, href: `mailto:${site.email}` },
-    { Icon: MapPin, label: 'Based in', value: `${site.city}, India — working pan-India` },
+    { Icon: MapPin, label: 'Based in', value: 'India — working pan-India, online' },
     { Icon: Clock, label: 'Response time', value: 'Within 24 hours, 7 days a week' },
   ]
 

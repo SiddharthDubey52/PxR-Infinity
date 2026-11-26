@@ -62,16 +62,17 @@ export function PageHero({
             {eyebrow}
           </p>
         )}
-        <h1 className="section-title max-w-5xl">
+        {/* same rise-in timing and easing as the homepage hero */}
+        <h1 className="section-title max-w-5xl" data-hero-fade style={{ '--d': '80ms' } as CSSProperties}>
           {title}
         </h1>
         {intro && (
-          <div className="mt-6 max-w-2xl text-lg text-muted sm:text-xl">
+          <div className="mt-6 max-w-2xl text-lg text-muted sm:text-xl" data-hero-fade style={{ '--d': '160ms' } as CSSProperties}>
             {intro}
           </div>
         )}
         {children && (
-          <div className="mt-9" data-hero-fade style={{ '--d': '200ms' } as CSSProperties}>
+          <div className="mt-9" data-hero-fade style={{ '--d': '240ms' } as CSSProperties}>
             {children}
           </div>
         )}

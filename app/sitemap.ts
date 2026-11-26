@@ -1,40 +1,41 @@
 import type { MetadataRoute } from 'next'
 import { absoluteUrl } from '@/lib/site'
 import { services } from '@/lib/data/services'
-import { caseStudies } from '@/lib/data/work'
+import { indexableCaseStudies } from '@/lib/data/work'
+import { staticPages } from '@/lib/data/pages'
 import { getAllPosts } from '@/lib/blog'
 
+/**
+ * Only pages meant to be indexed. `lastModified` comes from each page's `updatedAt`
+ * (the date its content really changed), never the build time.
+ * Left out on purpose: noindex case studies (Shehzad Poonawalla) and draft case studies.
+ */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date()
   const posts = await getAllPosts()
-
-  const staticPages: MetadataRoute.Sitemap = [
-    { path: '/', priority: 1, changeFrequency: 'weekly' as const },
-    { path: '/services', priority: 0.9, changeFrequency: 'monthly' as const },
-    { path: '/work', priority: 0.8, changeFrequency: 'monthly' as const },
-    { path: '/pricing', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/about', priority: 0.7, changeFrequency: 'yearly' as const },
-    { path: '/blog', priority: 0.7, changeFrequency: 'weekly' as const },
-    { path: '/contact', priority: 0.8, changeFrequency: 'yearly' as const },
-  ].map((p) => ({ url: absoluteUrl(p.path), lastModified: now, changeFrequency: p.changeFrequency, priority: p.priority }))
+  const day = (d: string) => new Date(`${d}T00:00:00+05:30`)
 
   return [
-    ...staticPages,
+    ...staticPages.map((p) => ({
+      url: absoluteUrl(p.path),
+      lastModified: day(p.updatedAt),
+      changeFrequency: p.changeFrequency,
+      priority: p.priority,
+    })),
     ...services.map((s) => ({
       url: absoluteUrl(`/services/${s.slug}`),
-      lastModified: now,
+      lastModified: day(s.updatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.85,
     })),
-    ...caseStudies.map((c) => ({
+    ...indexableCaseStudies.map((c) => ({
       url: absoluteUrl(`/work/${c.slug}`),
-      lastModified: now,
+      lastModified: day(c.updatedAt),
       changeFrequency: 'yearly' as const,
       priority: 0.6,
     })),
     ...posts.map((p) => ({
       url: absoluteUrl(`/blog/${p.slug}`),
-      lastModified: new Date(p.updated ?? p.date),
+      lastModified: day(p.updated ?? p.date),
       changeFrequency: 'yearly' as const,
       priority: 0.6,
     })),

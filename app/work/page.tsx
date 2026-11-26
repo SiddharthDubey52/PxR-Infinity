@@ -4,13 +4,13 @@ import { WorkCard } from '@/components/sections/WorkCard'
 import { WorkFilter } from '@/components/sections/WorkFilter'
 import { CtaSection } from '@/components/sections/CtaSection'
 import { ClientList } from '@/components/sections/ClientsGrid'
-import { caseStudies, workCategories } from '@/lib/data/work'
+import { publishedCaseStudies, workCategories } from '@/lib/data/work'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Our Work — 63+ Campaigns & Case Studies',
+  title: 'PR Case Studies India: Reality Show Campaigns',
   description:
-    'PXR Infinity case studies and clients: 63+ campaigns for Bigg Boss, Rise & Fall, Lock Upp and Prime Video’s The Alliance — X trends, meme pages and reality show PR.',
+    'PR case studies from India: reality show campaign case studies for Bigg Boss, Rise & Fall and Prime Video’s The Alliance — X trends, meme pages and media.',
   path: '/work',
 })
 
@@ -22,15 +22,15 @@ export default function WorkPage() {
         eyebrow="Case studies"
         title={
           <>
-            Work that got people <span className="text-gradient">talking</span>.
+            PR case studies that got India <span className="text-gradient">talking</span>.
           </>
         }
-        intro="Brands, celebrities, reality TV and entertainment. Each case study shows the problem, what we did and the result."
+        intro="Reality show campaign case studies and more: Bigg Boss, Rise & Fall and Prime Video’s The Alliance. Each one shows the challenge, our strategy and the result."
       />
       <section className="pb-24" aria-label="Case studies">
         <div className="container-x">
           <WorkFilter categories={workCategories}>
-            {caseStudies.map((c, i) => (
+            {publishedCaseStudies.map((c, i) => (
               <div key={c.slug} data-category={c.category}>
                 <WorkCard c={c} i={i} headingLevel="h2" priority={i === 0} />
               </div>

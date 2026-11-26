@@ -5,6 +5,8 @@ import type { Faq } from './services'
 import { waLink } from '../site'
 
 // `value` animates from 0 when it's a number string (commas allowed).
+// TODO(Sid): confirm each stat below with screenshots before relying on it
+//   (63+ campaigns, 25,000+ meme pages, 9B+ max monthly reach, 650+ X trends).
 export const stats = [
   { value: '63', suffix: '+', label: 'Campaigns delivered' },
   { value: '25,000', suffix: '+', label: 'Meme pages in network' },
@@ -16,7 +18,7 @@ export const heroCopy = {
   eyebrow: 'PR · Memes · Trends · Influencers',
   // Each line is split word-by-word for the reveal; wrap a word in *asterisks* to accent it
   headline: ['Infinite reach.', '*Real* hype.'],
-  sub: 'PXR Infinity is a PR, meme marketing and social media agency for brands, celebrities, creators, movies, music and reality-show contestants across India.',
+  sub: 'PXR Infinity is a PR and meme marketing agency in India — a viral marketing agency and Gen Z marketing agency for brands, celebrities, creators, films, music and reality-show contestants.',
 }
 
 export const trustedHeading = 'Trusted by talent, shows & brands'
@@ -31,10 +33,10 @@ export type Client = { name: string; show: string; photo: string; altNote: strin
 
 export const clients: Client[] = [
   { name: 'Shehzad Poonawalla', show: 'Rise & Fall S2 Winner', photo: '/clients/shehzad-poonawalla.jpg', altNote: 'Rise & Fall S2 winner', caseStudy: 'shehzad-poonawalla-rise-and-fall-winner' },
-  { name: 'Niharika Tiwari', show: 'Rise & Fall S2', photo: '/clients/niharika-tiwari.jpg', altNote: 'Rise & Fall S2 finalist', caseStudy: 'niharika-tiwari-rise-and-fall-finalist' },
+  { name: 'Niharika Tiwari', show: 'Rise & Fall S2', photo: '/clients/niharika-tiwari.jpg', altNote: 'Rise & Fall S2', caseStudy: 'niharika-tiwari-rise-and-fall-finalist' },
   { name: 'Qazi Touqeer', show: 'Bigg Boss 20', photo: '/clients/qazi-touqeer.jpg', altNote: 'Bigg Boss 20' },
-  { name: 'Mridul Tiwari', show: 'Bigg Boss 19', photo: '/clients/mridul-tiwari.jpg', altNote: 'Bigg Boss 19' },
-  { name: 'Rajat Dalal', show: 'Bigg Boss 18', photo: '/clients/rajat-dalal.jpg', altNote: 'Bigg Boss 18' },
+  { name: 'Mridul Tiwari', show: 'Bigg Boss 19', photo: '/clients/mridul-tiwari.jpg', altNote: 'Bigg Boss 19', caseStudy: 'mridul-tiwari-bigg-boss-19-x-trends' },
+  { name: 'Rajat Dalal', show: 'Bigg Boss 18', photo: '/clients/rajat-dalal.jpg', altNote: 'Bigg Boss 18', caseStudy: 'rajat-dalal-bigg-boss-18-pr-campaign' },
   { name: 'Yogesh Rawat', show: 'Lock Upp S2', photo: '/clients/yogesh-rawat.jpg', altNote: 'Lock Upp S2' },
   { name: 'Munawar Faruqui', show: 'Lock Upp S1 & Bigg Boss 17', photo: '/clients/munawar-faruqui.jpg', altNote: 'Lock Upp S1 & Bigg Boss 17' },
   { name: 'The Alliance', show: 'Prime Video', photo: '/clients/the-alliance.jpg', altNote: 'Prime Video reality show', caseStudy: 'the-alliance-prime-video-x-campaign' },
@@ -54,7 +56,7 @@ export const whyPxr = [
   {
     icon: 'BadgeCheck',
     title: 'Real audiences',
-    desc: 'Meme pages, creators and fan communities vetted for real, engaged followers. No bots, no fake numbers.',
+    desc: 'Meme pages, creators and fan communities checked for real, engaged followers. Only real accounts and honest numbers.',
   },
   {
     icon: 'Zap',
@@ -82,15 +84,9 @@ export const howItWorks = [
   { title: 'Brief', desc: 'Tell us the goal, audience, timeline and budget — on a call or WhatsApp.' },
   { title: 'Strategy', desc: 'You get a clear plan: channels, content angles, calendar and expected deliverables.' },
   { title: 'Page & influencer selection', desc: 'We shortlist meme pages, creators and media that fit your audience — you approve.' },
-  { title: 'Launch', desc: 'Content goes live in coordinated waves, monitored in real time by our team.' },
+  { title: 'Launch', desc: 'Content goes live on a planned schedule, monitored in real time by our team.' },
   { title: 'Report', desc: 'Links, screenshots, reach and learnings in one report — plus what to do next.' },
 ]
-
-/**
- * Testimonials — the section is hidden while this list is empty.
- * Add real quotes like: { quote: '…', name: 'Name', role: 'Role' }
- */
-export const testimonials: { quote: string; name: string; role: string }[] = []
 
 export const homeFaqs: Faq[] = [
   {
@@ -115,15 +111,19 @@ export const homeFaqs: Faq[] = [
     a: 'Yes. Your brief, budget and strategy stay private, and we only show a client’s work publicly with their permission.',
   },
   {
-    q: 'Do you use bots or fake engagement?',
-    a: 'No. We work with real meme pages, creators and fan communities, and every number in your report is real.',
+    q: 'Is the engagement real?',
+    a: 'Yes. We work with real meme pages, creators and fan communities, and every number in your report is real.',
   },
   {
-    q: 'Can you guarantee a #1 trend or viral post?',
-    a: 'No honest agency can guarantee virality. What we guarantee is the plan, the timing and the network, and we’ve run 650+ trends on X.',
+    q: 'Can you promise a #1 trend or a viral post?',
+    a: 'No honest agency can promise virality. What we commit to is the plan, the timing and the network — and we’ve run 650+ trends on X.',
   },
   {
-    q: 'Do you work with clients outside Mumbai or Delhi?',
+    q: 'What makes PXR Infinity different from other PR and meme marketing agencies in India?',
+    a: 'We run PR, meme marketing, X trends and influencers as one campaign, with one team and one report. As a viral marketing agency built around Gen Z culture, we spend every day on meme pages, X and reels, so your campaign speaks the internet’s language.',
+  },
+  {
+    q: 'Do you work with clients across India?',
     a: 'Haan, bilkul. We work with clients across India, and most of our work happens online.',
   },
 ]

@@ -6,14 +6,16 @@ import { Testimonials } from '@/components/sections/Testimonials'
 import { Faq } from '@/components/sections/Faq'
 import { CtaSection } from '@/components/sections/CtaSection'
 import { ClientsGrid } from '@/components/sections/ClientsGrid'
+import { JsonLd } from '@/components/ui/JsonLd'
 import { homeFaqs } from '@/lib/data/home'
-import { HOME_URL, pageMetadata } from '@/lib/seo'
+import { homeTestimonials } from '@/lib/data/testimonials'
+import { HOME_URL, organizationLd, pageMetadata, professionalServiceLd, websiteLd } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'PXR Infinity (pxrinfinity) — PR, Meme Marketing & Social Media Agency in India',
+  title: 'PXR Infinity | PR and Meme Marketing Agency India',
   absoluteTitle: true,
   description:
-    'PXR Infinity is a PR, meme marketing and X trends agency in India. 63+ campaigns, 25,000+ meme pages, 650+ trends. Get a free proposal on WhatsApp.',
+    'PXR Infinity is a PR and meme marketing agency in India — a viral, Gen Z marketing agency with 25,000+ meme pages and 650+ X trends. Free proposal.',
   path: '/',
 })
 
@@ -23,6 +25,7 @@ export default function HomePage() {
       {/* React hoists these into <head>; exact URL with trailing slash */}
       <link rel="canonical" href={HOME_URL} />
       <meta property="og:url" content={HOME_URL} />
+      <JsonLd data={[organizationLd(), professionalServiceLd(), websiteLd()]} />
       <Hero />
 
       <ClientsGrid />
@@ -36,7 +39,7 @@ export default function HomePage() {
 
       <FeaturedWork />
       <HowItWorks />
-      <Testimonials />
+      <Testimonials items={homeTestimonials()} />
       <Faq
         faqs={homeFaqs}
         title="Sab kuch poocho. We’ll answer."

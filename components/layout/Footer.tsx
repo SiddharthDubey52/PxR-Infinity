@@ -71,7 +71,7 @@ export function Footer() {
               </a>
             </li>
             <li className="flex items-center gap-3">
-              <MapPin aria-hidden="true" className="size-4 text-accent-light" /> {site.city}, India · Working pan-India
+              <MapPin aria-hidden="true" className="size-4 text-accent-light" /> India · Working pan-India
             </li>
           </ul>
         </div>

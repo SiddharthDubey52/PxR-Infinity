@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { CSSProperties } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { ClientPhoto } from '@/components/ui/ClientPhoto'
-import type { CaseStudy } from '@/lib/data/work'
+import { visible, type CaseStudy } from '@/lib/data/work'
 
 /**
  * Case study card. `wide` = horizontal layout used in the desktop sticky stack.
@@ -61,7 +61,7 @@ export function WorkCard({
             </div>
           </dl>
           <ul className="mt-auto grid grid-cols-3 gap-2 pt-6">
-            {c.results.map((r) => (
+            {visible(c.results).slice(0, 3).map((r) => (
               <li key={r.label} className="rounded-xl border border-gold/25 bg-gold/[0.06] p-3">
                 <p className={`font-display font-semibold text-gold ${wide ? 'text-lg sm:text-2xl' : 'text-base'}`}>{r.value}</p>
                 <p className="mt-1 text-xs leading-tight text-muted">{r.label}</p>

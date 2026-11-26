@@ -38,3 +38,4 @@ tests/screenshots
 
 # Local Claude Code settings
 .claude/
+.playwright-mcp/

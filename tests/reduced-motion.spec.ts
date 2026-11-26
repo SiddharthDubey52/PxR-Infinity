@@ -10,7 +10,7 @@ for (const path of allPages) {
     await page.goto(path, { waitUntil: 'networkidle' })
 
     // the intro never shows for reduced-motion users
-    await expect(page.locator('.preloader')).toHaveCount(0)
+    await expect(page.locator('.preloader')).toBeHidden()
 
     // every animated element is fully opaque and not offset, even below the fold
     const hidden = await page.$$eval('[data-reveal], [data-hero-fade], .split-word > span', (els) =>

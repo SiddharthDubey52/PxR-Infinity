@@ -12,7 +12,7 @@ import { WorkCard } from '@/components/sections/WorkCard'
 import { Faq } from '@/components/sections/Faq'
 import { CtaSection } from '@/components/sections/CtaSection'
 import { getService, services } from '@/lib/data/services'
-import { caseStudies } from '@/lib/data/work'
+import { publishedCaseStudies } from '@/lib/data/work'
 import { getAllPosts } from '@/lib/blog'
 import { pageMetadata, serviceLd } from '@/lib/seo'
 
@@ -31,7 +31,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: s.metaTitle,
     description: s.metaDescription,
     path: `/services/${s.slug}`,
-    keywords: [...s.keywords, 'PXR Infinity'],
   })
 }
 
@@ -42,8 +41,13 @@ export default async function ServicePage({ params }: Props) {
   if (!s) notFound()
 
   const related = s.related.map(getService).filter((x) => x !== undefined)
-  const work = caseStudies.filter((c) => c.services.includes(s.slug)).slice(0, 2)
-  const posts = (await getAllPosts()).filter((p) => s.relatedPosts.includes(p.slug))
+  // Only real, published case studies; ones where this service was the lead come first
+  const work = publishedCaseStudies
+    .filter((c) => c.services.includes(s.slug))
+    .sort((a, b) => a.services.indexOf(s.slug) - b.services.indexOf(s.slug))
+    .slice(0, 3)
+  const allPosts = await getAllPosts()
+  const posts = s.relatedPosts.map((slug) => allPosts.find((p) => p.slug === slug)).filter((p) => p !== undefined)
   const path = `/services/${s.slug}`
 
   return (
@@ -71,6 +75,13 @@ export default async function ServicePage({ params }: Props) {
           <div className="space-y-6 text-lg leading-relaxed text-[#d4d4e2]">
             {s.intro.map((p, i) => (
               <p key={i}>{p}</p>
+            ))}
+            {s.introLinks?.map((l) => (
+              <p key={l.href}>
+                <Link href={l.href} className="font-semibold text-accent-light underline-offset-4 hover:underline">
+                  Read: {l.label} →
+                </Link>
+              </p>
             ))}
           </div>
           <aside className="card h-fit p-7" data-reveal style={d(1)} aria-labelledby="ideal-title">
@@ -129,7 +140,7 @@ export default async function ServicePage({ params }: Props) {
         <section className="pb-24" aria-labelledby="work-title">
           <div className="container-x">
             <SectionHeading eyebrow="Proof" title={<span id="work-title">Related case studies</span>} />
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className={`grid gap-6 md:grid-cols-2 ${work.length > 2 ? 'lg:grid-cols-3' : ''}`}>
               {work.map((c, i) => (
                 <WorkCard key={c.slug} c={c} i={i} />
               ))}
@@ -140,7 +151,27 @@ export default async function ServicePage({ params }: Props) {
 
       <Faq faqs={s.faqs} title={`${s.name} FAQs`} />
 
-      {/* Related services + reading */}
+      {/* Further reading */}
+      {posts.length > 0 && (
+        <section className="border-t border-line py-24" aria-labelledby="reading-title">
+          <div className="container-x">
+            <SectionHeading eyebrow="Guides" title={<span id="reading-title">Further reading</span>} />
+            <ul className="grid gap-4 md:grid-cols-3">
+              {posts.map((p, i) => (
+                <li key={p.slug} data-reveal style={d(i)}>
+                  <Link href={`/blog/${p.slug}`} className="card spotlight group flex h-full min-h-44 flex-col p-7 transition hover:border-accent/50">
+                    <span className="text-sm text-accent-light">{p.category}</span>
+                    <span className="mt-3 font-display text-lg leading-snug font-semibold group-hover:text-accent-light">{p.title}</span>
+                    <span className="mt-auto pt-6 text-sm font-semibold text-muted transition group-hover:text-gold">Read the guide →</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {/* Related services */}
       <section className="border-t border-line py-24" aria-labelledby="related-title">
         <div className="container-x">
           <SectionHeading eyebrow="Works well with" title={<span id="related-title">Related services</span>} />
@@ -149,20 +180,6 @@ export default async function ServicePage({ params }: Props) {
               <ServiceCard key={r.slug} s={r} i={i} />
             ))}
           </ul>
-          {posts.length > 0 && (
-            <div className="mt-14" data-reveal>
-              <h3 className="text-sm font-semibold tracking-[0.18em] text-faint uppercase">Further reading</h3>
-              <ul className="mt-4 space-y-3">
-                {posts.map((p) => (
-                  <li key={p.slug}>
-                    <Link href={`/blog/${p.slug}`} className="text-lg text-accent-light underline-offset-4 hover:underline">
-                      {p.title} →
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
       </section>
 

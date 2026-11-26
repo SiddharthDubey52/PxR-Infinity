@@ -2,9 +2,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import type { Page } from '@playwright/test'
 import { services } from '../lib/data/services'
-import { caseStudies } from '../lib/data/work'
+import { caseStudies, indexableCaseStudies } from '../lib/data/work'
+import { staticPages } from '../lib/data/pages'
 
-export const SITE_URL = 'https://pxrinfinity.vercel.app'
+export const SITE_URL = 'https://www.pxrinfinity.com'
 export const HOME_URL = `${SITE_URL}/`
 export const WHATSAPP = '918929932208'
 
@@ -31,19 +32,19 @@ const blogSlugs = fs
   .filter((f) => f.endsWith('.mdx'))
   .map((f) => f.replace(/\.mdx$/, ''))
 
-/** Every page on the site (same list the sitemap uses). */
-export const allPages = [
-  '/',
-  '/about',
-  '/services',
-  '/work',
-  '/pricing',
-  '/blog',
-  '/contact',
+/** Pages that belong in the sitemap (indexable). */
+export const sitemapPages = [
+  ...staticPages.map((p) => p.path),
   ...services.map((s) => `/services/${s.slug}`),
-  ...caseStudies.map((c) => `/work/${c.slug}`),
+  ...indexableCaseStudies.map((c) => `/work/${c.slug}`),
   ...blogSlugs.map((s) => `/blog/${s}`),
 ]
+
+/** Pages that exist but must be `noindex, follow` and stay out of the sitemap. */
+export const noindexPages = caseStudies.filter((c) => c.noindex || c.draft).map((c) => `/work/${c.slug}`)
+
+/** Every page on the site. */
+export const allPages = [...sitemapPages, ...noindexPages]
 
 /** Scroll through the page so every scroll-reveal fires, then return to the top. */
 export async function revealAll(page: Page) {

@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react'
  */
 export function Counter({ value, suffix = '' }: { value: string; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-10% 0px' })
+  const inView = useInView(ref, { once: true, margin: '0px 0px -5% 0px' })
   const reduce = useReducedMotion()
   const target = Number(value.replace(/,/g, ''))
   const numeric = value.trim() !== '' && Number.isFinite(target)
@@ -20,7 +20,7 @@ export function Counter({ value, suffix = '' }: { value: string; suffix?: string
   useEffect(() => {
     if (!numeric || reduce || !inView) return
     const controls = animate(0, target, {
-      duration: 1.8,
+      duration: 1.5,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (v) => setDisplay(Math.round(v).toLocaleString('en-IN')),
       onComplete: () => setDone(true),

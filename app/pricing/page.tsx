@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import type { CSSProperties } from 'react'
-import { Check } from 'lucide-react'
+import { ArrowUpRight, Check } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
 import { WhatsAppButton } from '@/components/ui/Buttons'
 import { WhatsAppIcon } from '@/components/ui/SocialIcons'
@@ -13,9 +14,9 @@ import { waLink } from '@/lib/site'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Packages — PR & Meme Marketing Plans',
+  title: 'PR and Meme Marketing Packages',
   description:
-    'PR, meme marketing and social media packages from PXR Infinity: Starter, Growth and Premium plans for brands, celebrities, OTT shows and reality-show contestants. Get pricing on WhatsApp.',
+    'PR and meme marketing packages: Starter, Growth and Premium plans for brands, celebrities and contestants. See what affects PR agency charges in India.',
   path: '/pricing',
 })
 
@@ -27,7 +28,7 @@ export default function PricingPage() {
         eyebrow="Packages"
         title={
           <>
-            Pick a plan. <span className="text-gradient">Get pricing on WhatsApp.</span>
+            PR and meme marketing packages. <span className="text-gradient">Pricing on WhatsApp.</span>
           </>
         }
         intro="Every campaign is custom, so we share pricing directly on WhatsApp — along with a free proposal within 24 hours."
@@ -53,6 +54,9 @@ export default function PricingPage() {
                     )}
                   </div>
                   <p className="mt-3 text-muted">{p.desc}</p>
+                  <p className="mt-4 rounded-xl border border-gold/25 bg-gold/[0.06] px-4 py-3 text-sm text-[#e9e3cf]">
+                    Ask us for a quote on WhatsApp — most campaigns start within 48 hours.
+                  </p>
                   <ul className="mt-8 space-y-3.5">
                     {p.features.map((f) => (
                       <li key={f} className="flex gap-3 text-[#d4d4e2]">
@@ -87,6 +91,39 @@ export default function PricingPage() {
         <p className="container-x mt-8 text-center text-sm text-faint">
           Pricing is shared only on WhatsApp, based on your goal and the pages, creators and media your campaign needs.
         </p>
+      </section>
+
+      {/* Cost guides */}
+      <section className="pb-8" aria-labelledby="cost-guides-title">
+        <div className="container-x">
+          <h2 id="cost-guides-title" className="sr-only">
+            Cost guides
+          </h2>
+          <div className="grid gap-4 md:grid-cols-[1.4fr_1fr]">
+            <Link
+              href="/blog/how-much-does-meme-marketing-cost-in-india"
+              className="card spotlight group flex items-center justify-between gap-6 border-accent/40 bg-gradient-to-r from-accent/15 to-blue/10 p-7 sm:p-9"
+              data-reveal
+            >
+              <span>
+                <span className="eyebrow">Cost guide</span>
+                <span className="mt-3 block font-display text-xl leading-snug font-semibold sm:text-2xl">
+                  How much does meme marketing cost in India?
+                </span>
+                <span className="mt-2 block text-muted">What drives the price, and how to plan a budget before you message us.</span>
+              </span>
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-white text-bg transition group-hover:rotate-45">
+                <ArrowUpRight aria-hidden="true" className="size-5" />
+              </span>
+            </Link>
+            <Link href="/blog/pr-agency-charges-in-india" className="card spotlight group flex flex-col justify-center p-7 sm:p-9" data-reveal>
+              <span className="eyebrow">Cost guide</span>
+              <span className="mt-3 block font-display text-lg leading-snug font-semibold group-hover:text-accent-light">
+                PR agency charges in India: what affects the cost →
+              </span>
+            </Link>
+          </div>
+        </div>
       </section>
 
       <Faq faqs={pricingFaqs} title="Package questions" />

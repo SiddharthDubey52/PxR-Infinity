@@ -7,9 +7,9 @@ import { services } from '@/lib/data/services'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Services — PR, Meme Marketing, X Trends & Influencer Marketing',
+  title: 'PR, Meme Marketing & X Trend Services',
   description:
-    'Explore PXR Infinity services: PR & media coverage, meme marketing, X/Twitter trends, influencer marketing, celebrity PR, Bigg Boss & reality show PR, movie and music promotion.',
+    'PXR Infinity services: PR and media coverage, meme marketing, X trends, influencer marketing, celebrity and Bigg Boss PR, film and music promotion.',
   path: '/services',
 })
 

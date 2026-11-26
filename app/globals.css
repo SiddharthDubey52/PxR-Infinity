@@ -164,16 +164,17 @@
    - Everything is visible by default (no-JS / crawlers).
    - An inline script adds `.js` to <html> before paint; only then
      do elements start hidden and animate in (transform/opacity).
-   - `.is-ready` is added when the preloader finishes.
+   - `.is-ready` is added by the boot script before first paint.
    ============================================================ */
 
 /* Scroll reveal: add data-reveal to any element */
+/* Same 1s / ease-out-expo timing as the hero text, so every heading reveal feels the same */
 html.js [data-reveal] {
   opacity: 0;
   transform: translate3d(0, 32px, 0);
   transition:
-    opacity 0.9s var(--ease-out-expo),
-    transform 0.9s var(--ease-out-expo);
+    opacity 1s var(--ease-out-expo),
+    transform 1s var(--ease-out-expo);
   transition-delay: var(--d, 0ms);
 }
 html.js [data-reveal='left'] {
@@ -190,7 +191,7 @@ html.js [data-reveal].reveal-instant {
   transition: none;
 }
 
-/* Hero split-text: words rise in after the preloader */
+/* Hero split-text: words rise in on load */
 .split-line {
   display: block;
 }
@@ -223,21 +224,33 @@ html.js.is-ready [data-hero-fade] {
   animation-delay: var(--d, 400ms);
 }
 
-/* Preloader (only shown when JS runs, first visit only) */
+/* Loading logo (only shown when JS runs, first visit this session, 500ms total) */
 .preloader {
   display: none;
 }
 html.js:not(.skip-preload) .preloader {
   display: grid;
+  clip-path: inset(0 0 0 0);
+  /* wipe up after the 320ms draw; ends hidden at 500ms */
+  animation: preloader-out 180ms cubic-bezier(0.76, 0, 0.24, 1) 320ms forwards;
+}
+@keyframes preloader-out {
+  99% {
+    visibility: visible;
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
 }
 .preloader-path {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: draw 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation: draw 0.3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 .preloader-text {
   clip-path: inset(0 100% 0 0);
-  animation: text-in 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation: text-in 0.25s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 @keyframes text-in {
   to {
@@ -602,6 +615,132 @@ html.lenis body {
   scroll-snap-align: start;
 }
 
+/* Cursor-following spotlight on card borders (vars set by <Spotlight />) */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(260px circle at var(--sx, 50%) var(--sy, 50%), rgb(245 196 81 / 0.9), rgb(139 92 246 / 0.6) 35%, transparent 70%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 2;
+}
+@media (hover: hover) and (pointer: fine) {
+  .spotlight:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Soft gradient border glow (client cards) */
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6 50%, #f5c451);
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 0.4s;
+  z-index: -1;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .glow-border:hover::before {
+    opacity: 0.45;
+  }
+}
+.client-parallax {
+  transform: translate3d(calc(var(--px, 0) * -8px), calc(var(--py, 0) * -8px), 0);
+}
+
+/* Bento services grid (homepage) */
+@media (width >= 640px) {
+  .bento > li:first-child {
+    grid-column: span 2;
+  }
+}
+@media (width >= 1024px) {
+  .bento > li:first-child {
+    grid-row: span 2;
+  }
+}
+
+/* Featured work scroll story — pinned on desktop only, steps revealed by data-step */
+@media (width >= 1024px) and (prefers-reduced-motion: no-preference) {
+  .story {
+    height: 210vh;
+  }
+  .story-pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  .story[data-step] .story-step {
+    opacity: 0.12;
+    transform: translate3d(0, 18px, 0);
+    transition:
+      opacity 0.6s var(--ease-out-expo),
+      transform 0.6s var(--ease-out-expo);
+  }
+  .story[data-step='0'] .story-step:nth-child(-n + 1),
+  .story[data-step='1'] .story-step:nth-child(-n + 2),
+  .story[data-step='2'] .story-step:nth-child(-n + 3) {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hero 3D ∞: static mark, glow and orbiting glass cards */
+.hero-glow {
+  background: radial-gradient(closest-side, rgb(139 92 246 / 0.35), rgb(59 130 246 / 0.18) 55%, transparent 75%);
+}
+.orbit-card {
+  position: absolute;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.03));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 1rem;
+  box-shadow: 0 20px 50px -20px rgb(0 0 0 / 0.8);
+  animation: orbit-float 9s ease-in-out infinite alternate;
+  animation-delay: var(--od, 0s);
+}
+@keyframes orbit-float {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+  100% {
+    transform: translate3d(0, 4px, 0);
+  }
+}
+.hero-3d-canvas {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out-expo);
+}
+.hero-3d.is-live .hero-3d-canvas {
+  opacity: 1;
+}
+.hero-3d.is-live .hero-static-mark {
+  opacity: 0;
+}
+
 /* ---------- Reduced motion: switch off everything heavy ---------- */
 @media (prefers-reduced-motion: reduce) {
   html.js [data-reveal],
@@ -618,8 +757,12 @@ html.lenis body {
   .animate-marquee,
   .wa-ring::before,
   .loop-path,
-  .animate-spin-slow {
+  .animate-spin-slow,
+  .orbit-card {
     animation: none !important;
+  }
+  .client-parallax {
+    transform: none !important;
   }
   html.js .preloader {
     display: none !important;

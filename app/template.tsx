@@ -8,12 +8,13 @@ import { useEffect, useState, type ReactNode } from 'react'
 let hasNavigated = false
 
 /**
- * Route transition: an accent-coloured curtain wipes away to reveal the new page.
- * Skipped on the initial load so it never hides server-rendered content or hurts LCP.
+ * Route transition: the new page fades and slides up (0.45s).
+ * Skipped on the initial load (so it never hides server-rendered content or hurts LCP)
+ * and for reduced-motion users.
  */
 export default function Template({ children }: { children: ReactNode }) {
   // Decided once per mount; false on SSR + first hydration so markup matches.
-  const [show] = useState(
+  const [animate] = useState(
     () =>
       hasNavigated &&
       typeof window !== 'undefined' &&
@@ -23,27 +24,15 @@ export default function Template({ children }: { children: ReactNode }) {
     hasNavigated = true
   }, [])
 
+  if (!animate) return <>{children}</>
   return (
-    <>
-      {show && (
-        <>
-          <motion.div
-            aria-hidden="true"
-            className="pointer-events-none fixed inset-0 z-[80] origin-top bg-accent-strong"
-            initial={{ scaleY: 1 }}
-            animate={{ scaleY: 0 }}
-            transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-          />
-          <motion.div
-            aria-hidden="true"
-            className="pointer-events-none fixed inset-0 z-[79] origin-top bg-bg"
-            initial={{ scaleY: 1 }}
-            animate={{ scaleY: 0 }}
-            transition={{ duration: 0.7, delay: 0.12, ease: [0.76, 0, 0.24, 1] }}
-          />
-        </>
-      )}
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      // motion sets transform to "none" at y: 0, so sticky sections work after the transition
+    >
       {children}
-    </>
+    </motion.div>
   )
 }

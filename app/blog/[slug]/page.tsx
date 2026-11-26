@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
+import type { CSSProperties } from 'react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Breadcrumbs } from '@/components/ui/PageHero'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { ServiceCard } from '@/components/sections/HomeSections'
 import { CtaSection } from '@/components/sections/CtaSection'
+import { Faq } from '@/components/sections/Faq'
 import { formatDate, getAllPosts, getPost, getPostSlugs } from '@/lib/blog'
 import { getService } from '@/lib/data/services'
-import { articleLd, pageMetadata } from '@/lib/seo'
-import { site } from '@/lib/site'
+import { AUTHOR_NAME, articleLd, pageMetadata } from '@/lib/seo'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -22,10 +23,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPost((await params).slug)
   if (!post) return {}
   return pageMetadata({
-    title: post.title,
+    title: post.seoTitle ?? post.title,
     description: post.description,
     path: `/blog/${post.slug}`,
-    keywords: post.keywords,
     type: 'article',
     publishedTime: post.date,
     modifiedTime: post.updated ?? post.date,
@@ -38,7 +38,11 @@ export default async function BlogPostPage({ params }: Props) {
   const { Content } = post
   const path = `/blog/${post.slug}`
   const related = post.relatedServices.map(getService).filter((s) => s !== undefined)
-  const others = (await getAllPosts()).filter((p) => p.slug !== post.slug).slice(0, 3)
+  const all = (await getAllPosts()).filter((p) => p.slug !== post.slug)
+  const picked = (post.relatedPosts ?? []).map((slug) => all.find((p) => p.slug === slug)).filter((p) => p !== undefined)
+  const others = [...picked, ...all.filter((p) => !picked.includes(p) && p.category === post.category), ...all]
+    .filter((p, i, arr) => arr.indexOf(p) === i)
+    .slice(0, 3)
 
   return (
     <>
@@ -49,6 +53,7 @@ export default async function BlogPostPage({ params }: Props) {
           path,
           datePublished: post.date,
           dateModified: post.updated,
+          type: 'BlogPosting',
         })}
       />
 
@@ -65,12 +70,20 @@ export default async function BlogPostPage({ params }: Props) {
               ]}
             />
             <p className="eyebrow">{post.category}</p>
-            <h1 className="mt-5 text-[clamp(1.9rem,5vw,3.25rem)] leading-[1.1] font-bold">{post.title}</h1>
+            <h1 className="mt-5 text-[clamp(1.9rem,5vw,3.25rem)] leading-[1.1] font-bold" data-hero-fade style={{ '--d': '80ms' } as CSSProperties}>{post.title}</h1>
             <p className="mt-6 text-lg text-muted">{post.description}</p>
             <p className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-faint">
-              <span>By {site.founder}</span>
+              <span>By {AUTHOR_NAME}</span>
               <span aria-hidden="true">·</span>
               <time dateTime={post.date}>{formatDate(post.date)}</time>
+              {post.updated && post.updated !== post.date && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span>
+                    Updated <time dateTime={post.updated}>{formatDate(post.updated)}</time>
+                  </span>
+                </>
+              )}
               <span aria-hidden="true">·</span>
               <span>{post.readingMinutes} min read</span>
             </p>
@@ -83,6 +96,8 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </div>
       </article>
+
+      {post.faqs && post.faqs.length > 0 && <Faq faqs={post.faqs} title="Quick answers" />}
 
       {related.length > 0 && (
         <section className="border-t border-line py-20" aria-labelledby="rel-svc">

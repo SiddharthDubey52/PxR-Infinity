@@ -34,14 +34,24 @@ export default function NotFound() {
         <p className="mx-auto mt-6 max-w-lg text-lg text-muted">
           The page you’re looking for doesn’t exist or has moved. Even our best trend can’t find it.
         </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <nav aria-label="Helpful links" className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
           <ButtonLink href="/">Back to home</ButtonLink>
           <ButtonLink href="/services" variant="ghost">
-            Explore services
+            Services
           </ButtonLink>
-        </div>
+          <ButtonLink href="/work" variant="ghost">
+            Our work
+          </ButtonLink>
+          <ButtonLink href="/contact" variant="ghost">
+            Contact us
+          </ButtonLink>
+        </nav>
         <p className="mt-10 text-sm text-faint">
-          Looking for something specific? <Link href="/contact" className="text-accent-light underline-offset-4 hover:underline">Ask us</Link>.
+          Looking for something specific?{' '}
+          <Link href="/blog" className="inline-flex min-h-11 items-center text-accent-light underline-offset-4 hover:underline">
+            Browse our guides
+          </Link>
+          .
         </p>
       </div>
     </section>

@@ -4,7 +4,7 @@ import { clients } from '../lib/data/home'
 
 /**
  * Content checks on every page:
- *  - no [placeholder] text, no your-email@gmail.com, no pxrinfinity.com (without .vercel.app)
+ *  - no [placeholder] text, no Gmail address, no old pxrinfinity.vercel.app domain
  *  - every WhatsApp link goes to the right number
  *  - every <img> has non-empty alt text
  *  - no console errors
@@ -24,12 +24,12 @@ for (const path of allPages) {
     const text = await page.evaluate(() => document.body.innerText)
     const placeholders = text.match(/\[[^\]\n]{1,60}\]/g) ?? []
     expect(placeholders, 'square-bracket placeholders in page text').toEqual([])
-    expect(text).not.toContain('your-email@gmail.com')
+    expect(text).not.toMatch(/@gmail\.com/i)
 
-    // 2. Wrong domain anywhere in the HTML (pxrinfinity.vercel.app is fine)
+    // 2. Old domain or Gmail anywhere in the HTML
     const html = await page.content()
-    expect(html.match(/pxrinfinity\.com/gi) ?? [], 'mentions of pxrinfinity.com').toEqual([])
-    expect(html).not.toContain('your-email@gmail.com')
+    expect(html.match(/pxrinfinity\.vercel\.app/gi) ?? [], 'mentions of the old vercel.app domain').toEqual([])
+    expect(html).not.toMatch(/@gmail\.com/i)
 
     // 3. WhatsApp links
     const waLinks = await page.$$eval('a[href*="wa.me"], a[href*="whatsapp"]', (as) => as.map((a) => a.getAttribute('href') ?? ''))

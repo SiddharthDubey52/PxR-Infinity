@@ -4,13 +4,12 @@ import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { WhatsAppFloat } from '@/components/layout/WhatsAppFloat'
-import { Preloader } from '@/components/motion/Preloader'
 import { SmoothScroll } from '@/components/motion/SmoothScroll'
+import { Preloader } from '@/components/motion/Preloader'
 import { Cursor } from '@/components/motion/Cursor'
+import { Spotlight } from '@/components/motion/Spotlight'
 import { MarqueeDirection } from '@/components/motion/MarqueeDirection'
-import { JsonLd } from '@/components/ui/JsonLd'
 import { SITE_URL, site } from '@/lib/site'
-import { organizationLd, websiteLd } from '@/lib/seo'
 
 // Self-hosted Fontshare fonts (/public/fonts). Clash Display = headings, Satoshi = body.
 const clash = localFont({
@@ -33,19 +32,21 @@ const satoshi = localFont({
   ],
   variable: '--font-satoshi',
   display: 'swap',
+  // Body text paints straight away in the fallback font and swaps when Satoshi arrives,
+  // so it doesn't need to compete with the heading font for early bandwidth.
+  preload: false,
   fallback: ['Inter', 'system-ui', 'sans-serif'],
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'PXR Infinity (pxrinfinity) — PR, Meme Marketing & Social Media Agency in India',
+    default: 'PXR Infinity | PR and Meme Marketing Agency India',
     template: '%s | PXR Infinity',
   },
   description: site.description,
-  keywords: [...site.keywords],
   applicationName: site.name,
-  authors: [{ name: site.founder }],
+  authors: [{ name: site.name }],
   creator: site.name,
   publisher: site.name,
   openGraph: {
@@ -76,20 +77,22 @@ export const viewport: Viewport = {
 /**
  * Inline boot script (runs before first paint, no framework needed):
  * - adds `.js` so reveal animations can start hidden (no-JS & crawlers see everything)
- * - skips the preloader on repeat visits / reduced motion
+ * - adds `.is-ready` straight away, so the hero text never waits for anything
+ * - loading logo: plays only on the first visit this session (500ms, click-through);
+ *   repeat visits / reduced motion get `.skip-preload` and never see it
  * - scroll reveals: one IntersectionObserver started as soon as the HTML is parsed,
  *   so above-the-fold content never waits for React to hydrate (good for LCP)
  * - failsafe: if something goes wrong, show everything after 4s
  */
-const bootScript = `(function(){var d=document.documentElement;d.classList.add('js');
-try{if(sessionStorage.getItem('pxr-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('skip-preload')}catch(e){d.classList.add('skip-preload')}
+const bootScript = `(function(){var d=document.documentElement;d.classList.add('js','is-ready');
+try{if(sessionStorage.getItem('pxr-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('skip-preload');sessionStorage.setItem('pxr-intro','1')}catch(e){d.classList.add('skip-preload')}
 function init(){if(!('IntersectionObserver' in window)){d.classList.remove('js');return}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:0.08});
 var vh=innerHeight;document.querySelectorAll('[data-reveal]').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<vh&&r.bottom>0)el.classList.add('is-in','reveal-instant')});
 var q=0;function scan(){q=0;document.querySelectorAll('[data-reveal]:not(.is-in)').forEach(function(el){io.observe(el)})}
 scan();new MutationObserver(function(){if(!q)q=requestAnimationFrame(scan)}).observe(document.body,{childList:true,subtree:true});d.dataset.revealReady='1'}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
-setTimeout(function(){if(!d.dataset.revealReady)d.classList.remove('js');d.classList.add('is-ready')},4000)})();`
+setTimeout(function(){if(!d.dataset.revealReady)d.classList.remove('js')},4000)})();`
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -111,8 +114,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScroll />
         <WhatsAppFloat />
         <Cursor />
+        <Spotlight />
         <MarqueeDirection />
-        <JsonLd data={[organizationLd(), websiteLd()]} />
       </body>
     </html>
   )

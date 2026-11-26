@@ -16,7 +16,7 @@ export function Marquee({
   reverse?: boolean
   duration?: number
   label: string
-  variant?: 'pill' | 'text'
+  variant?: 'pill' | 'text' | 'press'
 }) {
   const row = (hidden: boolean) =>
     items.map((it, i) => (
@@ -24,6 +24,11 @@ export function Marquee({
         {variant === 'pill' ? (
           <span className="flex h-16 min-w-44 items-center justify-center rounded-2xl border border-line bg-surface px-7 font-display text-base font-bold tracking-tight whitespace-nowrap text-muted">
             {it}
+          </span>
+        ) : variant === 'press' ? (
+          <span className="flex items-center gap-12 px-6 font-display text-xl font-semibold tracking-[-0.01em] whitespace-nowrap text-white/70 transition hover:text-white sm:text-2xl">
+            {it}
+            <span aria-hidden="true" className="size-1.5 rounded-full bg-gold/60" />
           </span>
         ) : (
           <span className="flex items-center gap-8 font-display text-[clamp(2rem,6vw,4.5rem)] font-bold tracking-tight text-white/90">

@@ -4,10 +4,11 @@ import { ArrowUpRight } from 'lucide-react'
 import { SectionHeading } from '@/components/ui/PageHero'
 import { Icon } from '@/components/ui/Icon'
 import { StepsProgress } from '@/components/motion/StepsProgress'
-import { WorkCard } from './WorkCard'
+import { FeaturedStory } from './FeaturedStory'
+import { ClientPhoto } from '@/components/ui/ClientPhoto'
 import { howItWorks, whyPxr } from '@/lib/data/home'
 import { services, type Service } from '@/lib/data/services'
-import { featuredWork } from '@/lib/data/work'
+import { featuredWork, visible } from '@/lib/data/work'
 import { ButtonLink } from '@/components/ui/Buttons'
 
 const delay = (i: number, step = 70) => ({ '--d': `${i * step}ms` }) as CSSProperties
@@ -28,7 +29,7 @@ export function WhyPxr() {
         />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {whyPxr.map((w, i) => (
-            <li key={w.title} data-reveal style={delay(i)} className="card sweep-card group relative overflow-hidden p-7 transition-transform duration-500">
+            <li key={w.title} data-reveal style={delay(i)} className="card sweep-card spotlight group relative overflow-hidden p-7 transition-transform duration-500">
               <div className="sweep-icon mb-6 grid size-12 place-items-center rounded-2xl border border-accent/30 bg-accent/10 text-accent-light">
                 <Icon name={w.icon} className="size-5" />
               </div>
@@ -46,12 +47,14 @@ export function WhyPxr() {
 }
 
 /* ------------------------------ Services grid ------------------------------ */
-export function ServiceCard({ s, i = 0 }: { s: Service; i?: number }) {
+export function ServiceCard({ s, i = 0, big = false }: { s: Service; i?: number; big?: boolean }) {
   return (
     <li data-reveal style={delay(i % 6, 60)} className="h-full">
       <Link
         href={`/services/${s.slug}`}
-        className="card sweep-card group flex h-full flex-col p-7 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        className={`card sweep-card spotlight group flex h-full flex-col p-7 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          big ? 'bg-gradient-to-br from-accent/15 via-transparent to-blue/10 sm:p-9' : ''
+        }`}
       >
         <div className="flex items-start justify-between">
           <div className="sweep-icon grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-accent/30 to-blue/25 text-white">
@@ -59,16 +62,29 @@ export function ServiceCard({ s, i = 0 }: { s: Service; i?: number }) {
           </div>
           <ArrowUpRight aria-hidden="true" className="size-5 text-faint transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-gold" />
         </div>
-        <h3 className="mt-8 text-xl font-semibold">{s.name}</h3>
-        <p className="mt-3 text-muted">{s.short}</p>
+        <h3 className={`mt-8 font-semibold ${big ? 'text-2xl sm:text-3xl' : 'text-xl'}`}>{s.name}</h3>
+        <p className={`mt-3 text-muted ${big ? 'text-lg' : ''}`}>{s.short}</p>
+        {big && (
+          <ul className="mt-6 hidden flex-wrap gap-2 sm:flex">
+            {s.deliverables.slice(0, 4).map((x) => (
+              <li key={x.title} className="rounded-full border border-line-strong px-3 py-1 text-xs text-muted">
+                {x.title}
+              </li>
+            ))}
+          </ul>
+        )}
         <span className="mt-auto pt-6 text-sm font-semibold text-accent-light transition group-hover:text-gold">Learn more →</span>
       </Link>
     </li>
   )
 }
 
+/** Homepage services as a bento grid: the flagship service gets the big tile. */
+const FLAGSHIP = 'bigg-boss-pr'
+
 export function ServicesGrid({ limit }: { limit?: number }) {
-  const list = limit ? services.slice(0, limit) : services
+  const ordered = [...services].sort((a, b) => Number(b.slug === FLAGSHIP) - Number(a.slug === FLAGSHIP))
+  const list = limit ? ordered.slice(0, limit) : ordered
   return (
     <section className="py-24 sm:py-32" aria-labelledby="services-title">
       <div className="container-x">
@@ -84,9 +100,9 @@ export function ServicesGrid({ limit }: { limit?: number }) {
             </ButtonLink>
           </div>
         </div>
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="bento grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {list.map((s, i) => (
-            <ServiceCard key={s.slug} s={s} i={i} />
+            <ServiceCard key={s.slug} s={s} i={i} big={i === 0} />
           ))}
         </ul>
       </div>
@@ -96,8 +112,8 @@ export function ServicesGrid({ limit }: { limit?: number }) {
 
 /* ------------------------------ Featured work ------------------------------ */
 /**
- * Mobile/tablet: horizontal scroll-snap carousel.
- * Desktop: cards pin and stack on top of each other while scrolling (CSS sticky).
+ * Scroll story: on desktop each case study pins while Problem → What we did → Results
+ * reveal one by one. Mobile and reduced motion get a normal stacked list.
  */
 export function FeaturedWork() {
   return (
@@ -115,17 +131,30 @@ export function FeaturedWork() {
         </div>
       </div>
 
-      <div className="snap-row flex gap-4 overflow-x-auto px-4 pb-4 sm:px-6 lg:mx-auto lg:block lg:max-w-[1240px] lg:overflow-visible lg:px-8 lg:pb-0">
+      <div className="container-x flex flex-col gap-6 lg:gap-0">
         {featuredWork.map((c, i) => (
-          <div
+          <FeaturedStory
             key={c.slug}
-            className="w-[85%] max-w-[420px] shrink-0 sm:w-[60%] lg:sticky lg:mb-10 lg:w-auto lg:max-w-none"
-            style={{ top: `${112 + i * 28}px` } as CSSProperties}
-          >
-            <div className="h-full rounded-[1.5rem] lg:shadow-[0_-30px_60px_-30px_rgb(0_0_0/0.9)]">
-              <WorkCard c={c} i={i} wide />
-            </div>
-          </div>
+            index={i}
+            c={{
+              slug: c.slug,
+              client: c.client,
+              category: c.category,
+              title: c.title,
+              problem: c.problem,
+              summary: c.summary,
+              results: visible(c.results).slice(0, 3),
+            }}
+            photo={
+              <ClientPhoto
+                src={c.cover}
+                name={c.client}
+                alt={c.coverAlt}
+                sizes="(min-width: 1024px) 520px, 100vw"
+                className="transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+            }
+          />
         ))}
       </div>
     </section>

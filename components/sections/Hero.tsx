@@ -2,6 +2,7 @@ import { Fragment, type CSSProperties } from 'react'
 import { HeroParticles } from '@/components/motion/HeroParticles'
 import { MouseParallax } from '@/components/motion/MouseParallax'
 import { Counter } from '@/components/motion/Counter'
+import { Hero3D } from '@/components/hero3d/Hero3D'
 import { ButtonLink, WhatsAppButton } from '@/components/ui/Buttons'
 import { heroCopy, stats } from '@/lib/data/home'
 
@@ -55,7 +56,8 @@ export function Hero() {
         </div>
       </MouseParallax>
 
-      <div className="container-x">
+
+      <div className="container-x relative z-10">
         <h1>
           <span data-hero-fade style={{ '--d': '0ms' } as CSSProperties} className="eyebrow mb-7 flex flex-wrap">
             <span className="relative flex size-2">
@@ -66,7 +68,7 @@ export function Hero() {
             <span aria-hidden="true" className="text-faint">
               —
             </span>
-            PR, meme marketing & social media agency in India
+            PR and meme marketing agency in India
           </span>
           <span className="hero-title block">
             {heroCopy.headline.map((line, i) => (
@@ -88,16 +90,21 @@ export function Hero() {
           style={{ '--d': '680ms' } as CSSProperties}
           className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-line bg-line lg:grid-cols-4"
         >
+          {/* column-reverse keeps <dt> before <dd> in the HTML; justify-end pins every number to the
+              top of its box so numbers and labels line up even when a label wraps */}
           {stats.map((s) => (
-            <div key={s.label} className="flex flex-col-reverse bg-bg/80 p-5 backdrop-blur sm:p-7">
-              <dt className="mt-1 text-sm text-muted sm:text-base">{s.label}</dt>
-              <dd className="font-display text-[clamp(2rem,5vw,3.5rem)] leading-none font-semibold tracking-[-0.03em]">
+            <div key={s.label} className="flex h-full flex-col-reverse justify-end bg-bg/80 p-4 backdrop-blur sm:p-7">
+              <dt className="mt-2 text-sm leading-snug text-muted sm:text-base">{s.label}</dt>
+              <dd className="font-display text-[clamp(1.5rem,6.6vw,3.5rem)] leading-none whitespace-nowrap font-semibold tracking-[-0.03em]">
                 <Counter value={s.value} suffix={s.suffix} />
               </dd>
             </div>
           ))}
         </dl>
       </div>
+
+      {/* 3D ∞ in the hero's right side (static image on mobile / reduced motion / no WebGL) */}
+      <Hero3D className="absolute top-[6%] right-[-30%] -z-[5] aspect-square w-[110vw] max-w-[560px] opacity-35 sm:right-[-12%] lg:top-[12%] lg:right-[max(0rem,calc((100vw-1240px)/2-10rem))] lg:w-[min(42vw,600px)] lg:max-w-none lg:opacity-100" />
     </section>
   )
 }

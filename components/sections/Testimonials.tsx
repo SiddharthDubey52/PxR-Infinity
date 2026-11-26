@@ -3,21 +3,21 @@
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
-import { testimonials } from '@/lib/data/home'
+import type { Testimonial } from '@/lib/data/testimonials'
 
 const AUTO_MS = 7000
 
 /**
- * Testimonials slider. All quotes are also rendered in a visually-hidden list
- * so every testimonial is in the server HTML for search engines and screen readers.
+ * Reusable testimonials slider (homepage + case studies). Renders nothing until real
+ * quotes are added to lib/data/testimonials.ts. All quotes are also rendered in a
+ * visually-hidden list so every testimonial is in the server HTML.
  */
-export function Testimonials() {
-  // Hidden until real quotes are added in lib/data/home.ts
-  if (testimonials.length === 0) return null
-  return <TestimonialsSlider />
+export function Testimonials({ items, title = 'Clients kya kehte hain.' }: { items: Testimonial[]; title?: string }) {
+  if (items.length === 0) return null
+  return <TestimonialsSlider testimonials={items} title={title} />
 }
 
-function TestimonialsSlider() {
+function TestimonialsSlider({ testimonials, title }: { testimonials: Testimonial[]; title: string }) {
   const [[index, dir], setState] = useState<[number, number]>([0, 1])
   const [paused, setPaused] = useState(false)
   const reduce = useReducedMotion()
@@ -41,7 +41,7 @@ function TestimonialsSlider() {
             Testimonials
           </p>
           <h2 id="testimonials-title" className="text-[clamp(1.75rem,4.6vw,3.25rem)] leading-[1.08] font-bold" data-reveal>
-            Clients kya kehte hain.
+            {title}
           </h2>
         </div>
 

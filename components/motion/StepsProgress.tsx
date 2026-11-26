@@ -22,13 +22,13 @@ export function StepsProgress({ children }: { children: ReactNode }) {
       <motion.span
         aria-hidden="true"
         style={{ scaleY: scale }}
-        className="absolute top-8 bottom-8 left-8 w-px origin-top bg-gradient-to-b from-accent via-blue to-gold md:hidden"
+        className="absolute top-8 bottom-8 left-[31px] w-0.5 origin-top bg-gradient-to-b from-accent via-blue to-gold shadow-[0_0_14px_rgb(139_92_246/0.9)] md:hidden"
       />
       {/* drawn line: horizontal (desktop) */}
       <motion.span
         aria-hidden="true"
         style={{ scaleX: scale }}
-        className="absolute top-8 right-[10%] left-[10%] hidden h-px origin-left bg-gradient-to-r from-accent via-blue to-gold shadow-[0_0_12px_rgb(139_92_246/0.8)] md:block"
+        className="absolute top-[31px] right-[10%] left-[10%] hidden h-0.5 origin-left bg-gradient-to-r from-accent via-blue to-gold shadow-[0_0_18px_2px_rgb(139_92_246/0.85)] md:block"
       />
       {children}
     </div>

@@ -25,7 +25,7 @@ export function WorkFilter({ categories, children }: { categories: readonly stri
             type="button"
             onClick={() => setActive(c)}
             aria-pressed={active === c}
-            className={`shrink-0 rounded-full border px-5 py-2.5 text-sm font-semibold transition ${
+            className={`min-h-11 shrink-0 rounded-full border px-5 py-2.5 text-sm font-semibold transition ${
               active === c ? 'border-white bg-white text-bg' : 'border-line-strong text-muted hover:border-accent hover:text-white'
             }`}
           >

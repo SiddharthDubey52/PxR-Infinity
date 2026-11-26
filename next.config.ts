@@ -7,7 +7,17 @@ const nextConfig: NextConfig = {
   // Short, keyword-rich URLs → the real pages (301). Safe to share on social / in bios.
   async redirects() {
     const r = (source: string, destination: string) => ({ source, destination, permanent: true })
+    // Old and bare hosts → the one official address, same path + query (308 permanent).
+    // Matches these exact hosts only, so Vercel preview deployments are never redirected.
+    const toWww = (host: string) => ({
+      source: '/:path*',
+      has: [{ type: 'host' as const, value: host }],
+      destination: 'https://www.pxrinfinity.com/:path*',
+      permanent: true,
+    })
     return [
+      toWww('pxrinfinity.vercel.app'),
+      toWww('pxrinfinity.com'),
       r('/bigg-boss-pr', '/services/bigg-boss-pr'),
       r('/reality-show-pr', '/services/reality-show-pr'),
       r('/meme-marketing', '/services/meme-marketing'),

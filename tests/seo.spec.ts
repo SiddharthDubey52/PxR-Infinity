@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { HOME_URL, SITE_URL, allPages, skipIntro } from './helpers'
+import { HOME_URL, SITE_URL, allPages, noindexPages, sitemapPages, skipIntro } from './helpers'
 import { homeFaqs } from '../lib/data/home'
 import { site } from '../lib/site'
 
@@ -22,15 +22,19 @@ test.describe('home page SEO', () => {
     expect(site?.url).toBe(HOME_URL)
     expect(org?.name).toBe('PXR Infinity')
     expect(org?.alternateName).toEqual(expect.arrayContaining(['pxrinfinity', 'PXR']))
-    expect(org?.email).toBe('TeamLcu06@gmail.com')
+    expect(org?.email).toBe('contact@pxrinfinity.com')
+    expect(org?.telephone).toBe('+91-89299-32208')
+    expect(org?.founder).toBeUndefined()
+    const biz = ld.find((d) => d['@type'] === 'ProfessionalService')
+    expect(biz?.areaServed).toBe('IN')
+    expect(biz?.address?.addressCountry).toBe('IN')
+    expect(ld.some((d) => d['@type'] === 'Review' || d['@type'] === 'AggregateRating')).toBe(false)
   })
 
   test('title, description, social tags', async ({ page }) => {
-    await expect(page).toHaveTitle('PXR Infinity (pxrinfinity) — PR, Meme Marketing & Social Media Agency in India')
+    await expect(page).toHaveTitle('PXR Infinity | PR and Meme Marketing Agency India')
     const desc = await page.locator('meta[name="description"]').getAttribute('content')
-    expect(desc).toBe(
-      'PXR Infinity is a PR, meme marketing and X trends agency in India. 63+ campaigns, 25,000+ meme pages, 650+ trends. Get a free proposal on WhatsApp.',
-    )
+    expect(desc).toContain('PR and meme marketing agency in India')
     expect(desc!.length).toBeLessThan(160)
     await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /PXR Infinity/)
     await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', /PXR Infinity/)
@@ -48,9 +52,9 @@ test.describe('home page SEO', () => {
     await expect(page.locator('footer')).toContainText('PXR Infinity (pxrinfinity)')
   })
 
-  test('FAQPage JSON-LD matches the 8 FAQs on the page', async ({ page }) => {
+  test('FAQPage JSON-LD matches the FAQs on the page', async ({ page }) => {
     const faq = (await jsonLd(page)).find((d) => d['@type'] === 'FAQPage')
-    expect(faq.mainEntity).toHaveLength(8)
+    expect(faq.mainEntity).toHaveLength(homeFaqs.length)
     for (const [i, f] of homeFaqs.entries()) {
       expect(faq.mainEntity[i].name).toBe(f.q)
       expect(faq.mainEntity[i].acceptedAnswer.text).toBe(f.a)
@@ -79,12 +83,49 @@ test('robots.txt, sitemap.xml, og-image and icons', async ({ request }) => {
 
   const sitemap = await (await request.get('/sitemap.xml')).text()
   const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])
-  expect(locs.length).toBe(allPages.length)
-  for (const p of allPages) expect(locs).toContain(p === '/' ? HOME_URL : `${SITE_URL}${p}`)
-  expect(sitemap.match(/<lastmod>/g)?.length).toBe(allPages.length)
+  expect(locs.length).toBe(sitemapPages.length)
+  for (const p of sitemapPages) expect(locs).toContain(p === '/' ? HOME_URL : `${SITE_URL}${p}`)
+  for (const p of noindexPages) expect(locs).not.toContain(`${SITE_URL}${p}`)
+  expect(sitemap.match(/<lastmod>/g)?.length).toBe(sitemapPages.length)
+  expect(robots).not.toMatch(/^Host:/m)
 
   const og = await request.get('/og-image.jpg')
   expect(og.status()).toBe(200)
   expect(og.headers()['content-type']).toContain('image/jpeg')
   for (const icon of ['/favicon.ico', '/icon.svg', '/apple-icon']) expect((await request.get(icon)).status(), icon).toBe(200)
+})
+
+test('meta robots, keywords and unique titles/descriptions', async ({ page }) => {
+  await skipIntro(page)
+  const titles = new Map<string, string>()
+  const descs = new Map<string, string>()
+  for (const path of allPages) {
+    await page.goto(path, { waitUntil: 'domcontentloaded' })
+    await expect(page.locator('meta[name="keywords"]'), path).toHaveCount(0)
+    const robots = (await page.locator('meta[name="robots"]').getAttribute('content')) ?? ''
+    if (noindexPages.includes(path)) expect(robots, path).toContain('noindex')
+    else expect(robots, path).not.toContain('noindex')
+    const title = await page.title()
+    const desc = (await page.locator('meta[name="description"]').getAttribute('content')) ?? ''
+    expect(titles.get(title), `duplicate title on ${path}`).toBeUndefined()
+    expect(descs.get(desc), `duplicate description on ${path}`).toBeUndefined()
+    expect(desc.length, `description length ${path}`).toBeLessThanOrEqual(160)
+    titles.set(title, path)
+    descs.set(desc, path)
+    const html = await page.content()
+    expect(html, `founder name on ${path}`).not.toMatch(/siddharth|\bSid\b/i)
+  }
+})
+
+test('blog posts: Organization author + BlogPosting + FAQPage', async ({ page }) => {
+  await skipIntro(page)
+  await page.goto('/blog/pr-agency-charges-in-india', { waitUntil: 'load' })
+  const ld = await jsonLd(page)
+  const post = ld.find((d) => d['@type'] === 'BlogPosting')
+  expect(post.author['@type']).toBe('Organization')
+  expect(post.author.name).toBe('PXR Infinity Team')
+  expect(post.publisher.name).toBe('PXR Infinity')
+  expect(ld.some((d) => d['@type'] === 'FAQPage')).toBe(true)
+  expect(ld.some((d) => d['@type'] === 'BreadcrumbList')).toBe(true)
+  await expect(page.getByText('By PXR Infinity Team')).toBeVisible()
 })
