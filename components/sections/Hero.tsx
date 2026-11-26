@@ -64,12 +64,12 @@ export function Hero() {
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-gold opacity-75 motion-reduce:hidden" />
               <span className="relative inline-flex size-2 rounded-full bg-gold" />
             </span>
-            <span className="text-white">PXR Infinity</span>
+            <span className="text-white">PXR Infinity</span>{' '}
             <span aria-hidden="true" className="text-faint">
               —
-            </span>
+            </span>{' '}
             PR and meme marketing agency in India
-          </span>
+          </span>{' '}
           <span className="hero-title block">
             {heroCopy.headline.map((line, i) => (
               <SplitLine key={line} text={line} start={lineStarts[i]} />

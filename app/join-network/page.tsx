@@ -16,9 +16,9 @@ export const metadata: Metadata = pageMetadata({
 
 const perks = [
   { title: 'Paid campaigns', desc: 'Brand launches, film and OTT releases, music drops and reality shows, matched to your niche.' },
-  { title: 'Clear briefs', desc: 'You get the idea, the format, the timing and the deadline in writing before you post.' },
-  { title: 'Creative freedom', desc: 'We want posts in your page’s own voice. Your audience knows the difference.' },
-  { title: 'On-time payment', desc: 'Payment terms agreed before the campaign starts, so there’s no chasing later.' },
+  { title: 'Clear briefs', desc: 'The idea, format, timing and deadline, in writing, before you post anything.' },
+  { title: 'Your style', desc: 'We want the post to sound like your page. Your followers can tell when it doesn’t.' },
+  { title: 'Payment agreed upfront', desc: 'We agree payment terms before the campaign starts, so you’re not chasing anyone later.' },
 ]
 
 const steps = [
@@ -31,11 +31,11 @@ const steps = [
 const faqs = [
   {
     q: 'Who can join the PXR Infinity network?',
-    a: 'Meme page admins, entertainment and news page admins, creators, paparazzi pages, fan club leads and X accounts. Pages of any size can apply; we look at engagement and niche, not just follower count.',
+    a: 'Meme page admins, entertainment and news page admins, creators, paparazzi pages, fan club leads and X accounts. Any size can apply. We look at engagement and niche more than follower count.',
   },
   {
     q: 'How does meme page collaboration with PXR Infinity work?',
-    a: 'When a brand, film, label or show campaign matches your page, we send you a brief with the idea, format, posting time and rate. You create the post in your page’s style, share it for a quick check if the brief asks for one, and post on schedule.',
+    a: 'When a brand, film, label or show campaign fits your page, we send you a brief with the idea, format, posting time and rate. You make the post in your style, send it for a quick check if the brief asks, and post on time.',
   },
   {
     q: 'Do I have to post everything you send?',
@@ -48,7 +48,7 @@ const faqs = [
   },
   {
     q: 'Do you accept regional pages?',
-    a: 'Yes. Tell us your language and region in the form. Regional pages are often the best fit for regional films, music and brands.',
+    a: 'Yes. Add your language and region in the form. Regional films, music and brands often want exactly those pages.',
   },
 ]
 

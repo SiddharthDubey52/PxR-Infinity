@@ -21,35 +21,35 @@ export const metadata: Metadata = pageMetadata({
 
 const howWeUse = [
   {
-    title: 'One message, many voices',
-    desc: 'Every campaign starts with one clear idea. Meme pages, media pages and creators each tell it in their own format, so it feels like a conversation, not an ad.',
+    title: 'One idea, told many ways',
+    desc: 'We agree one clear idea with you. Then meme pages, media pages and creators each post it in their own style, the way their followers are used to.',
   },
   {
     title: 'Scheduled posting',
-    desc: 'Pages post in planned waves around a launch, an episode or a trailer drop, so your campaign reaches audiences together instead of trickling out over weeks.',
+    desc: 'Pages post in planned waves around a launch, an episode or a trailer drop, so your campaign reaches audiences together.',
   },
   {
     title: 'Right niche, right language',
-    desc: 'A cricket meme page, a Bigg Boss update page and a Punjabi humour page reach very different people. We match pages to your audience, not just to follower counts.',
+    desc: 'A cricket meme page, a Bigg Boss update page and a Punjabi humour page have very different followers. We pick pages for who follows them, not only how many.',
   },
   {
-    title: 'Proof at the end',
-    desc: 'You get every post link and screenshot in one report, so you can see exactly where your campaign ran.',
+    title: 'Every link in the report',
+    desc: 'At the end you get every post link and screenshot in one report, so you can see where your campaign ran.',
   },
 ]
 
 const howWePick = [
-  'Real engagement: comments and shares that match the follower count.',
-  'Audience fit: the people following the page are the people you want to reach.',
-  'Past performance: how the page’s earlier campaign posts actually did.',
-  'Brand safety: no hate, no political attacks, nothing you wouldn’t want next to your name.',
-  'Reliability: admins who post on time, in the agreed format.',
+  'Real engagement: the comments and shares make sense for the follower count.',
+  'The right followers: the people following the page are the people you want to reach.',
+  'Track record: how the page’s earlier campaign posts did.',
+  'Brand safety: no hate, no political attacks, nothing you wouldn’t want your name next to.',
+  'Reliable admins: they post on time and in the format we agreed.',
 ]
 
 const faqs = [
   {
     q: 'How big is the PXR Infinity meme page network?',
-    a: `Our meme page network in India has ${memeCount} pages, alongside reality TV media pages, entertainment news portals, paparazzi pages, fan clubs, creators and X accounts. We pick the right mix for each campaign rather than using every page.`,
+    a: `Our meme page network in India has ${memeCount} pages, plus reality TV media pages, entertainment news portals, paparazzi pages, fan clubs, creators and X accounts. Each campaign uses the pages that fit it, not all of them.`,
   },
   {
     q: 'Can I choose which meme pages post for my brand?',
@@ -61,7 +61,7 @@ const faqs = [
   },
   {
     q: 'How do you check that a page has real followers?',
-    a: 'We look at engagement against follower count, comment quality and how the page’s earlier campaign posts performed. Pages that don’t pass are left out.',
+    a: 'We compare engagement with follower count, read the comments and look at how the page’s earlier campaign posts did. If a page doesn’t pass, we don’t use it.',
   },
   {
     q: 'I run a meme page. Can I join the network?',
@@ -80,7 +80,7 @@ export default function NetworkPage() {
             Our meme page network in India: <span className="text-gradient">{memeCount} pages</span> and counting.
           </>
         }
-        intro="Meme pages, reality TV media, entertainment news, paparazzi, fan clubs, creators and X accounts. One network, planned as one campaign."
+        intro="Meme pages, reality TV and entertainment news pages, paparazzi, fan clubs, creators and X accounts. You brief us once and we plan across all of them."
       >
         <div className="flex flex-col gap-3 sm:flex-row">
           <ButtonLink href="/contact">Plan a campaign</ButtonLink>
@@ -92,7 +92,7 @@ export default function NetworkPage() {
 
       <section className="pb-24 sm:pb-32" aria-labelledby="categories-title">
         <div className="container-x">
-          <SectionHeading eyebrow="What’s in the network" title={<span id="categories-title">Seven kinds of pages, one plan.</span>} />
+          <SectionHeading eyebrow="What’s in the network" title={<span id="categories-title">Who’s in it.</span>} />
           {/* 4 columns with the meme pages card two wide → 7 cards fill two even rows */}
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {networkCategories.map((c, i) => (
@@ -119,7 +119,7 @@ export default function NetworkPage() {
           <SectionHeading
             eyebrow="How campaigns use it"
             title={<span id="use-title">Network ka kamaal: how one idea reaches millions.</span>}
-            intro="A meme page network only works when it’s planned. Here is how we use ours."
+            intro="Having lots of pages doesn’t do much on its own. This is how we use them on a campaign."
           />
           <ol className="grid gap-4 md:grid-cols-2">
             {howWeUse.map((s, i) => (
@@ -144,7 +144,7 @@ export default function NetworkPage() {
               How we pick pages for your campaign.
             </h2>
             <p className="mt-5 text-lg text-muted">
-              A big network is only useful if the right pages post. For every campaign we shortlist pages against five checks.
+              We shortlist pages for every campaign, and each one has to pass these checks first.
             </p>
           </div>
           <ul className="space-y-3" data-reveal>

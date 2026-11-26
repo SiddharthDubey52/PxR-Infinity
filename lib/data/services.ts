@@ -156,7 +156,7 @@ export const services: Service[] = [
     mainKeyword: 'Twitter trend agency India',
     serviceType: 'Social media trend campaigns',
     intro: [
-      'A trending hashtag is social proof at scale. It tells fans, media and the algorithm that something is happening right now — and journalists notice what trends. As a Twitter trend agency in India, we’ve run 650+ trends on X.',
+      'When a hashtag hits the trending list, fans, media and the algorithm all notice, and journalists often write about what’s trending. As a Twitter trend agency in India, we’ve run 650+ trends on X.',
       'For every X trend campaign we plan the hashtag, write the content bank, brief fan clubs and communities, and run the hashtag trend campaign in the right time window so it climbs fast and holds. We also host and promote Twitter Spaces around the moment. Birthdays, releases, launches, finales — we have done them all.',
     ],
     deliverables: [
@@ -194,7 +194,7 @@ export const services: Service[] = [
         eyebrow: 'Trends we’ve run',
         title: `${trendStat} trends on X. A few recent ones.`,
         paragraphs: [
-          'Films, OTT shows, reality TV contestants, music drops and brand launches: we’ve taken ' + trendStat + ' hashtags onto India’s trending list. Below are a few recent highlights from our case studies, with peak positions in India.',
+          'Films, OTT shows, reality show contestants, music drops, brand launches: we’ve taken ' + trendStat + ' hashtags onto India’s trending list. Here are a few recent ones from our case studies, with their peak position in India.',
           'Want to see trends from your category? Message us on WhatsApp and we’ll share screenshots.',
         ],
         table: trendTable,
@@ -204,9 +204,9 @@ export const services: Service[] = [
         eyebrow: 'How a trend comes together',
         title: 'What happens in an X trend campaign',
         paragraphs: [
-          'A trend is not one post. It is hundreds or thousands of people posting about the same thing, in a short window, in a way that X counts as fresh conversation. That takes planning. First we decide what the trend is for: a release, a birthday, a finale vote, a launch. That decides the hashtag, the tone and the time.',
-          'Next comes the content bank: lines to post, images, short clips, GIFs and fan edits, so that every post is a little different. Fan clubs and communities get a clear brief with the hashtag, the start time and the content. During the push our team watches the list live, keeps the content flowing and adjusts if another big topic takes over. After the push you get the report.',
-          'For bigger moments we pair the trend with Twitter Spaces promotion, meme pages on Instagram and media coverage, so the conversation reaches people who never open X.',
+          'A trend is hundreds or thousands of people posting about the same thing in a short window, and that doesn’t happen by accident. First we work out what the trend is for: a release, a birthday, a finale vote, a launch. That decides the hashtag, the tone and the time.',
+          'Then we build a content bank of lines, images, short clips, GIFs and fan edits, so the posts don’t all look the same. Fan clubs and communities get a brief with the hashtag, start time and content. During the push our team watches the list, keeps content going out and changes the plan if something bigger takes over. After that, you get the report.',
+          'For bigger moments we add Twitter Spaces, meme pages on Instagram and media coverage, so it also reaches people who don’t use X.',
         ],
       },
       {
@@ -214,7 +214,7 @@ export const services: Service[] = [
         eyebrow: 'Budget',
         title: 'What affects the cost of an X trend',
         paragraphs: [
-          'We don’t publish a fixed price, because two trends can need very different amounts of work. These are the things that change the budget. Share your moment on WhatsApp and we’ll quote against your plan.',
+          'We don’t have a fixed price, because two trends can need very different amounts of work. These are the things that change it. Tell us about your moment on WhatsApp and we’ll quote for your plan.',
         ],
         items: [
           { title: 'Duration', desc: 'A short push for one moment needs less than a trend that has to hold through a whole day, or a series of trends over a season.' },
@@ -229,7 +229,7 @@ export const services: Service[] = [
       {
         id: 'x-trend-guides',
         eyebrow: 'Guides',
-        title: 'X trend guides: learn before you plan',
+        title: 'Guides on X trends',
         items: [
           { label: 'Basics', title: 'How X (Twitter) Trends Work in India', desc: 'What the trending list counts and why some hashtags climb faster.', href: '/blog/how-x-trends-are-created-for-celebrities' },
           { label: 'Planning', title: 'How to Plan an X Trend Campaign', desc: 'A step-by-step plan from hashtag to report.', href: '/blog/how-to-plan-an-x-trend-campaign' },
@@ -375,7 +375,7 @@ export const services: Service[] = [
         eyebrow: 'Season by season',
         title: 'Bigg Boss 17 to 20: contestants we’ve worked with',
         paragraphs: [
-          'Every season has its own mood, its own format twists and its own fan culture. What stays the same is the job outside the house: keep the contestant visible, explain their side and keep their supporters organised.',
+          'Every season brings new format twists, a new set of housemates and a different mood among fans. The work outside stays mostly the same: keep the contestant visible, explain their side when it’s needed, and keep their supporters organised.',
         ],
         items: [
           { label: 'Bigg Boss 17', title: 'Munawar Faruqui', desc: 'Contestant PR and fan support across the season.' },
@@ -392,17 +392,17 @@ export const services: Service[] = [
           {
             label: 'Before entry',
             title: 'Get the ground ready',
-            desc: 'Clean up profiles, agree who runs the accounts, write the contestant’s story in three lines, collect childhood and family photos, line up fan pages, and plan the entry-day posts and first trend.',
+            desc: 'Clean up the profiles, decide who runs the accounts, write the contestant’s story in three lines, collect family photos, line up fan pages, and plan the entry-day posts and first trend.',
           },
           {
             label: 'During the season',
             title: 'Run it every day',
-            desc: 'Post after every episode, share clips and memes within hours, give fan clubs one message per week, run X trends around nominations and big moments, and respond calmly when a clip goes against the contestant.',
+            desc: 'Post after every episode, get clips and memes out within hours, give fan clubs one message a week, trend around nominations and big moments, and stay calm when a clip goes against the contestant.',
           },
           {
             label: 'After the show',
             title: 'Turn attention into a career',
-            desc: 'Interviews, paparazzi visibility, brand collaborations, music videos and creator collaborations, while the audience still remembers the contestant’s journey.',
+            desc: 'Interviews, paps coverage, brand deals, music videos and creator collabs, while people still remember the contestant’s journey.',
           },
         ],
       },
@@ -411,9 +411,9 @@ export const services: Service[] = [
         eyebrow: 'Why Bigg Boss is different',
         title: 'Why Bigg Boss contestant PR is its own job',
         paragraphs: [
-          'Bigg Boss runs every day for around three months, and the conversation outside the house moves faster than the episodes. A single clip can shape how millions of viewers see a contestant for the rest of the week, and the contestant can’t reply, explain or say thank you. Everything outside depends on the team they left behind.',
-          'That is why a Bigg Boss PR team works differently from regular celebrity PR. We plan in weeks, not months. Content goes out within hours of an episode. Fan clubs need one clear message each week, because twenty clubs saying twenty different things cancel each other out. Voting weeks need reminders that are simple and repeated on every platform. And when the house turns against a contestant, the response has to be quick, calm and factual.',
-          'We also stay careful about what we don’t do. We don’t attack other contestants or their families, we don’t use fake accounts, and we don’t promise a trophy. Our work is to make sure the people who already like a contestant can see them, understand them and support them in an organised way.',
+          'Bigg Boss runs every day for about three months, and the talk outside moves faster than the episodes. One clip can decide how people see a contestant for the rest of the week, and the contestant can’t reply, explain or even say thank you. Everything outside depends on the people they left behind.',
+          'So the work looks different from regular celebrity PR. We plan week to week. Content goes out within hours of an episode. Fan clubs get one message a week, because twenty clubs saying twenty different things just cancel each other out. Voting reminders stay simple and go out on every platform. And when the house turns against a contestant, we respond quickly and calmly, with facts.',
+          'There are also things we don’t do. We don’t go after other contestants or their families, we don’t use fake accounts, and we don’t promise a trophy. We make sure the people who already like a contestant can see them, understand them and get behind them properly.',
         ],
       },
       {
@@ -527,14 +527,14 @@ export const services: Service[] = [
         eyebrow: 'The release lifecycle',
         title: 'Movie promotion, phase by phase',
         paragraphs: [
-          'Every release has the same five moments. Each one needs different content, different pages and a different goal. We plan all five together, so each phase builds on the one before it.',
+          'Most releases go through the same five moments, and each one needs something different. We plan them together so each one sets up the next.',
         ],
         items: [
-          { label: '01', title: 'Announcement', desc: 'First look and title reveal. Goal: make the name stick. Media pages, a launch post plan and the first hashtag.' },
-          { label: '02', title: 'Teaser', desc: 'Short, curious, shareable. Goal: get people guessing. Meme pages, fan theories and creator reactions.' },
-          { label: '03', title: 'Trailer day', desc: 'The biggest digital moment before release. Goal: one big day. An X trend, creator reactions, meme pages and portal coverage, all within hours.' },
-          { label: '04', title: 'Release week', desc: 'Goal: turn interest into tickets or plays. Reviews, audience reactions, scene memes, paparazzi coverage and a release-day trend.' },
-          { label: '05', title: 'OTT premiere', desc: 'Goal: press play and keep watching. Episode and character memes, weekly trends and a finale push for series.' },
+          { label: '01', title: 'Announcement', desc: 'First look and title reveal. This is about getting people to remember the name: media pages, a launch post plan and the first hashtag.' },
+          { label: '02', title: 'Teaser', desc: 'Short and meant to make people curious. Meme pages, fan theories and creator reactions do most of the work here.' },
+          { label: '03', title: 'Trailer day', desc: 'Usually the biggest online moment before release. An X trend, creator reactions, meme pages and portal coverage, all within a few hours.' },
+          { label: '04', title: 'Release week', desc: 'Now it’s about getting people to buy a ticket or press play. Reviews, audience reactions, scene memes, paps coverage and a release-day trend.' },
+          { label: '05', title: 'OTT premiere', desc: 'For streaming, it’s about getting people to start and keep watching. Episode and character memes, weekly trends and a finale push for series.' },
         ],
       },
       {
@@ -542,8 +542,8 @@ export const services: Service[] = [
         eyebrow: 'Meme marketing for films',
         title: 'Turning your scenes into memes people share',
         paragraphs: [
-          'The fastest way a film or series spreads online is through its own moments: a dialogue that fits everyday life, a reaction shot that works for any situation, a character everyone recognises. When meme pages turn those moments into relatable posts, the film reaches people in DMs and group chats, long before they see a poster.',
-          'We go through your approved assets and pick the moments with meme potential: dialogues, expressions, situations. Then we match them to pages whose audience fits the film, from Bollywood and OTT pages to college humour, cricket and regional pages. You see the meme plan and the drafts before anything goes live. Read our meme marketing examples from India for formats that work.',
+          'Films and series spread fastest through their own moments: a dialogue that fits everyday life, a reaction shot that works for anything, a character people recognise. When meme pages pick those up, the film turns up in DMs and group chats before people have even seen a poster.',
+          'We go through the assets you approve, pick the moments that would make good memes, and match them to pages whose followers fit the film, from Bollywood and OTT pages to college humour, cricket and regional pages. You see the plan and the drafts before anything goes live. Our post on meme marketing examples from India has formats that work.',
         ],
       },
       {
@@ -551,8 +551,8 @@ export const services: Service[] = [
         eyebrow: 'Reporting',
         title: 'How we measure a release campaign',
         paragraphs: [
-          'Every phase gets its own numbers, so you can see what each part of the campaign did. For meme pages and creators: posts, reach and engagement, with links to every post. For X: trend positions in India, how long each trend held and the post counts shown by X. For media: every coverage link with the outlet and date. Around release, we also track how much conversation the title is getting across platforms.',
-          'You get one report at the end of the campaign, and a short update after each phase. If something didn’t work as planned, the report says so, and the next phase is adjusted.',
+          'Each phase gets its own numbers, so you can see what it did. Meme pages and creators: posts, reach and engagement, with every link. X: peak position in India, how long each trend lasted and the post count X showed. Media: every coverage link with the outlet and date. Around release we also track how much people are talking about the title.',
+          'You get a short update after each phase and a full report at the end. If something didn’t work, we’ll say so and change the next phase.',
         ],
       },
       {
@@ -568,10 +568,10 @@ export const services: Service[] = [
       {
         id: 'trend-proof',
         eyebrow: 'X trend proof',
-        title: 'Trends that carry a release',
+        title: 'X trends for releases',
         paragraphs: [
           'For Prime Video’s The Alliance we ran X coverage across all 42 daily episodes of the six-week season and planned a finale-day trend that reached #1 in India. The show was renewed for Season 2.',
-          'For films and series, we plan trends around trailer day, release day and the premiere, and pair each one with meme pages and creators so the moment reaches Instagram as well as X. See the full list of trends we’ve run on our X trends page.',
+          'For films and series we usually trend on trailer day, release day and the premiere, with meme pages and creators running alongside so it reaches Instagram too. There are more examples on our X trends page.',
         ],
       },
       ...(regionalLanguages.length

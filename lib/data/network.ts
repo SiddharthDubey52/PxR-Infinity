@@ -17,7 +17,7 @@ export const networkCategories = [
     name: 'Meme pages',
     count: `${memePages.value}${memePages.suffix}`, // same value as the homepage stat
     icon: 'Laugh',
-    desc: 'Instagram meme pages across Bollywood, cricket, college life, relationships, gaming and regional humour. They turn a launch or a moment into posts people share in DMs and group chats.',
+    desc: 'Instagram meme pages across Bollywood, cricket, college life, relationships, gaming and regional humour. They turn a launch or a moment into posts people forward in DMs and group chats.',
   },
   {
     id: 'reality-media',
@@ -45,14 +45,14 @@ export const networkCategories = [
     name: 'Fan clubs',
     count: '', // TODO(Sid): add verified count
     icon: 'Users',
-    desc: 'Organised fan communities that post together around one message, one hashtag and one time slot.',
+    desc: 'Fan communities that post together around one message, one hashtag and one time slot.',
   },
   {
     id: 'creators',
     name: 'Creators',
     count: '', // TODO(Sid): add verified count
     icon: 'Clapperboard',
-    desc: 'Reel creators, YouTubers and micro-influencers picked for audience fit, not just follower count.',
+    desc: 'Reel creators, YouTubers and micro-influencers, picked for who follows them.',
   },
   {
     id: 'x-accounts',

@@ -48,7 +48,7 @@ export async function AudiencePage({ slug }: { slug: string }) {
           </div>
           <aside className="card h-fit p-7" data-reveal aria-labelledby="challenges-title">
             <h2 id="challenges-title" className="text-lg font-semibold">
-              Sound familiar?
+              Where it usually gets hard
             </h2>
             <ul className="mt-5 space-y-4">
               {a.challenges.map((c) => (
@@ -67,7 +67,7 @@ export async function AudiencePage({ slug }: { slug: string }) {
 
       <section className="border-y border-line bg-bg-2 py-24 sm:py-28" aria-labelledby="help-title">
         <div className="container-x">
-          <SectionHeading eyebrow="How we help" title={<span id="help-title">What {a.mainKeyword} looks like with us</span>} />
+          <SectionHeading eyebrow="How we help" title={<span id="help-title">What we do for you</span>} />
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {a.howWeHelp.map((x, i) => (
               <li key={x.title} className="card p-7" data-reveal style={d(i)}>
@@ -110,7 +110,7 @@ export async function AudiencePage({ slug }: { slug: string }) {
 
       <section className="border-t border-line py-24" aria-labelledby="services-title">
         <div className="container-x">
-          <SectionHeading eyebrow="Services" title={<span id="services-title">Services for you</span>} />
+          <SectionHeading eyebrow="Services" title={<span id="services-title">Services that fit</span>} />
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {services.map((s, i) => (
               <ServiceCard key={s.slug} s={s} i={i} />
