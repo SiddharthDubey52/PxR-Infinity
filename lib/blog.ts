@@ -28,6 +28,10 @@ export type PostMeta = {
   /** Hand-picked related posts (slugs) for "Keep reading" */
   relatedPosts?: string[]
   faqs?: { q: string; a: string }[]
+  /** true → also listed in the /guides hub (practical, step-by-step posts) */
+  guide?: boolean
+  /** true → page exists but is noindex, and is left out of the blog list, guides, sitemap and related posts */
+  draft?: boolean
 }
 
 export type Post = PostMeta & { slug: string; readingMinutes: number; words: number }
@@ -62,7 +66,7 @@ export async function getPost(slug: string): Promise<(Post & { Content: Componen
 export async function getAllPosts(): Promise<Post[]> {
   const posts = await Promise.all(getPostSlugs().map((s) => getPost(s)))
   return posts
-    .filter((p): p is NonNullable<typeof p> => p !== null)
+    .filter((p): p is NonNullable<typeof p> => p !== null && !p.draft)
     .map(({ Content: _c, ...meta }) => meta) // eslint-disable-line @typescript-eslint/no-unused-vars
     .sort((a, b) => (a.date === b.date ? a.title.localeCompare(b.title) : a.date < b.date ? 1 : -1))
 }

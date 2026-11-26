@@ -6,7 +6,24 @@
  * `updatedAt` feeds the sitemap's lastModified — change it when the content really changes.
  */
 
+import { trendTable } from './trends'
+import { campaignsStartFrom, promotedTitles, regionalLanguages } from './promoted'
+
 export type Faq = { q: string; a: string; cta?: { label: string; href: string } }
+
+/**
+ * Extra long-form block on a service page (hub pages such as Bigg Boss PR and X Trends).
+ * Any mix of paragraphs, cards (optionally linked) and a table. A table with no rows is hidden.
+ */
+export type ServiceSection = {
+  id: string
+  eyebrow?: string
+  title: string
+  paragraphs?: string[]
+  items?: { title: string; desc: string; href?: string; label?: string }[]
+  table?: { caption: string; head: string[]; rows: string[][] }
+  note?: string
+}
 
 export type Service = {
   slug: string
@@ -30,6 +47,8 @@ export type Service = {
   related: string[]
   /** 2–3 blog slugs for the "Further reading" block */
   relatedPosts: string[]
+  /** Long-form sections shown after "Our process" */
+  sections?: ServiceSection[]
   updatedAt: string
 }
 
@@ -153,10 +172,67 @@ export const services: Service[] = [
       { q: 'Can you promise a #1 trend?', a: 'No honest agency can promise a specific position, because trends depend on what else is happening that day. We share realistic targets in the plan based on your fanbase and budget, and plan the timing to give you the best possible shot.' },
       { q: 'Are the accounts real?', a: 'Yes. We work with real fan communities and active accounts. Fake activity gets filtered by X and can damage your reputation.' },
       { q: 'How much notice do you need?', a: 'A few days of preparation is ideal. For urgent moments we can turn a trend around in as little as 48 hours.' },
+      { q: 'What makes a good hashtag for a trend?', a: 'Short, easy to spell, unique to your moment and not already in use. All-caps phrases work well for fan campaigns; a clean branded hashtag works better for launches. We check that nobody else is using it that day.' },
+      { q: 'What time of day is best for an X trend?', a: 'It depends on your audience and on what else is happening that day. Evening slots usually suit fan campaigns and entertainment, while launches often go live with the announcement. We pick the window after checking the day’s calendar: matches, releases, big news.' },
+      { q: 'Can you run a trend in a regional language?', a: 'Yes. Regional hashtags and content in the audience’s language often do better with regional fan bases. We brief communities that post in that language.' },
+      { q: 'How long does a trend stay on the list?', a: 'It varies with how many people keep posting and what else is trending. A planned content bank and staggered posting help a trend hold longer. We report the real hours it stayed on the list.' },
+      { q: 'Do you also host Twitter Spaces?', a: 'Yes. We plan, promote and host X Spaces around a launch, an episode or a finale. Our Space for Rajat Dalal in Bigg Boss 18 ran 2 hours 18 minutes with 77K people tuned in.' },
+      { q: 'What do I get in the trend report?', a: 'Screenshots of the trending list, the peak position in India, how long the trend stayed on the list, the post count shown by X and notable posts from the push.' },
     ],
     related: ['meme-marketing', 'reality-show-pr', 'celebrity-pr'],
-    relatedPosts: ['how-x-trends-are-created-for-celebrities', 'twitter-trend-price-india', 'twitter-pe-trend-kaise-karaye'],
-    updatedAt: '2026-11-25',
+    relatedPosts: ['how-x-trends-are-created-for-celebrities', 'twitter-trend-price-india', 'how-to-plan-an-x-trend-campaign'],
+    sections: [
+      {
+        id: 'trends-weve-run',
+        eyebrow: 'Proof',
+        title: 'Trends we’ve run',
+        paragraphs: [
+          'A few of the X trends from our campaigns. Peak positions are for India, as shown on the trending list at the time. We add a trend here only when we have the screenshots.',
+        ],
+        table: trendTable,
+        note: '“—” means we haven’t published that figure yet.',
+      },
+      {
+        id: 'how-it-works',
+        eyebrow: 'How a trend comes together',
+        title: 'What happens in an X trend campaign',
+        paragraphs: [
+          'A trend is not one post. It is hundreds or thousands of people posting about the same thing, in a short window, in a way that X counts as fresh conversation. That takes planning. First we decide what the trend is for: a release, a birthday, a finale vote, a launch. That decides the hashtag, the tone and the time.',
+          'Next comes the content bank: lines to post, images, short clips, GIFs and fan edits, so that every post is a little different. Fan clubs and communities get a clear brief with the hashtag, the start time and the content. During the push our team watches the list live, keeps the content flowing and adjusts if another big topic takes over. After the push you get the report.',
+          'For bigger moments we pair the trend with Twitter Spaces promotion, meme pages on Instagram and media coverage, so the conversation reaches people who never open X.',
+        ],
+      },
+      {
+        id: 'cost',
+        eyebrow: 'Budget',
+        title: 'What affects the cost of an X trend',
+        paragraphs: [
+          'We don’t publish a fixed price, because two trends can need very different amounts of work. These are the things that change the budget. Share your moment on WhatsApp and we’ll quote against your plan.',
+        ],
+        items: [
+          { title: 'Duration', desc: 'A short push for one moment needs less than a trend that has to hold through a whole day, or a series of trends over a season.' },
+          { title: 'National vs regional', desc: 'Reaching the all-India list takes more participation than a regional trend aimed at one language or state.' },
+          { title: 'Language', desc: 'Hindi, English and regional-language trends need their own content banks and the right communities to post them.' },
+          { title: 'Lead time', desc: 'A week of preparation lets us build content and brief communities properly. A 48-hour turnaround needs more hands at once.' },
+          { title: 'Content volume', desc: 'Custom edits, images and clips for the content bank add production work, especially for film and brand campaigns.' },
+          { title: 'Add-ons', desc: 'Twitter Spaces, meme pages on Instagram, creators and media coverage around the trend.' },
+        ],
+        note: 'Read more: Twitter Trend Price in India: What You Pay For.',
+      },
+      {
+        id: 'x-trend-guides',
+        eyebrow: 'Guides',
+        title: 'X trend guides: learn before you plan',
+        items: [
+          { label: 'Basics', title: 'How X (Twitter) Trends Work in India', desc: 'What the trending list counts and why some hashtags climb faster.', href: '/blog/how-x-trends-are-created-for-celebrities' },
+          { label: 'Planning', title: 'How to Plan an X Trend Campaign', desc: 'A step-by-step plan from hashtag to report.', href: '/blog/how-to-plan-an-x-trend-campaign' },
+          { label: 'Films & OTT', title: 'X Trends for Film and OTT Releases', desc: 'Trends for announcements, trailers, release day and premieres.', href: '/blog/x-trends-for-film-and-ott-releases' },
+          { label: 'Reality TV', title: 'X Trends for Reality Show Contestants', desc: 'A week-by-week trend calendar for a season.', href: '/blog/x-trends-for-reality-show-contestants' },
+          { label: 'Cost', title: 'What Affects the Cost of an X Trend', desc: 'Duration, reach, language and lead time explained.', href: '/blog/twitter-trend-price-india' },
+        ],
+      },
+    ],
+    updatedAt: '2026-11-26',
   },
   {
     slug: 'influencer-marketing',
@@ -278,10 +354,78 @@ export const services: Service[] = [
       { q: 'How do you build a Bigg Boss fan army?', a: 'We bring the contestant’s supporters into organised fan clubs with one shared message, a daily posting plan and live X Spaces, then grow those clubs through episode edits and meme pages all season.' },
       { q: 'Have you worked with Bigg Boss contestants before?', a: 'Yes — contestants from Bigg Boss 17, 18, 19 and 20, including Munawar Faruqui, Rajat Dalal, Mridul Tiwari and Qazi Touqeer. Read the Rajat Dalal and Mridul Tiwari case studies for details.' },
       { q: 'Can you promise a win?', a: 'No. Results depend on the show, the contestant’s journey and the public vote. What we commit to is consistent, professional support outside the house every day of the season.' },
+      { q: 'Who runs the contestant’s Instagram and X while they are inside?', a: 'Usually the family or manager hands account access to a small trusted team. We run the accounts day to day, post in the contestant’s voice, and agree in advance what we will and won’t say on their behalf.' },
+      { q: 'What happens when a clip from the house goes against the contestant?', a: 'We move fast with context: the full sequence, what happened before and after, and the contestant’s own past words where relevant. Fan clubs get one calm response line to use, so the reply sounds united instead of angry. We don’t attack other contestants or their families.' },
+      { q: 'Do you work on regional Bigg Boss seasons?', a: 'Yes. The same approach works for regional seasons. We pick meme pages, media pages and creators that speak the season’s language.' },
+      { q: 'Is it worth hiring a Bigg Boss PR team for a short stay in the house?', a: 'Even a contestant who leaves early benefits from a clean, active social presence and a steady narrative. Many careers are built on how people remember the contestant after the show, not on how long they stayed.' },
+      { q: 'How much does Bigg Boss PR cost?', a: 'It depends on how early you start, how many weeks we cover, the size of the fan club operation and how many trends and media placements the plan needs. Read our guide on Bigg Boss PR cost, then WhatsApp us for a quote based on your plan.', cta: { label: 'Read: Bigg Boss PR cost', href: '/blog/bigg-boss-pr-cost' } },
     ],
     related: ['reality-show-pr', 'x-twitter-trends', 'celebrity-pr'],
     relatedPosts: ['bigg-boss-pr-cost', 'how-to-become-popular-in-bigg-boss', 'how-does-bigg-boss-voting-work'],
-    updatedAt: '2026-11-25',
+    sections: [
+      {
+        id: 'seasons',
+        eyebrow: 'Season by season',
+        title: 'Bigg Boss 17 to 20: contestants we’ve worked with',
+        paragraphs: [
+          'Every season has its own mood, its own format twists and its own fan culture. What stays the same is the job outside the house: keep the contestant visible, explain their side and keep their supporters organised.',
+        ],
+        items: [
+          { label: 'Bigg Boss 17', title: 'Munawar Faruqui', desc: 'Contestant PR and fan support across the season.' },
+          { label: 'Bigg Boss 18', title: 'Rajat Dalal', desc: 'One message across every fan club, daily posting, live X Spaces and the finale push. #RajatIsTheBoss logged 210K mentions in five days.', href: '/work/rajat-dalal-bigg-boss-18-pr-campaign' },
+          { label: 'Bigg Boss 19', title: 'Mridul Tiwari', desc: 'One message a week and X trends around key moments. Three trends reached #1 in India.', href: '/work/mridul-tiwari-bigg-boss-19-x-trends' },
+          { label: 'Bigg Boss 20', title: 'Qazi Touqeer', desc: 'Contestant PR, fan clubs and trends during the season.' },
+        ],
+      },
+      {
+        id: 'before-during-after',
+        eyebrow: 'Before, during and after',
+        title: 'What a Bigg Boss PR team does at each stage',
+        items: [
+          {
+            label: 'Before entry',
+            title: 'Get the ground ready',
+            desc: 'Clean up profiles, agree who runs the accounts, write the contestant’s story in three lines, collect childhood and family photos, line up fan pages, and plan the entry-day posts and first trend.',
+          },
+          {
+            label: 'During the season',
+            title: 'Run it every day',
+            desc: 'Post after every episode, share clips and memes within hours, give fan clubs one message per week, run X trends around nominations and big moments, and respond calmly when a clip goes against the contestant.',
+          },
+          {
+            label: 'After the show',
+            title: 'Turn attention into a career',
+            desc: 'Interviews, paparazzi visibility, brand collaborations, music videos and creator collaborations, while the audience still remembers the contestant’s journey.',
+          },
+        ],
+      },
+      {
+        id: 'why-different',
+        eyebrow: 'Why Bigg Boss is different',
+        title: 'Why Bigg Boss contestant PR is its own job',
+        paragraphs: [
+          'Bigg Boss runs every day for around three months, and the conversation outside the house moves faster than the episodes. A single clip can shape how millions of viewers see a contestant for the rest of the week, and the contestant can’t reply, explain or say thank you. Everything outside depends on the team they left behind.',
+          'That is why a Bigg Boss PR team works differently from regular celebrity PR. We plan in weeks, not months. Content goes out within hours of an episode. Fan clubs need one clear message each week, because twenty clubs saying twenty different things cancel each other out. Voting weeks need reminders that are simple and repeated on every platform. And when the house turns against a contestant, the response has to be quick, calm and factual.',
+          'We also stay careful about what we don’t do. We don’t attack other contestants or their families, we don’t use fake accounts, and we don’t promise a trophy. Our work is to make sure the people who already like a contestant can see them, understand them and support them in an organised way.',
+        ],
+      },
+      {
+        id: 'bigg-boss-guides',
+        eyebrow: 'Guides',
+        title: 'Bigg Boss PR guides from our team',
+        items: [
+          { label: 'Cost', title: 'How Much Does Bigg Boss PR Cost?', desc: 'What goes into a Bigg Boss PR budget and how to plan one.', href: '/blog/bigg-boss-pr-cost' },
+          { label: 'Voting', title: 'How Does Bigg Boss Voting Work?', desc: 'A simple guide to voting windows, nominations and appeals.', href: '/blog/how-does-bigg-boss-voting-work' },
+          { label: 'Popularity', title: 'How to Become Popular in Bigg Boss', desc: 'What viewers connect with, and how the outside team helps.', href: '/blog/how-to-become-popular-in-bigg-boss' },
+          { label: 'Fan armies', title: 'Bigg Boss PR: How Contestants Build Fan Armies', desc: 'How organised fan clubs form and grow during a season.', href: '/blog/bigg-boss-pr-how-contestants-build-fan-armies' },
+          { label: 'Hinglish', title: 'Bigg Boss Mein Vote Kaise Badhaye?', desc: 'Votes badhane ke practical tareeke, Hinglish mein.', href: '/blog/bigg-boss-mein-vote-kaise-badhaye' },
+          { label: 'Guide', title: 'How to Prepare PR Before Entering a Reality Show', desc: 'A pre-entry checklist for contestants and families.', href: '/blog/how-to-prepare-pr-before-entering-a-reality-show' },
+          { label: 'Guide', title: 'Fan Club Guide for Contestants', desc: 'Roles, rules and a weekly plan for fan club admins.', href: '/blog/fan-club-guide-for-contestants' },
+          { label: 'X trends', title: 'X Trends for Reality Show Contestants', desc: 'A week-by-week trend calendar for a season.', href: '/blog/x-trends-for-reality-show-contestants' },
+        ],
+      },
+    ],
+    updatedAt: '2026-11-26',
   },
   {
     slug: 'reality-show-pr',
@@ -361,10 +505,95 @@ export const services: Service[] = [
       { q: 'Do you promote OTT web series?', a: 'Yes. We’ve run a season-long X campaign for Prime Video’s The Alliance, covering all 42 daily episodes. Web series promotion follows the same idea: keep the conversation going episode by episode.' },
       { q: 'Do you work on regional films?', a: 'Yes. For regional film promotion we select meme pages, creators and portals that match the language and region of your audience.' },
       { q: 'Can you work alongside our main marketing agency?', a: 'Absolutely. Many producers bring us in specifically for memes, trends and creator buzz while another agency handles ATL.' },
+      { q: 'What do you need from us to start?', a: 'Release dates, the assets you can share (posters, teaser, trailer, songs, stills, BTS), which cast members are available for interviews and appearances, and anything that must stay under embargo.' },
+      { q: 'Can you make memes from our footage before release?', a: 'Yes, from the assets you approve. We share the meme plan and drafts for sign-off, and nothing from unreleased footage goes out without your OK.' },
+      { q: 'How do you promote an OTT premiere differently from a theatrical release?', a: 'A theatrical release is about the first weekend’s footfalls. An OTT premiere is about getting people to press play and keep watching, so we keep the conversation going for longer: episode moments, character memes and weekly trends.' },
+      { q: 'Do you handle trailer promotion only?', a: 'Yes, if that’s what you need. Trailer day is one of the best moments for an X trend, creator reactions and meme pages, and it can be run as a stand-alone campaign.' },
+      { q: 'How do you measure a film campaign?', a: 'By phase: reach and engagement on meme and creator posts, X trend positions and post counts, media coverage links, and conversation volume around release. You get one report with every link and screenshot.' },
+      { q: 'Can you promise box-office numbers or views?', a: 'No. Box office and views depend on the film, the competition and many things outside a campaign. We commit to a clear plan, on-time delivery and honest reporting.' },
     ],
-    related: ['music-album-promotion', 'meme-marketing', 'x-twitter-trends'],
-    relatedPosts: ['meme-marketing-examples-india', 'influencer-vs-meme-marketing-for-brands'],
-    updatedAt: '2026-11-25',
+    related: ['meme-marketing', 'x-twitter-trends', 'influencer-marketing'],
+    relatedPosts: ['meme-marketing-examples-india', 'x-trends-for-film-and-ott-releases', 'influencer-vs-meme-marketing-for-brands'],
+    sections: [
+      {
+        id: 'release-lifecycle',
+        eyebrow: 'The release lifecycle',
+        title: 'Movie promotion, phase by phase',
+        paragraphs: [
+          'Every release has the same five moments. Each one needs different content, different pages and a different goal. We plan all five together, so each phase builds on the one before it.',
+        ],
+        items: [
+          { label: '01', title: 'Announcement', desc: 'First look and title reveal. Goal: make the name stick. Media pages, a launch post plan and the first hashtag.' },
+          { label: '02', title: 'Teaser', desc: 'Short, curious, shareable. Goal: get people guessing. Meme pages, fan theories and creator reactions.' },
+          { label: '03', title: 'Trailer day', desc: 'The biggest digital moment before release. Goal: one big day. An X trend, creator reactions, meme pages and portal coverage, all within hours.' },
+          { label: '04', title: 'Release week', desc: 'Goal: turn interest into tickets or plays. Reviews, audience reactions, scene memes, paparazzi coverage and a release-day trend.' },
+          { label: '05', title: 'OTT premiere', desc: 'Goal: press play and keep watching. Episode and character memes, weekly trends and a finale push for series.' },
+        ],
+      },
+      {
+        id: 'scene-memes',
+        eyebrow: 'Meme marketing for films',
+        title: 'Turning your scenes into memes people share',
+        paragraphs: [
+          'The fastest way a film or series spreads online is through its own moments: a dialogue that fits everyday life, a reaction shot that works for any situation, a character everyone recognises. When meme pages turn those moments into relatable posts, the film reaches people in DMs and group chats, long before they see a poster.',
+          'We go through your approved assets and pick the moments with meme potential: dialogues, expressions, situations. Then we match them to pages whose audience fits the film, from Bollywood and OTT pages to college humour, cricket and regional pages. You see the meme plan and the drafts before anything goes live. Read our meme marketing examples from India for formats that work.',
+        ],
+      },
+      {
+        id: 'measure',
+        eyebrow: 'Reporting',
+        title: 'How we measure a release campaign',
+        paragraphs: [
+          'Every phase gets its own numbers, so you can see what each part of the campaign did. For meme pages and creators: posts, reach and engagement, with links to every post. For X: trend positions in India, how long each trend held and the post counts shown by X. For media: every coverage link with the outlet and date. Around release, we also track how much conversation the title is getting across platforms.',
+          'You get one report at the end of the campaign, and a short update after each phase. If something didn’t work as planned, the report says so, and the next phase is adjusted.',
+        ],
+      },
+      {
+        id: 'promoted',
+        eyebrow: 'Work',
+        title: 'Films and shows we’ve promoted',
+        table: {
+          caption: 'Films and shows promoted by PXR Infinity',
+          head: ['Title', 'Type', 'Platform', 'What we did'],
+          rows: promotedTitles.map((t) => [t.title, t.type, t.platform, t.work]),
+        },
+      },
+      {
+        id: 'trend-proof',
+        eyebrow: 'X trend proof',
+        title: 'Trends that carry a release',
+        paragraphs: [
+          'For Prime Video’s The Alliance we ran X coverage across all 42 daily episodes of the six-week season and planned a finale-day trend that reached #1 in India. The show was renewed for Season 2.',
+          'For films and series, we plan trends around trailer day, release day and the premiere, and pair each one with meme pages and creators so the moment reaches Instagram as well as X. See the full list of trends we’ve run on our X trends page.',
+        ],
+      },
+      ...(regionalLanguages.length
+        ? [
+            {
+              id: 'regional',
+              eyebrow: 'Regional film promotion',
+              title: 'Languages we cover',
+              paragraphs: [
+                `We run film and series campaigns in ${regionalLanguages.join(', ')}, with meme pages, creators and portals that speak to each audience in its own language.`,
+              ],
+            },
+          ]
+        : []),
+      {
+        id: 'more-services',
+        eyebrow: 'Build the full campaign',
+        title: 'Services that work with film promotion',
+        paragraphs: campaignsStartFrom
+          ? [`Film and series campaigns start from ${campaignsStartFrom}. The final quote depends on phases, pages and creators.`]
+          : undefined,
+        items: [
+          { title: 'Meme marketing', desc: 'Scene memes and edits across meme pages, matched to your audience.', href: '/services/meme-marketing' },
+          { title: 'X / Twitter trends', desc: 'Trends for trailer day, release day and premieres.', href: '/services/x-twitter-trends' },
+          { title: 'Influencer marketing', desc: 'Creator reactions, reviews and recommendations.', href: '/services/influencer-marketing' },
+        ],
+      },
+    ],
+    updatedAt: '2026-11-26',
   },
   {
     slug: 'music-album-promotion',

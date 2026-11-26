@@ -3,7 +3,10 @@ import { PageHero } from '@/components/ui/PageHero'
 import { ServiceCard } from '@/components/sections/HomeSections'
 import { CtaSection } from '@/components/sections/CtaSection'
 import { WhatsAppButton, ButtonLink } from '@/components/ui/Buttons'
+import Link from 'next/link'
 import { services } from '@/lib/data/services'
+import { audiences } from '@/lib/data/audiences'
+import { SectionHeading } from '@/components/ui/PageHero'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
@@ -58,6 +61,25 @@ export default function ServicesPage() {
           </section>
         )
       })}
+
+      <section className="border-t border-line py-24" aria-labelledby="who-title">
+        <div className="container-x">
+          <SectionHeading eyebrow="Who we work with" title={<span id="who-title">PR built for who you are.</span>} />
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {audiences.map((a) => (
+              <li key={a.slug}>
+                <Link href={`/${a.slug}`} className="card spotlight group flex h-full flex-col p-7 transition hover:border-accent/50">
+                  <span className="text-sm text-accent-light">{a.eyebrow}</span>
+                  <span className="mt-2 font-display text-lg leading-snug font-semibold group-hover:text-accent-light">
+                    {a.mainKeyword.charAt(0).toUpperCase() + a.mainKeyword.slice(1)}
+                  </span>
+                  <span className="mt-3 line-clamp-2 text-muted">{a.metaDescription}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <CtaSection />
     </>

@@ -10,6 +10,7 @@ export const staticPages = [
   { path: '/about', updatedAt: '2026-11-25', priority: 0.7, changeFrequency: 'yearly' },
   { path: '/blog', updatedAt: '2026-11-25', priority: 0.7, changeFrequency: 'weekly' },
   { path: '/contact', updatedAt: '2026-11-26', priority: 0.8, changeFrequency: 'yearly' },
+  { path: '/guides', updatedAt: '2026-11-26', priority: 0.7, changeFrequency: 'weekly' },
   { path: '/network', updatedAt: '2026-11-26', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/join-network', updatedAt: '2026-11-26', priority: 0.6, changeFrequency: 'yearly' },
   { path: '/about/facts', updatedAt: '2026-11-26', priority: 0.5, changeFrequency: 'monthly' },

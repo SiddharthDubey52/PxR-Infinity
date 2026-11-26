@@ -124,7 +124,7 @@ export default function FactsPage() {
               A brief, a written plan the client approves, a schedule the client can see, and one report at the end with every link,
               screenshot and number. Pricing is shared on WhatsApp after the brief.
             </Row>
-            <Row term="What it doesn’t do">No fake accounts, no inflated numbers, no guaranteed outcomes, and no deleting news articles or reviews.</Row>
+            <Row term="What it doesn’t do">No fake accounts, no inflated numbers, no promises of a win or a fixed trend position, and no deleting news articles or reviews.</Row>
           </dl>
         </div>
       </section>

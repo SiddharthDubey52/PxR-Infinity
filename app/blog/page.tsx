@@ -11,7 +11,7 @@ import { pageMetadata } from '@/lib/seo'
 export const metadata: Metadata = pageMetadata({
   title: 'Blog: PR, Meme Marketing & Reality TV Guides',
   description:
-    'Guides on PR costs, meme marketing in India, X trends, influencer marketing, Bigg Boss PR and reputation — in English and Hinglish, from the PXR Infinity team.',
+    'Guides on PR costs, meme marketing in India, X trends, influencer marketing, Bigg Boss PR and reputation, in English and Hinglish, from PXR Infinity.',
   path: '/blog',
 })
 
@@ -30,7 +30,11 @@ export default async function BlogPage() {
           </>
         }
         intro="Practical guides on PR, memes, trends, influencers, reality-show PR and reputation — written by the team that runs these campaigns every week."
-      />
+      >
+        <Link href="/guides" className="inline-flex min-h-11 items-center gap-2 font-semibold text-accent-light transition hover:text-white">
+          Looking for step-by-step checklists? Browse our PR guides →
+        </Link>
+      </PageHero>
 
       <section className="pb-24" aria-label="Articles">
         <div className="container-x">

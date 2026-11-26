@@ -135,6 +135,80 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
+      {/* Long-form sections (hub pages) */}
+      {s.sections?.map((sec) =>
+        sec.table && sec.table.rows.length === 0 && !sec.paragraphs?.length && !sec.items?.length ? null : (
+          <section key={sec.id} id={sec.id} className="border-t border-line py-24 sm:py-28" aria-labelledby={`${sec.id}-title`}>
+            <div className="container-x">
+              <SectionHeading eyebrow={sec.eyebrow} title={<span id={`${sec.id}-title`}>{sec.title}</span>} />
+              {sec.paragraphs && (
+                <div className="max-w-3xl space-y-5 text-lg leading-relaxed text-[#d4d4e2]">
+                  {sec.paragraphs.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              )}
+              {sec.items && (
+                <ul className={`grid gap-4 sm:grid-cols-2 ${sec.items.length % 3 === 0 ? 'lg:grid-cols-3' : sec.items.length >= 4 ? 'lg:grid-cols-4' : ''} ${sec.paragraphs ? 'mt-12' : ''}`}>
+                  {sec.items.map((it, i) => (
+                    <li key={it.title} data-reveal style={d(i)}>
+                      {it.href ? (
+                        <Link href={it.href} className="card spotlight group flex h-full flex-col p-7 transition hover:border-accent/50">
+                          {it.label && <span className="text-sm text-accent-light">{it.label}</span>}
+                          <span className="mt-2 text-lg font-semibold group-hover:text-accent-light">{it.title}</span>
+                          <span className="mt-3 text-muted">{it.desc}</span>
+                          <span className="mt-auto pt-6 text-sm font-semibold text-muted transition group-hover:text-gold">Read more →</span>
+                        </Link>
+                      ) : (
+                        <div className="card flex h-full flex-col p-7">
+                          {it.label && <span className="text-sm text-accent-light">{it.label}</span>}
+                          <h3 className="mt-2 text-lg font-semibold">{it.title}</h3>
+                          <p className="mt-3 text-muted">{it.desc}</p>
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {sec.table && sec.table.rows.length > 0 && (
+                <div className={`overflow-x-auto rounded-3xl border border-line ${sec.paragraphs || sec.items ? 'mt-12' : ''}`}>
+                  <table className="w-full min-w-[640px] text-left text-[0.95rem]">
+                    <caption className="sr-only">{sec.table.caption}</caption>
+                    <thead className="bg-bg-2 text-sm text-faint">
+                      <tr>
+                        {sec.table.head.map((h) => (
+                          <th key={h} scope="col" className="px-5 py-4 font-semibold">
+                            {h}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sec.table.rows.map((r, i) => (
+                        <tr key={i} className="border-t border-line">
+                          {r.map((c, j) =>
+                            j === 0 ? (
+                              <th key={j} scope="row" className="px-5 py-4 font-semibold text-white">
+                                {c}
+                              </th>
+                            ) : (
+                              <td key={j} className="px-5 py-4 text-muted">
+                                {c}
+                              </td>
+                            ),
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              {sec.note && <p className="mt-6 max-w-3xl text-sm text-faint">{sec.note}</p>}
+            </div>
+          </section>
+        ),
+      )}
+
       {/* Related work */}
       {work.length > 0 && (
         <section className="pb-24" aria-labelledby="work-title">

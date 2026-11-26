@@ -1,0 +1,7 @@
+import { AudiencePage, audienceMetadata } from '@/components/sections/AudiencePage'
+
+export const metadata = audienceMetadata('pr-for-tv-actors')
+
+export default function Page() {
+  return <AudiencePage slug="pr-for-tv-actors" />
+}

@@ -31,7 +31,7 @@ export function Footer() {
         <nav aria-label="Company">
           <h2 className="mb-5 font-sans text-xs font-semibold tracking-[0.18em] text-faint uppercase">Company</h2>
           <ul className="space-y-3">
-            {[...mainNav, { label: 'Our network', href: '/network' }, { label: 'Contact', href: '/contact' }, { label: 'Company facts', href: '/about/facts' }].map((n) => (
+            {[...mainNav, { label: 'Guides', href: '/guides' }, { label: 'Our network', href: '/network' }, { label: 'Contact', href: '/contact' }, { label: 'Company facts', href: '/about/facts' }].map((n) => (
               <li key={n.href}>
                 <Link href={n.href} className="text-muted transition hover:text-white">
                   {n.label}

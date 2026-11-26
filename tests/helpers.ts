@@ -4,6 +4,8 @@ import type { Page } from '@playwright/test'
 import { services } from '../lib/data/services'
 import { caseStudies, indexableCaseStudies } from '../lib/data/work'
 import { staticPages } from '../lib/data/pages'
+import { audiences } from '../lib/data/audiences'
+import { timelineIndexable } from '../lib/data/timeline'
 
 export const SITE_URL = 'https://www.pxrinfinity.com'
 export const HOME_URL = `${SITE_URL}/`
@@ -27,21 +29,31 @@ export const viewports = [
   { name: '1180-landscape', width: 1180, height: 820 },
 ]
 
-const blogSlugs = fs
-  .readdirSync(path.join(__dirname, '..', 'content', 'blog'))
+const BLOG = path.join(__dirname, '..', 'content', 'blog')
+const allBlogSlugs = fs
+  .readdirSync(BLOG)
   .filter((f) => f.endsWith('.mdx'))
   .map((f) => f.replace(/\.mdx$/, ''))
+const isDraft = (slug: string) => /^\s*draft:\s*true,/m.test(fs.readFileSync(path.join(BLOG, `${slug}.mdx`), 'utf8'))
+const blogSlugs = allBlogSlugs.filter((s) => !isDraft(s))
+const draftBlogSlugs = allBlogSlugs.filter(isDraft)
 
 /** Pages that belong in the sitemap (indexable). */
 export const sitemapPages = [
   ...staticPages.map((p) => p.path),
   ...services.map((s) => `/services/${s.slug}`),
   ...indexableCaseStudies.map((c) => `/work/${c.slug}`),
+  ...audiences.map((a) => `/${a.slug}`),
   ...blogSlugs.map((s) => `/blog/${s}`),
+  ...(timelineIndexable ? ['/reality-tv-trends-timeline'] : []),
 ]
 
 /** Pages that exist but must be `noindex, follow` and stay out of the sitemap. */
-export const noindexPages = caseStudies.filter((c) => c.noindex || c.draft).map((c) => `/work/${c.slug}`)
+export const noindexPages = [
+  ...caseStudies.filter((c) => c.noindex || c.draft).map((c) => `/work/${c.slug}`),
+  ...draftBlogSlugs.map((s) => `/blog/${s}`),
+  ...(timelineIndexable ? [] : ['/reality-tv-trends-timeline']),
+]
 
 /** Every page on the site. */
 export const allPages = [...sitemapPages, ...noindexPages]

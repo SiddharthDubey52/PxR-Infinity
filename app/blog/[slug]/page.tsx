@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     type: 'article',
     publishedTime: post.date,
     modifiedTime: post.updated ?? post.date,
+    index: !post.draft,
   })
 }
 
