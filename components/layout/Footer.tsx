@@ -38,6 +38,11 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/disclaimer" rel="nofollow" className="text-muted transition hover:text-white">
+                Disclaimer
+              </Link>
+            </li>
           </ul>
         </nav>
 
