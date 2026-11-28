@@ -28,6 +28,17 @@ const newPosts = [
   '/blog/brand-promotion-kya-hota-hai',
   '/blog/viral-marketing-kya-hai',
   '/blog/social-media-management-cost-india',
+  '/blog/best-time-to-trend-on-x',
+  '/blog/movie-promotion-strategy-india',
+  '/blog/how-to-promote-a-web-series',
+  '/blog/what-does-a-celebrity-pr-agency-do',
+  '/blog/how-to-choose-influencer-marketing-agency',
+  '/blog/nano-vs-macro-influencers',
+  '/blog/personal-branding-examples-india',
+  '/blog/online-reputation-management-meaning',
+  '/blog/bigg-boss-voting-telugu',
+  '/blog/how-to-go-viral-on-youtube-shorts',
+  '/blog/youtube-promotion-cost-india',
 ]
 
 for (const path of [...allLandingPages.map((l) => l.path), ...newPosts]) {
