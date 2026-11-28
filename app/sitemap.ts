@@ -7,6 +7,7 @@ import { getAllPosts } from '@/lib/blog'
 import { hasPress, pressUpdatedAt } from '@/lib/data/press'
 import { audiences } from '@/lib/data/audiences'
 import { timelineIndexable, timelineUpdatedAt } from '@/lib/data/timeline'
+import { allLandingPages } from '@/lib/data/landing-pages'
 
 /**
  * Only pages meant to be indexed. `lastModified` comes from each page's `updatedAt`
@@ -53,6 +54,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: day(p.updated ?? p.date),
       changeFrequency: 'yearly' as const,
       priority: 0.6,
+    })),
+    ...allLandingPages.map((l) => ({
+      url: absoluteUrl(l.path),
+      lastModified: day(l.updatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
     })),
   ]
 }
