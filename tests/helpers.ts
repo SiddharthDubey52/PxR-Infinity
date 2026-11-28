@@ -6,6 +6,7 @@ import { caseStudies, indexableCaseStudies } from '../lib/data/work'
 import { staticPages } from '../lib/data/pages'
 import { audiences } from '../lib/data/audiences'
 import { timelineIndexable } from '../lib/data/timeline'
+import { allLandingPages } from '../lib/data/landing-pages'
 
 export const SITE_URL = 'https://www.pxrinfinity.com'
 export const HOME_URL = `${SITE_URL}/`
@@ -46,6 +47,7 @@ export const sitemapPages = [
   ...audiences.map((a) => `/${a.slug}`),
   ...blogSlugs.map((s) => `/blog/${s}`),
   ...(timelineIndexable ? ['/reality-tv-trends-timeline'] : []),
+  ...allLandingPages.map((l) => l.path),
 ]
 
 /** Pages that exist but must be `noindex, follow` and stay out of the sitemap. */
