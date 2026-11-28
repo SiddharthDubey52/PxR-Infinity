@@ -34,7 +34,6 @@ const newPosts = [
   '/blog/what-does-a-celebrity-pr-agency-do',
   '/blog/how-to-choose-influencer-marketing-agency',
   '/blog/nano-vs-macro-influencers',
-  '/blog/personal-branding-examples-india',
   '/blog/online-reputation-management-meaning',
   '/blog/bigg-boss-voting-telugu',
   '/blog/how-to-go-viral-on-youtube-shorts',
