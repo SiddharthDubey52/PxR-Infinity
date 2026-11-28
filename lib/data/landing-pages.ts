@@ -14,6 +14,7 @@
  */
 
 import type { Faq } from './services'
+import { week4SubServicePages } from './landing-subpages'
 
 export type LandingSection = {
   id: string
@@ -855,7 +856,7 @@ const papsPagePromotion: LandingPage = {
 export const landingServices = { instagramPromotion, youtubePromotion }
 
 /** Sub-service pages, served by app/services/[slug]/[sub]/page.tsx. */
-export const subServicePages: LandingPage[] = [hashtagCampaigns, memePagePromotion, papsPagePromotion]
+export const subServicePages: LandingPage[] = [hashtagCampaigns, memePagePromotion, papsPagePromotion, ...week4SubServicePages]
 
 export const getSubServicePage = (slug: string, sub: string) =>
   subServicePages.find((p) => p.path === `/services/${slug}/${sub}`)

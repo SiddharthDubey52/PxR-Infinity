@@ -27,6 +27,7 @@ const newPosts = [
   '/blog/personal-branding-kya-hai',
   '/blog/brand-promotion-kya-hota-hai',
   '/blog/viral-marketing-kya-hai',
+  '/blog/social-media-management-cost-india',
 ]
 
 for (const path of [...allLandingPages.map((l) => l.path), ...newPosts]) {
