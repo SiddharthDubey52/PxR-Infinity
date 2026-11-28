@@ -19,7 +19,15 @@ for (const l of allLandingPages) {
   })
 }
 
-const newPosts = ['/blog/instagram-promotion-cost-india', '/blog/movie-promotion-cost-india']
+const newPosts = [
+  '/blog/instagram-promotion-cost-india',
+  '/blog/movie-promotion-cost-india',
+  '/blog/instagram-promotion-kaise-kare',
+  '/blog/instagram-promotion-kya-hota-hai',
+  '/blog/personal-branding-kya-hai',
+  '/blog/brand-promotion-kya-hota-hai',
+  '/blog/viral-marketing-kya-hai',
+]
 
 for (const path of [...allLandingPages.map((l) => l.path), ...newPosts]) {
   test(`no horizontal scroll at 360px: ${path}`, async ({ page }) => {

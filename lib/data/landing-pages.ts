@@ -712,11 +712,150 @@ const memePagePromotion: LandingPage = {
   updatedAt: '2026-11-28',
 }
 
+/* ======================================================================== */
+/*  /services/pr-media-coverage/paps-page-promotion                         */
+/* ======================================================================== */
+
+const papsPagePromotion: LandingPage = {
+  path: '/services/pr-media-coverage/paps-page-promotion',
+  parent: { name: 'PR & Media Coverage', path: '/services/pr-media-coverage' },
+  name: 'Paps Page Promotion',
+  icon: 'Camera',
+  metaTitle: 'Paps Page Promotion for Celebs and Brands',
+  metaDescription:
+    'Paps page promotion: your event, appearance or launch on paparazzi Instagram pages. One campaign used a network of 12 paparazzi photographers.',
+  h1: 'Paps page promotion for appearances, events and launches',
+  mainKeyword: 'paps page promotion',
+  serviceType: 'Paps page promotion',
+  promise:
+    'We get photographers to your appearance and your photos and videos onto paparazzi pages on Instagram, with the caption agreed and every post linked in your report.',
+  whatIs: {
+    title: 'What is paps page promotion?',
+    paragraphs: [
+      'Paps page promotion is getting your photos and videos posted on paparazzi (paps) pages: Instagram and YouTube accounts run by entertainment photographers, followed by people who want to see celebrities at airports, events, gyms, screenings and launches. A post there tells their followers you’re someone worth photographing.',
+      'It’s one part of what we do as a [PR agency in India](/services/pr-media-coverage). News articles build credibility in search; paps posts build visibility in the feed, fast. Most campaigns use both, so people who see you on a paps page find real coverage when they search your name.',
+    ],
+  },
+  included: [
+    { title: 'Moment planning', desc: 'Which appearance, event or outing to cover, and when, so there’s something worth photographing.' },
+    { title: 'Photographer coordination', desc: 'Photographers briefed on the time, place and who to cover.' },
+    { title: 'Paps page posts', desc: 'Photos and videos posted on paparazzi pages matched to your audience.' },
+    { title: 'Caption and tag check', desc: 'Your name spelt right, the right tags, and the line you want people to remember.' },
+    { title: 'Entertainment page pickup', desc: 'Where it fits, the same moment shared by entertainment and news pages too.' },
+    { title: 'Report', desc: 'Every live post with page, date and views, plus the best clips for your own account.' },
+  ],
+  process: [
+    { title: 'Brief', desc: 'Who you are, what’s coming up and what you want people to notice.' },
+    { title: 'Plan', desc: 'The moments to cover and the pages to post on, with costs.' },
+    { title: 'Coverage', desc: 'Photographers at the appearance or event.' },
+    { title: 'Posting', desc: 'Pages post the photos and videos with the agreed captions.' },
+    { title: 'Report', desc: 'Links, views and the clips you can reuse.' },
+  ],
+  whoFor: {
+    title: 'Who uses paps page promotion',
+    items: [
+      'Actors and TV faces between projects',
+      'Reality show contestants before and after the show',
+      'Singers and artists around a release',
+      'Films and series at screenings and promotions',
+      'Brands at launches and store openings',
+      'Creators moving into mainstream entertainment',
+    ],
+  },
+  sections: [
+    {
+      id: 'paparazzi-coverage-services',
+      eyebrow: 'Paparazzi coverage services',
+      title: 'Paparazzi coverage services: which moments work',
+      paragraphs: [
+        'Paparazzi coverage works when there’s a person, a place and a reason. A random outing gets a few views. An airport look the day before a release, a screening with the cast, or a first public appearance after a reality show gets shared, because followers already know why it matters.',
+      ],
+      table: {
+        caption: 'Moments that work well for paps page promotion',
+        head: ['Moment', 'Why it works', 'Tip'],
+        rows: [
+          ['Airport arrivals', 'The classic paps format, easy to share', 'Plan the look; it’s what people comment on'],
+          ['Screenings and premieres', 'Cast and guests together, clear news hook', 'Arrive with co-stars for better frames'],
+          ['Launches and store openings', 'Brand and face in the same shot', 'Keep the brand visible but natural'],
+          ['After a reality show exit', 'Fans want the first look outside the house', 'Go out soon after the exit, while interest is high'],
+          ['Song or trailer promotions', 'Ties the face to the release', 'Mention the release in the caption'],
+        ],
+      },
+    },
+    {
+      id: 'with-other-channels',
+      eyebrow: 'Beyond paps',
+      title: 'Paps pages work better with the rest of the plan',
+      paragraphs: [
+        'A paps video is the start of a moment, not the end. The same clip can go to entertainment pages, turn into a meme through [meme page promotion](/services/meme-marketing/meme-page-promotion), or go into a wider [Instagram promotion](/services/instagram-promotion) plan. For fan-driven moments, a [Twitter hashtag campaign](/services/x-twitter-trends/hashtag-campaigns) takes it to X the same day.',
+        'If you want to know which entertainment pages carry this kind of content, our list of [top entertainment news pages on Instagram in India](/blog/top-entertainment-news-pages-on-instagram-india) is a good place to start.',
+      ],
+    },
+    {
+      id: 'checklist',
+      eyebrow: 'Checklist',
+      title: 'Before your paps coverage',
+      checklist: [
+        'Pick one clear reason for the appearance: a release, a launch, an event',
+        'Agree the caption and spelling of your name in advance',
+        'Plan the outfit and the background',
+        'Decide which pages matter most for your audience',
+        'Ask for the original clips so you can post them yourself',
+      ],
+    },
+  ],
+  proof: {
+    title: 'Paps coverage we’ve run',
+    paragraphs: [
+      'For Niharika Tiwari on Rise & Fall Season 2, paparazzi coverage came from a network of 12 photographers, alongside 143 posts on reality and entertainment media pages and six interviews with national outlets.',
+    ],
+    caseStudies: ['niharika-tiwari-rise-and-fall-finalist'],
+  },
+  pricing: {
+    title: 'What paps page promotion costs',
+    paragraphs: [
+      'Cost depends on how many appearances you cover, how many pages post, the city and whether you add entertainment pages or news coverage. We quote after the brief. See [pricing](/pricing) or the full [PR & media coverage](/services/pr-media-coverage) service.',
+    ],
+    rows: [
+      { scope: 'Single appearance', includes: 'Photographers at one moment, posts on a set of paps pages', range: PENDING_RANGE },
+      { scope: 'Release or launch week', includes: 'Several appearances, paps and entertainment pages, report', range: PENDING_RANGE },
+    ],
+  },
+  faqs: [
+    {
+      q: 'What is paps page promotion?',
+      a: 'Getting your photos and videos from an appearance, event or launch posted on paparazzi pages on Instagram and YouTube, with the caption agreed and every post reported.',
+    },
+    {
+      q: 'Is paps coverage only for big celebrities?',
+      a: 'No. Reality show contestants, TV actors, singers, creators and brands use it too, especially around a release, an exit or a launch.',
+    },
+    {
+      q: 'Can I approve the caption?',
+      a: 'We agree the caption and your name’s spelling with the pages in advance. Pages keep their own style, so small changes can happen.',
+    },
+    {
+      q: 'Do I get the photos and videos?',
+      a: 'We ask for original clips you can post on your own account. Usage depends on each photographer, and we confirm it before the shoot.',
+    },
+    {
+      q: 'Will paps coverage get me into news articles?',
+      a: 'Sometimes entertainment portals pick up paps posts, but it isn’t certain. For articles, add our media coverage service.',
+    },
+  ],
+  related: [
+    { title: 'PR & Media Coverage', desc: 'News articles, press releases and portals.', href: '/services/pr-media-coverage' },
+    { title: 'Instagram Promotion', desc: 'Meme pages, entertainment pages and creators.', href: '/services/instagram-promotion' },
+    { title: 'Celebrity PR', desc: 'Long-term image and media for public figures.', href: '/services/celebrity-pr' },
+  ],
+  updatedAt: '2026-11-28',
+}
+
 /** Top-level new service pages (each has its own route folder). */
 export const landingServices = { instagramPromotion, youtubePromotion }
 
 /** Sub-service pages, served by app/services/[slug]/[sub]/page.tsx. */
-export const subServicePages: LandingPage[] = [hashtagCampaigns, memePagePromotion]
+export const subServicePages: LandingPage[] = [hashtagCampaigns, memePagePromotion, papsPagePromotion]
 
 export const getSubServicePage = (slug: string, sub: string) =>
   subServicePages.find((p) => p.path === `/services/${slug}/${sub}`)
